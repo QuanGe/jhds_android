@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+    <LinearLayout 
+        android:id="@+id/tools"
+        android:layout_width="fill_parent"
+    	android:layout_height="40dp"
+        android:orientation="horizontal" >
+        <Button
+         android:id="@+id/little"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+       
+       android:layout_marginLeft="30dp"
+        android:alpha="0.5"
+       
+        android:background="@color/blue"
+        
+        android:textColor="#2f2f2f"
+        android:textSize="14dp"
+        android:visibility="visible" />
+        <Button
+         
+         android:id="@+id/big"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+ 		 android:layout_marginLeft="30dp"
+      
+        android:alpha="0.5"
+      
+        android:background="@color/red"
+        
+        android:textColor="#2f2f2f"
+        android:textSize="14dp"
+        android:visibility="visible" />
+        <Button
+         
+         android:id="@+id/clearBtn"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+		android:layout_marginLeft="30dp"
+       
+        android:alpha="0.5"
+        
+        android:background="@drawable/btn_cancel"
+        android:text="@string/clear"
+        android:textColor="#2f2f2f"
+        android:textSize="14dp"
+        android:visibility="visible" />
+        
+    </LinearLayout>
+<com.quange.views.BrushView
+    android:layout_below="@+id/tools"
+    android:id="@+id/brushView"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+    
+</com.quange.views.BrushView>
+</LinearLayout>
