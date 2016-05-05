@@ -27,6 +27,12 @@ public class BrushView extends View {
 		// invalidate the view
 		postInvalidate();
 	}
+	public void updateBrushColor(int color)
+	{
+		
+		brush.setColor(color);
+	
+	}
 	public BrushView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		brush.setAntiAlias(true);

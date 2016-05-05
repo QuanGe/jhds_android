@@ -31,4 +31,12 @@
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
     </style>
+    
+    <!-- Lecturer Vip Buy Dialog -->
+    <style name="selectBrush_dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- android:backgroundDimEnabled 标识是否允许Dialog的背景变暗，false 背景为无，Dialog外围纯透明，没有灰色半透明效果；为true时，Dialog外围纯有灰色半透明效果 -->
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
 </resources>

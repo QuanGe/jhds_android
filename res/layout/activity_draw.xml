@@ -10,32 +10,19 @@
     	android:layout_height="40dp"
         android:orientation="horizontal" >
         <Button
-         android:id="@+id/little"
-        android:layout_width="30dp"
+         android:id="@+id/selectBtn"
+        android:layout_width="60dp"
         android:layout_height="30dp"
        
        android:layout_marginLeft="30dp"
         android:alpha="0.5"
        
-        android:background="@color/blue"
-        
+        android:background="@drawable/btn_cancel"
+        android:text="@string/select"
         android:textColor="#2f2f2f"
         android:textSize="14dp"
         android:visibility="visible" />
-        <Button
-         
-         android:id="@+id/big"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
- 		 android:layout_marginLeft="30dp"
-      
-        android:alpha="0.5"
-      
-        android:background="@color/red"
         
-        android:textColor="#2f2f2f"
-        android:textSize="14dp"
-        android:visibility="visible" />
         <Button
          
          android:id="@+id/clearBtn"
@@ -47,6 +34,21 @@
         
         android:background="@drawable/btn_cancel"
         android:text="@string/clear"
+        android:textColor="#2f2f2f"
+        android:textSize="14dp"
+        android:visibility="visible" />
+        
+        <Button
+         
+         android:id="@+id/shareBtn"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+ 		 android:layout_marginLeft="30dp"
+      
+        android:alpha="0.5"
+      	android:background="@drawable/btn_cancel"
+       android:text="@string/share"
+        
         android:textColor="#2f2f2f"
         android:textSize="14dp"
         android:visibility="visible" />
