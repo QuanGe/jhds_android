@@ -1,11 +1,17 @@
 package com.quange.views;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -13,8 +19,10 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 
 public class BrushView extends View {
-	private Paint brush = new Paint();
-	private Path path = new Path();
+	private float lastx = 0;
+	private float lasty = 0;
+	private List<Path> pathList = new ArrayList<Path>();
+	private List<Paint> brushList = new ArrayList<Paint>();
 
 
 	public BrushView(Context context) {
@@ -23,23 +31,33 @@ public class BrushView extends View {
 	}
 
 	public void clearAll(){
-		path.reset();
+		pathList.clear();
+		brushList.clear();
+		updateBrushColor(Color.BLUE);
 		// invalidate the view
 		postInvalidate();
 	}
 	public void updateBrushColor(int color)
 	{
-		
+		Path path = new Path();
+		pathList.add(path);
+		Paint brush = new Paint();
+		brush.setAntiAlias(true);
 		brush.setColor(color);
+		brush.setStyle(Paint.Style.STROKE);
+		brush.setStrokeJoin(Paint.Join.ROUND);
+		DisplayMetrics dm = new DisplayMetrics();  
+		dm = getContext().getApplicationContext().getResources().getDisplayMetrics();  
+		
+		brush.setStrokeWidth(2f*dm.density);
+		brush.setColor(color);
+		brushList.add(brush);
+	
 	
 	}
 	public BrushView(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		brush.setAntiAlias(true);
-		brush.setColor(Color.BLUE);
-		brush.setStyle(Paint.Style.STROKE);
-		brush.setStrokeJoin(Paint.Join.ROUND);
-		brush.setStrokeWidth(15f);
+		updateBrushColor(Color.BLUE);
 
 		
 		
@@ -53,13 +71,24 @@ public class BrushView extends View {
 		// Checks for the event that occurs
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN:
-			path.moveTo(pointX, pointY);
+			lastx = pointX;
+			lasty = pointY;
+			pathList.get(pathList.size()-1).moveTo(pointX, pointY);
 
 			return true;
 		case MotionEvent.ACTION_MOVE:
-			path.lineTo(pointX, pointY);
+			lastx = pointX;
+			lasty = pointY;
+			pathList.get(pathList.size()-1).lineTo(pointX, pointY);
 			break;
 		case MotionEvent.ACTION_UP:
+			if(lastx==pointX &&lasty == pointY)
+				pathList.get(pathList.size()-1).lineTo(pointX+1, pointY+1);
+			
+			System.out.println("sss");
+			break;
+		case MotionEvent.ACTION_CANCEL:
+			System.out.println("取消");
 			break;
 		default:
 			return false;
@@ -71,6 +100,10 @@ public class BrushView extends View {
 	}
 	@Override
 	protected void onDraw(Canvas canvas) {
-		canvas.drawPath(path, brush);
+		for(int i = 0;i<pathList.size();i++)
+		{
+			
+			canvas.drawPath(pathList.get(i), brushList.get(i));
+		}
 	}
 }
