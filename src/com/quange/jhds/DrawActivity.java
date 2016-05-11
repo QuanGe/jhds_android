@@ -1,4 +1,4 @@
-package org.quange.game;
+package com.quange.jhds;
 
 
 
@@ -10,6 +10,8 @@ import com.quange.views.BrushView;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -54,4 +56,24 @@ public class DrawActivity extends Activity implements OnColorChangedListener{
 		// TODO Auto-generated method stub
 		brushView.updateBrushColor(color);
 	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+        // Log.i("abc", "动作：   " + event.getAction());
+ 
+        if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
+          
+            brushView.updateBrushWidth(false);
+            return true;
+        } else if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
+           
+//            if (event.getRepeatCount() == 0) {
+//              
+//            }
+        	brushView.updateBrushWidth(true);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+ 
+    }
 }

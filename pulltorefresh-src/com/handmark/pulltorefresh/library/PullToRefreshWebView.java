@@ -15,7 +15,7 @@
  *******************************************************************************/
 package com.handmark.pulltorefresh.library;
 
-import org.quange.game.R;
+import com.quange.jhds.R;
 
 import android.annotation.TargetApi;
 import android.content.Context;

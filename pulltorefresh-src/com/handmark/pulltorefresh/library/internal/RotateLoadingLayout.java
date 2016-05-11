@@ -25,7 +25,7 @@ import android.widget.ImageView.ScaleType;
 
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Orientation;
-import org.quange.game.R;
+import com.quange.jhds.R;
 
 public class RotateLoadingLayout extends LoadingLayout {
 

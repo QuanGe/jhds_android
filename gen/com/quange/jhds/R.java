@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package org.quange.game;
+package com.quange.jhds;
 
 public final class R {
     public static final class anim {
@@ -563,11 +563,11 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #ColorBars_bar_length org.quange.game:bar_length}</code></td><td></td></tr>
-           <tr><td><code>{@link #ColorBars_bar_orientation_horizontal org.quange.game:bar_orientation_horizontal}</code></td><td></td></tr>
-           <tr><td><code>{@link #ColorBars_bar_pointer_halo_radius org.quange.game:bar_pointer_halo_radius}</code></td><td></td></tr>
-           <tr><td><code>{@link #ColorBars_bar_pointer_radius org.quange.game:bar_pointer_radius}</code></td><td></td></tr>
-           <tr><td><code>{@link #ColorBars_bar_thickness org.quange.game:bar_thickness}</code></td><td></td></tr>
+           <tr><td><code>{@link #ColorBars_bar_length com.quange.jhds:bar_length}</code></td><td></td></tr>
+           <tr><td><code>{@link #ColorBars_bar_orientation_horizontal com.quange.jhds:bar_orientation_horizontal}</code></td><td></td></tr>
+           <tr><td><code>{@link #ColorBars_bar_pointer_halo_radius com.quange.jhds:bar_pointer_halo_radius}</code></td><td></td></tr>
+           <tr><td><code>{@link #ColorBars_bar_pointer_radius com.quange.jhds:bar_pointer_radius}</code></td><td></td></tr>
+           <tr><td><code>{@link #ColorBars_bar_thickness com.quange.jhds:bar_thickness}</code></td><td></td></tr>
            </table>
            @see #ColorBars_bar_length
            @see #ColorBars_bar_orientation_horizontal
@@ -580,7 +580,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
             0x7f01002d
         };
         /**
-          <p>This symbol is the offset where the {@link org.quange.game.R.attr#bar_length}
+          <p>This symbol is the offset where the {@link com.quange.jhds.R.attr#bar_length}
           attribute's value can be found in the {@link #ColorBars} array.
 
 
@@ -592,11 +592,11 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name org.quange.game:bar_length
+          @attr name com.quange.jhds:bar_length
         */
         public static final int ColorBars_bar_length = 1;
         /**
-          <p>This symbol is the offset where the {@link org.quange.game.R.attr#bar_orientation_horizontal}
+          <p>This symbol is the offset where the {@link com.quange.jhds.R.attr#bar_orientation_horizontal}
           attribute's value can be found in the {@link #ColorBars} array.
 
 
@@ -606,11 +606,11 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name org.quange.game:bar_orientation_horizontal
+          @attr name com.quange.jhds:bar_orientation_horizontal
         */
         public static final int ColorBars_bar_orientation_horizontal = 4;
         /**
-          <p>This symbol is the offset where the {@link org.quange.game.R.attr#bar_pointer_halo_radius}
+          <p>This symbol is the offset where the {@link com.quange.jhds.R.attr#bar_pointer_halo_radius}
           attribute's value can be found in the {@link #ColorBars} array.
 
 
@@ -622,11 +622,11 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name org.quange.game:bar_pointer_halo_radius
+          @attr name com.quange.jhds:bar_pointer_halo_radius
         */
         public static final int ColorBars_bar_pointer_halo_radius = 3;
         /**
-          <p>This symbol is the offset where the {@link org.quange.game.R.attr#bar_pointer_radius}
+          <p>This symbol is the offset where the {@link com.quange.jhds.R.attr#bar_pointer_radius}
           attribute's value can be found in the {@link #ColorBars} array.
 
 
@@ -638,11 +638,11 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name org.quange.game:bar_pointer_radius
+          @attr name com.quange.jhds:bar_pointer_radius
         */
         public static final int ColorBars_bar_pointer_radius = 2;
         /**
-          <p>This symbol is the offset where the {@link org.quange.game.R.attr#bar_thickness}
+          <p>This symbol is the offset where the {@link com.quange.jhds.R.attr#bar_thickness}
           attribute's value can be found in the {@link #ColorBars} array.
 
 
@@ -654,7 +654,7 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name org.quange.game:bar_thickness
+          @attr name com.quange.jhds:bar_thickness
         */
         public static final int ColorBars_bar_thickness = 0;
         /** Attributes that can be used with a ColorPicker.
@@ -663,12 +663,12 @@ containing a value of this type.
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #ColorPicker_color_center_halo_radius org.quange.game:color_center_halo_radius}</code></td><td></td></tr>
-           <tr><td><code>{@link #ColorPicker_color_center_radius org.quange.game:color_center_radius}</code></td><td></td></tr>
-           <tr><td><code>{@link #ColorPicker_color_pointer_halo_radius org.quange.game:color_pointer_halo_radius}</code></td><td></td></tr>
-           <tr><td><code>{@link #ColorPicker_color_pointer_radius org.quange.game:color_pointer_radius}</code></td><td></td></tr>
-           <tr><td><code>{@link #ColorPicker_color_wheel_radius org.quange.game:color_wheel_radius}</code></td><td></td></tr>
-           <tr><td><code>{@link #ColorPicker_color_wheel_thickness org.quange.game:color_wheel_thickness}</code></td><td></td></tr>
+           <tr><td><code>{@link #ColorPicker_color_center_halo_radius com.quange.jhds:color_center_halo_radius}</code></td><td></td></tr>
+           <tr><td><code>{@link #ColorPicker_color_center_radius com.quange.jhds:color_center_radius}</code></td><td></td></tr>
+           <tr><td><code>{@link #ColorPicker_color_pointer_halo_radius com.quange.jhds:color_pointer_halo_radius}</code></td><td></td></tr>
+           <tr><td><code>{@link #ColorPicker_color_pointer_radius com.quange.jhds:color_pointer_radius}</code></td><td></td></tr>
+           <tr><td><code>{@link #ColorPicker_color_wheel_radius com.quange.jhds:color_wheel_radius}</code></td><td></td></tr>
+           <tr><td><code>{@link #ColorPicker_color_wheel_thickness com.quange.jhds:color_wheel_thickness}</code></td><td></td></tr>
            </table>
            @see #ColorPicker_color_center_halo_radius
            @see #ColorPicker_color_center_radius
@@ -682,7 +682,7 @@ containing a value of this type.
             0x7f010027, 0x7f010028
         };
         /**
-          <p>This symbol is the offset where the {@link org.quange.game.R.attr#color_center_halo_radius}
+          <p>This symbol is the offset where the {@link com.quange.jhds.R.attr#color_center_halo_radius}
           attribute's value can be found in the {@link #ColorPicker} array.
 
 
@@ -694,11 +694,11 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name org.quange.game:color_center_halo_radius
+          @attr name com.quange.jhds:color_center_halo_radius
         */
         public static final int ColorPicker_color_center_halo_radius = 3;
         /**
-          <p>This symbol is the offset where the {@link org.quange.game.R.attr#color_center_radius}
+          <p>This symbol is the offset where the {@link com.quange.jhds.R.attr#color_center_radius}
           attribute's value can be found in the {@link #ColorPicker} array.
 
 
@@ -710,11 +710,11 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name org.quange.game:color_center_radius
+          @attr name com.quange.jhds:color_center_radius
         */
         public static final int ColorPicker_color_center_radius = 2;
         /**
-          <p>This symbol is the offset where the {@link org.quange.game.R.attr#color_pointer_halo_radius}
+          <p>This symbol is the offset where the {@link com.quange.jhds.R.attr#color_pointer_halo_radius}
           attribute's value can be found in the {@link #ColorPicker} array.
 
 
@@ -726,11 +726,11 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name org.quange.game:color_pointer_halo_radius
+          @attr name com.quange.jhds:color_pointer_halo_radius
         */
         public static final int ColorPicker_color_pointer_halo_radius = 5;
         /**
-          <p>This symbol is the offset where the {@link org.quange.game.R.attr#color_pointer_radius}
+          <p>This symbol is the offset where the {@link com.quange.jhds.R.attr#color_pointer_radius}
           attribute's value can be found in the {@link #ColorPicker} array.
 
 
@@ -742,11 +742,11 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name org.quange.game:color_pointer_radius
+          @attr name com.quange.jhds:color_pointer_radius
         */
         public static final int ColorPicker_color_pointer_radius = 4;
         /**
-          <p>This symbol is the offset where the {@link org.quange.game.R.attr#color_wheel_radius}
+          <p>This symbol is the offset where the {@link com.quange.jhds.R.attr#color_wheel_radius}
           attribute's value can be found in the {@link #ColorPicker} array.
 
 
@@ -758,11 +758,11 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name org.quange.game:color_wheel_radius
+          @attr name com.quange.jhds:color_wheel_radius
         */
         public static final int ColorPicker_color_wheel_radius = 0;
         /**
-          <p>This symbol is the offset where the {@link org.quange.game.R.attr#color_wheel_thickness}
+          <p>This symbol is the offset where the {@link com.quange.jhds.R.attr#color_wheel_thickness}
           attribute's value can be found in the {@link #ColorPicker} array.
 
 
@@ -774,7 +774,7 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name org.quange.game:color_wheel_thickness
+          @attr name com.quange.jhds:color_wheel_thickness
         */
         public static final int ColorPicker_color_wheel_thickness = 1;
         /** Attributes that can be used with a PagerSlidingTabStrip.
@@ -783,20 +783,20 @@ containing a value of this type.
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #PagerSlidingTabStrip_pstsDividerColor org.quange.game:pstsDividerColor}</code></td><td></td></tr>
-           <tr><td><code>{@link #PagerSlidingTabStrip_pstsDividerPaddingTopBottom org.quange.game:pstsDividerPaddingTopBottom}</code></td><td></td></tr>
-           <tr><td><code>{@link #PagerSlidingTabStrip_pstsIndicatorColor org.quange.game:pstsIndicatorColor}</code></td><td></td></tr>
-           <tr><td><code>{@link #PagerSlidingTabStrip_pstsIndicatorHeight org.quange.game:pstsIndicatorHeight}</code></td><td></td></tr>
-           <tr><td><code>{@link #PagerSlidingTabStrip_pstsScaleZoomMax org.quange.game:pstsScaleZoomMax}</code></td><td>缩放的最大值,0.</td></tr>
-           <tr><td><code>{@link #PagerSlidingTabStrip_pstsScrollOffset org.quange.game:pstsScrollOffset}</code></td><td></td></tr>
-           <tr><td><code>{@link #PagerSlidingTabStrip_pstsShouldExpand org.quange.game:pstsShouldExpand}</code></td><td>该属性表示里面的TAB是否均分整个PagerSlidingTabStrip控件的宽,true是,false不均分,从左到右排列,默认false</td></tr>
-           <tr><td><code>{@link #PagerSlidingTabStrip_pstsSmoothScrollWhenClickTab org.quange.game:pstsSmoothScrollWhenClickTab}</code></td><td></td></tr>
-           <tr><td><code>{@link #PagerSlidingTabStrip_pstsTabBackground org.quange.game:pstsTabBackground}</code></td><td></td></tr>
-           <tr><td><code>{@link #PagerSlidingTabStrip_pstsTabPaddingLeftRight org.quange.game:pstsTabPaddingLeftRight}</code></td><td></td></tr>
-           <tr><td><code>{@link #PagerSlidingTabStrip_pstsTextAllCaps org.quange.game:pstsTextAllCaps}</code></td><td></td></tr>
-           <tr><td><code>{@link #PagerSlidingTabStrip_pstsTextSelectedColor org.quange.game:pstsTextSelectedColor}</code></td><td></td></tr>
-           <tr><td><code>{@link #PagerSlidingTabStrip_pstsUnderlineColor org.quange.game:pstsUnderlineColor}</code></td><td></td></tr>
-           <tr><td><code>{@link #PagerSlidingTabStrip_pstsUnderlineHeight org.quange.game:pstsUnderlineHeight}</code></td><td></td></tr>
+           <tr><td><code>{@link #PagerSlidingTabStrip_pstsDividerColor com.quange.jhds:pstsDividerColor}</code></td><td></td></tr>
+           <tr><td><code>{@link #PagerSlidingTabStrip_pstsDividerPaddingTopBottom com.quange.jhds:pstsDividerPaddingTopBottom}</code></td><td></td></tr>
+           <tr><td><code>{@link #PagerSlidingTabStrip_pstsIndicatorColor com.quange.jhds:pstsIndicatorColor}</code></td><td></td></tr>
+           <tr><td><code>{@link #PagerSlidingTabStrip_pstsIndicatorHeight com.quange.jhds:pstsIndicatorHeight}</code></td><td></td></tr>
+           <tr><td><code>{@link #PagerSlidingTabStrip_pstsScaleZoomMax com.quange.jhds:pstsScaleZoomMax}</code></td><td>缩放的最大值,0.</td></tr>
+           <tr><td><code>{@link #PagerSlidingTabStrip_pstsScrollOffset com.quange.jhds:pstsScrollOffset}</code></td><td></td></tr>
+           <tr><td><code>{@link #PagerSlidingTabStrip_pstsShouldExpand com.quange.jhds:pstsShouldExpand}</code></td><td>该属性表示里面的TAB是否均分整个PagerSlidingTabStrip控件的宽,true是,false不均分,从左到右排列,默认false</td></tr>
+           <tr><td><code>{@link #PagerSlidingTabStrip_pstsSmoothScrollWhenClickTab com.quange.jhds:pstsSmoothScrollWhenClickTab}</code></td><td></td></tr>
+           <tr><td><code>{@link #PagerSlidingTabStrip_pstsTabBackground com.quange.jhds:pstsTabBackground}</code></td><td></td></tr>
+           <tr><td><code>{@link #PagerSlidingTabStrip_pstsTabPaddingLeftRight com.quange.jhds:pstsTabPaddingLeftRight}</code></td><td></td></tr>
+           <tr><td><code>{@link #PagerSlidingTabStrip_pstsTextAllCaps com.quange.jhds:pstsTextAllCaps}</code></td><td></td></tr>
+           <tr><td><code>{@link #PagerSlidingTabStrip_pstsTextSelectedColor com.quange.jhds:pstsTextSelectedColor}</code></td><td></td></tr>
+           <tr><td><code>{@link #PagerSlidingTabStrip_pstsUnderlineColor com.quange.jhds:pstsUnderlineColor}</code></td><td></td></tr>
+           <tr><td><code>{@link #PagerSlidingTabStrip_pstsUnderlineHeight com.quange.jhds:pstsUnderlineHeight}</code></td><td></td></tr>
            </table>
            @see #PagerSlidingTabStrip_pstsDividerColor
            @see #PagerSlidingTabStrip_pstsDividerPaddingTopBottom
@@ -820,7 +820,7 @@ containing a value of this type.
             0x7f01000c, 0x7f01000d
         };
         /**
-          <p>This symbol is the offset where the {@link org.quange.game.R.attr#pstsDividerColor}
+          <p>This symbol is the offset where the {@link com.quange.jhds.R.attr#pstsDividerColor}
           attribute's value can be found in the {@link #PagerSlidingTabStrip} array.
 
 
@@ -831,11 +831,11 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name org.quange.game:pstsDividerColor
+          @attr name com.quange.jhds:pstsDividerColor
         */
         public static final int PagerSlidingTabStrip_pstsDividerColor = 2;
         /**
-          <p>This symbol is the offset where the {@link org.quange.game.R.attr#pstsDividerPaddingTopBottom}
+          <p>This symbol is the offset where the {@link com.quange.jhds.R.attr#pstsDividerPaddingTopBottom}
           attribute's value can be found in the {@link #PagerSlidingTabStrip} array.
 
 
@@ -847,11 +847,11 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name org.quange.game:pstsDividerPaddingTopBottom
+          @attr name com.quange.jhds:pstsDividerPaddingTopBottom
         */
         public static final int PagerSlidingTabStrip_pstsDividerPaddingTopBottom = 5;
         /**
-          <p>This symbol is the offset where the {@link org.quange.game.R.attr#pstsIndicatorColor}
+          <p>This symbol is the offset where the {@link com.quange.jhds.R.attr#pstsIndicatorColor}
           attribute's value can be found in the {@link #PagerSlidingTabStrip} array.
 
 
@@ -862,11 +862,11 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name org.quange.game:pstsIndicatorColor
+          @attr name com.quange.jhds:pstsIndicatorColor
         */
         public static final int PagerSlidingTabStrip_pstsIndicatorColor = 0;
         /**
-          <p>This symbol is the offset where the {@link org.quange.game.R.attr#pstsIndicatorHeight}
+          <p>This symbol is the offset where the {@link com.quange.jhds.R.attr#pstsIndicatorHeight}
           attribute's value can be found in the {@link #PagerSlidingTabStrip} array.
 
 
@@ -878,7 +878,7 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name org.quange.game:pstsIndicatorHeight
+          @attr name com.quange.jhds:pstsIndicatorHeight
         */
         public static final int PagerSlidingTabStrip_pstsIndicatorHeight = 3;
         /**
@@ -894,11 +894,11 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name org.quange.game:pstsScaleZoomMax
+          @attr name com.quange.jhds:pstsScaleZoomMax
         */
         public static final int PagerSlidingTabStrip_pstsScaleZoomMax = 12;
         /**
-          <p>This symbol is the offset where the {@link org.quange.game.R.attr#pstsScrollOffset}
+          <p>This symbol is the offset where the {@link com.quange.jhds.R.attr#pstsScrollOffset}
           attribute's value can be found in the {@link #PagerSlidingTabStrip} array.
 
 
@@ -910,7 +910,7 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name org.quange.game:pstsScrollOffset
+          @attr name com.quange.jhds:pstsScrollOffset
         */
         public static final int PagerSlidingTabStrip_pstsScrollOffset = 7;
         /**
@@ -926,11 +926,11 @@ theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
           <p>This is a private symbol.
-          @attr name org.quange.game:pstsShouldExpand
+          @attr name com.quange.jhds:pstsShouldExpand
         */
         public static final int PagerSlidingTabStrip_pstsShouldExpand = 9;
         /**
-          <p>This symbol is the offset where the {@link org.quange.game.R.attr#pstsSmoothScrollWhenClickTab}
+          <p>This symbol is the offset where the {@link com.quange.jhds.R.attr#pstsSmoothScrollWhenClickTab}
           attribute's value can be found in the {@link #PagerSlidingTabStrip} array.
 
 
@@ -940,21 +940,21 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name org.quange.game:pstsSmoothScrollWhenClickTab
+          @attr name com.quange.jhds:pstsSmoothScrollWhenClickTab
         */
         public static final int PagerSlidingTabStrip_pstsSmoothScrollWhenClickTab = 13;
         /**
-          <p>This symbol is the offset where the {@link org.quange.game.R.attr#pstsTabBackground}
+          <p>This symbol is the offset where the {@link com.quange.jhds.R.attr#pstsTabBackground}
           attribute's value can be found in the {@link #PagerSlidingTabStrip} array.
 
 
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-          @attr name org.quange.game:pstsTabBackground
+          @attr name com.quange.jhds:pstsTabBackground
         */
         public static final int PagerSlidingTabStrip_pstsTabBackground = 8;
         /**
-          <p>This symbol is the offset where the {@link org.quange.game.R.attr#pstsTabPaddingLeftRight}
+          <p>This symbol is the offset where the {@link com.quange.jhds.R.attr#pstsTabPaddingLeftRight}
           attribute's value can be found in the {@link #PagerSlidingTabStrip} array.
 
 
@@ -966,11 +966,11 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name org.quange.game:pstsTabPaddingLeftRight
+          @attr name com.quange.jhds:pstsTabPaddingLeftRight
         */
         public static final int PagerSlidingTabStrip_pstsTabPaddingLeftRight = 6;
         /**
-          <p>This symbol is the offset where the {@link org.quange.game.R.attr#pstsTextAllCaps}
+          <p>This symbol is the offset where the {@link com.quange.jhds.R.attr#pstsTextAllCaps}
           attribute's value can be found in the {@link #PagerSlidingTabStrip} array.
 
 
@@ -980,11 +980,11 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name org.quange.game:pstsTextAllCaps
+          @attr name com.quange.jhds:pstsTextAllCaps
         */
         public static final int PagerSlidingTabStrip_pstsTextAllCaps = 10;
         /**
-          <p>This symbol is the offset where the {@link org.quange.game.R.attr#pstsTextSelectedColor}
+          <p>This symbol is the offset where the {@link com.quange.jhds.R.attr#pstsTextSelectedColor}
           attribute's value can be found in the {@link #PagerSlidingTabStrip} array.
 
 
@@ -995,11 +995,11 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name org.quange.game:pstsTextSelectedColor
+          @attr name com.quange.jhds:pstsTextSelectedColor
         */
         public static final int PagerSlidingTabStrip_pstsTextSelectedColor = 11;
         /**
-          <p>This symbol is the offset where the {@link org.quange.game.R.attr#pstsUnderlineColor}
+          <p>This symbol is the offset where the {@link com.quange.jhds.R.attr#pstsUnderlineColor}
           attribute's value can be found in the {@link #PagerSlidingTabStrip} array.
 
 
@@ -1010,11 +1010,11 @@ containing a value of this type.
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name org.quange.game:pstsUnderlineColor
+          @attr name com.quange.jhds:pstsUnderlineColor
         */
         public static final int PagerSlidingTabStrip_pstsUnderlineColor = 1;
         /**
-          <p>This symbol is the offset where the {@link org.quange.game.R.attr#pstsUnderlineHeight}
+          <p>This symbol is the offset where the {@link com.quange.jhds.R.attr#pstsUnderlineHeight}
           attribute's value can be found in the {@link #PagerSlidingTabStrip} array.
 
 
@@ -1026,7 +1026,7 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name org.quange.game:pstsUnderlineHeight
+          @attr name com.quange.jhds:pstsUnderlineHeight
         */
         public static final int PagerSlidingTabStrip_pstsUnderlineHeight = 4;
         /** Attributes that can be used with a PullToRefresh.
@@ -1035,27 +1035,27 @@ containing a value of this type.
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #PullToRefresh_ptrAdapterViewBackground org.quange.game:ptrAdapterViewBackground}</code></td><td> BELOW HERE ARE DEPRECEATED.</td></tr>
-           <tr><td><code>{@link #PullToRefresh_ptrAnimationStyle org.quange.game:ptrAnimationStyle}</code></td><td> Style of Animation should be used displayed when pulling.</td></tr>
-           <tr><td><code>{@link #PullToRefresh_ptrDrawable org.quange.game:ptrDrawable}</code></td><td> Drawable to use as Loading Indicator.</td></tr>
-           <tr><td><code>{@link #PullToRefresh_ptrDrawableBottom org.quange.game:ptrDrawableBottom}</code></td><td></td></tr>
-           <tr><td><code>{@link #PullToRefresh_ptrDrawableEnd org.quange.game:ptrDrawableEnd}</code></td><td> Drawable to use as Loading Indicator in the Footer View.</td></tr>
-           <tr><td><code>{@link #PullToRefresh_ptrDrawableStart org.quange.game:ptrDrawableStart}</code></td><td> Drawable to use as Loading Indicator in the Header View.</td></tr>
-           <tr><td><code>{@link #PullToRefresh_ptrDrawableTop org.quange.game:ptrDrawableTop}</code></td><td></td></tr>
-           <tr><td><code>{@link #PullToRefresh_ptrHeaderBackground org.quange.game:ptrHeaderBackground}</code></td><td> A drawable to use as the background of the Header and Footer Loading Views </td></tr>
-           <tr><td><code>{@link #PullToRefresh_ptrHeaderSubTextColor org.quange.game:ptrHeaderSubTextColor}</code></td><td> Text Color of the Header and Footer Loading Views Sub Header </td></tr>
-           <tr><td><code>{@link #PullToRefresh_ptrHeaderTextAppearance org.quange.game:ptrHeaderTextAppearance}</code></td><td> Base text color, typeface, size, and style for Header and Footer Loading Views </td></tr>
-           <tr><td><code>{@link #PullToRefresh_ptrHeaderTextColor org.quange.game:ptrHeaderTextColor}</code></td><td> Text Color of the Header and Footer Loading Views </td></tr>
-           <tr><td><code>{@link #PullToRefresh_ptrListViewExtrasEnabled org.quange.game:ptrListViewExtrasEnabled}</code></td><td>
+           <tr><td><code>{@link #PullToRefresh_ptrAdapterViewBackground com.quange.jhds:ptrAdapterViewBackground}</code></td><td> BELOW HERE ARE DEPRECEATED.</td></tr>
+           <tr><td><code>{@link #PullToRefresh_ptrAnimationStyle com.quange.jhds:ptrAnimationStyle}</code></td><td> Style of Animation should be used displayed when pulling.</td></tr>
+           <tr><td><code>{@link #PullToRefresh_ptrDrawable com.quange.jhds:ptrDrawable}</code></td><td> Drawable to use as Loading Indicator.</td></tr>
+           <tr><td><code>{@link #PullToRefresh_ptrDrawableBottom com.quange.jhds:ptrDrawableBottom}</code></td><td></td></tr>
+           <tr><td><code>{@link #PullToRefresh_ptrDrawableEnd com.quange.jhds:ptrDrawableEnd}</code></td><td> Drawable to use as Loading Indicator in the Footer View.</td></tr>
+           <tr><td><code>{@link #PullToRefresh_ptrDrawableStart com.quange.jhds:ptrDrawableStart}</code></td><td> Drawable to use as Loading Indicator in the Header View.</td></tr>
+           <tr><td><code>{@link #PullToRefresh_ptrDrawableTop com.quange.jhds:ptrDrawableTop}</code></td><td></td></tr>
+           <tr><td><code>{@link #PullToRefresh_ptrHeaderBackground com.quange.jhds:ptrHeaderBackground}</code></td><td> A drawable to use as the background of the Header and Footer Loading Views </td></tr>
+           <tr><td><code>{@link #PullToRefresh_ptrHeaderSubTextColor com.quange.jhds:ptrHeaderSubTextColor}</code></td><td> Text Color of the Header and Footer Loading Views Sub Header </td></tr>
+           <tr><td><code>{@link #PullToRefresh_ptrHeaderTextAppearance com.quange.jhds:ptrHeaderTextAppearance}</code></td><td> Base text color, typeface, size, and style for Header and Footer Loading Views </td></tr>
+           <tr><td><code>{@link #PullToRefresh_ptrHeaderTextColor com.quange.jhds:ptrHeaderTextColor}</code></td><td> Text Color of the Header and Footer Loading Views </td></tr>
+           <tr><td><code>{@link #PullToRefresh_ptrListViewExtrasEnabled com.quange.jhds:ptrListViewExtrasEnabled}</code></td><td>
         	Whether PullToRefreshListView has it's extras enabled.</td></tr>
-           <tr><td><code>{@link #PullToRefresh_ptrMode org.quange.game:ptrMode}</code></td><td> Mode of Pull-to-Refresh that should be used </td></tr>
-           <tr><td><code>{@link #PullToRefresh_ptrOverScroll org.quange.game:ptrOverScroll}</code></td><td> Whether Android's built-in Over Scroll should be utilised for Pull-to-Refresh.</td></tr>
-           <tr><td><code>{@link #PullToRefresh_ptrRefreshableViewBackground org.quange.game:ptrRefreshableViewBackground}</code></td><td> A drawable to use as the background of the Refreshable View </td></tr>
-           <tr><td><code>{@link #PullToRefresh_ptrRotateDrawableWhilePulling org.quange.game:ptrRotateDrawableWhilePulling}</code></td><td>
+           <tr><td><code>{@link #PullToRefresh_ptrMode com.quange.jhds:ptrMode}</code></td><td> Mode of Pull-to-Refresh that should be used </td></tr>
+           <tr><td><code>{@link #PullToRefresh_ptrOverScroll com.quange.jhds:ptrOverScroll}</code></td><td> Whether Android's built-in Over Scroll should be utilised for Pull-to-Refresh.</td></tr>
+           <tr><td><code>{@link #PullToRefresh_ptrRefreshableViewBackground com.quange.jhds:ptrRefreshableViewBackground}</code></td><td> A drawable to use as the background of the Refreshable View </td></tr>
+           <tr><td><code>{@link #PullToRefresh_ptrRotateDrawableWhilePulling com.quange.jhds:ptrRotateDrawableWhilePulling}</code></td><td>
         	Whether the Drawable should be continually rotated as you pull.</td></tr>
-           <tr><td><code>{@link #PullToRefresh_ptrScrollingWhileRefreshingEnabled org.quange.game:ptrScrollingWhileRefreshingEnabled}</code></td><td> Whether the user can scroll while the View is Refreshing </td></tr>
-           <tr><td><code>{@link #PullToRefresh_ptrShowIndicator org.quange.game:ptrShowIndicator}</code></td><td> Whether the Indicator overlay(s) should be used </td></tr>
-           <tr><td><code>{@link #PullToRefresh_ptrSubHeaderTextAppearance org.quange.game:ptrSubHeaderTextAppearance}</code></td><td> Base text color, typeface, size, and style for Header and Footer Loading Views Sub Header </td></tr>
+           <tr><td><code>{@link #PullToRefresh_ptrScrollingWhileRefreshingEnabled com.quange.jhds:ptrScrollingWhileRefreshingEnabled}</code></td><td> Whether the user can scroll while the View is Refreshing </td></tr>
+           <tr><td><code>{@link #PullToRefresh_ptrShowIndicator com.quange.jhds:ptrShowIndicator}</code></td><td> Whether the Indicator overlay(s) should be used </td></tr>
+           <tr><td><code>{@link #PullToRefresh_ptrSubHeaderTextAppearance com.quange.jhds:ptrSubHeaderTextAppearance}</code></td><td> Base text color, typeface, size, and style for Header and Footer Loading Views Sub Header </td></tr>
            </table>
            @see #PullToRefresh_ptrAdapterViewBackground
            @see #PullToRefresh_ptrAnimationStyle
@@ -1095,7 +1095,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 <p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
           <p>This is a private symbol.
-          @attr name org.quange.game:ptrAdapterViewBackground
+          @attr name com.quange.jhds:ptrAdapterViewBackground
         */
         public static final int PullToRefresh_ptrAdapterViewBackground = 16;
         /**
@@ -1114,7 +1114,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 <tr><td><code>flip</code></td><td>0x1</td><td></td></tr>
 </table>
           <p>This is a private symbol.
-          @attr name org.quange.game:ptrAnimationStyle
+          @attr name com.quange.jhds:ptrAnimationStyle
         */
         public static final int PullToRefresh_ptrAnimationStyle = 12;
         /**
@@ -1126,17 +1126,17 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name org.quange.game:ptrDrawable
+          @attr name com.quange.jhds:ptrDrawable
         */
         public static final int PullToRefresh_ptrDrawable = 6;
         /**
-          <p>This symbol is the offset where the {@link org.quange.game.R.attr#ptrDrawableBottom}
+          <p>This symbol is the offset where the {@link com.quange.jhds.R.attr#ptrDrawableBottom}
           attribute's value can be found in the {@link #PullToRefresh} array.
 
 
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-          @attr name org.quange.game:ptrDrawableBottom
+          @attr name com.quange.jhds:ptrDrawableBottom
         */
         public static final int PullToRefresh_ptrDrawableBottom = 18;
         /**
@@ -1148,7 +1148,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name org.quange.game:ptrDrawableEnd
+          @attr name com.quange.jhds:ptrDrawableEnd
         */
         public static final int PullToRefresh_ptrDrawableEnd = 8;
         /**
@@ -1160,17 +1160,17 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name org.quange.game:ptrDrawableStart
+          @attr name com.quange.jhds:ptrDrawableStart
         */
         public static final int PullToRefresh_ptrDrawableStart = 7;
         /**
-          <p>This symbol is the offset where the {@link org.quange.game.R.attr#ptrDrawableTop}
+          <p>This symbol is the offset where the {@link com.quange.jhds.R.attr#ptrDrawableTop}
           attribute's value can be found in the {@link #PullToRefresh} array.
 
 
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
-          @attr name org.quange.game:ptrDrawableTop
+          @attr name com.quange.jhds:ptrDrawableTop
         */
         public static final int PullToRefresh_ptrDrawableTop = 17;
         /**
@@ -1184,7 +1184,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 <p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
           <p>This is a private symbol.
-          @attr name org.quange.game:ptrHeaderBackground
+          @attr name com.quange.jhds:ptrHeaderBackground
         */
         public static final int PullToRefresh_ptrHeaderBackground = 1;
         /**
@@ -1198,7 +1198,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 <p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
           <p>This is a private symbol.
-          @attr name org.quange.game:ptrHeaderSubTextColor
+          @attr name com.quange.jhds:ptrHeaderSubTextColor
         */
         public static final int PullToRefresh_ptrHeaderSubTextColor = 3;
         /**
@@ -1210,7 +1210,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name org.quange.game:ptrHeaderTextAppearance
+          @attr name com.quange.jhds:ptrHeaderTextAppearance
         */
         public static final int PullToRefresh_ptrHeaderTextAppearance = 10;
         /**
@@ -1224,7 +1224,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 <p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
           <p>This is a private symbol.
-          @attr name org.quange.game:ptrHeaderTextColor
+          @attr name com.quange.jhds:ptrHeaderTextColor
         */
         public static final int PullToRefresh_ptrHeaderTextColor = 2;
         /**
@@ -1241,7 +1241,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
 <p>May be a boolean value, either "<code>true</code>" or "<code>false</code>".
           <p>This is a private symbol.
-          @attr name org.quange.game:ptrListViewExtrasEnabled
+          @attr name com.quange.jhds:ptrListViewExtrasEnabled
         */
         public static final int PullToRefresh_ptrListViewExtrasEnabled = 14;
         /**
@@ -1265,7 +1265,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 <tr><td><code>pullUpFromBottom</code></td><td>0x2</td><td></td></tr>
 </table>
           <p>This is a private symbol.
-          @attr name org.quange.game:ptrMode
+          @attr name com.quange.jhds:ptrMode
         */
         public static final int PullToRefresh_ptrMode = 4;
         /**
@@ -1278,7 +1278,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
 <p>May be a boolean value, either "<code>true</code>" or "<code>false</code>".
           <p>This is a private symbol.
-          @attr name org.quange.game:ptrOverScroll
+          @attr name com.quange.jhds:ptrOverScroll
         */
         public static final int PullToRefresh_ptrOverScroll = 9;
         /**
@@ -1292,7 +1292,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 <p>May be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
 "<code>#<i>rrggbb</i></code>", or "<code>#<i>aarrggbb</i></code>".
           <p>This is a private symbol.
-          @attr name org.quange.game:ptrRefreshableViewBackground
+          @attr name com.quange.jhds:ptrRefreshableViewBackground
         */
         public static final int PullToRefresh_ptrRefreshableViewBackground = 0;
         /**
@@ -1308,7 +1308,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
 <p>May be a boolean value, either "<code>true</code>" or "<code>false</code>".
           <p>This is a private symbol.
-          @attr name org.quange.game:ptrRotateDrawableWhilePulling
+          @attr name com.quange.jhds:ptrRotateDrawableWhilePulling
         */
         public static final int PullToRefresh_ptrRotateDrawableWhilePulling = 15;
         /**
@@ -1321,7 +1321,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
 <p>May be a boolean value, either "<code>true</code>" or "<code>false</code>".
           <p>This is a private symbol.
-          @attr name org.quange.game:ptrScrollingWhileRefreshingEnabled
+          @attr name com.quange.jhds:ptrScrollingWhileRefreshingEnabled
         */
         public static final int PullToRefresh_ptrScrollingWhileRefreshingEnabled = 13;
         /**
@@ -1334,7 +1334,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
 <p>May be a boolean value, either "<code>true</code>" or "<code>false</code>".
           <p>This is a private symbol.
-          @attr name org.quange.game:ptrShowIndicator
+          @attr name com.quange.jhds:ptrShowIndicator
         */
         public static final int PullToRefresh_ptrShowIndicator = 5;
         /**
@@ -1346,7 +1346,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
           <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
           <p>This is a private symbol.
-          @attr name org.quange.game:ptrSubHeaderTextAppearance
+          @attr name com.quange.jhds:ptrSubHeaderTextAppearance
         */
         public static final int PullToRefresh_ptrSubHeaderTextAppearance = 11;
         /** Attributes that can be used with a RoundImageView.
@@ -1355,8 +1355,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #RoundImageView_borderRadius org.quange.game:borderRadius}</code></td><td></td></tr>
-           <tr><td><code>{@link #RoundImageView_type org.quange.game:type}</code></td><td></td></tr>
+           <tr><td><code>{@link #RoundImageView_borderRadius com.quange.jhds:borderRadius}</code></td><td></td></tr>
+           <tr><td><code>{@link #RoundImageView_type com.quange.jhds:type}</code></td><td></td></tr>
            </table>
            @see #RoundImageView_borderRadius
            @see #RoundImageView_type
@@ -1365,7 +1365,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
             0x7f010021, 0x7f010022
         };
         /**
-          <p>This symbol is the offset where the {@link org.quange.game.R.attr#borderRadius}
+          <p>This symbol is the offset where the {@link com.quange.jhds.R.attr#borderRadius}
           attribute's value can be found in the {@link #RoundImageView} array.
 
 
@@ -1377,11 +1377,11 @@ in (inches), mm (millimeters).
 theme attribute (in the form
 "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
 containing a value of this type.
-          @attr name org.quange.game:borderRadius
+          @attr name com.quange.jhds:borderRadius
         */
         public static final int RoundImageView_borderRadius = 0;
         /**
-          <p>This symbol is the offset where the {@link org.quange.game.R.attr#type}
+          <p>This symbol is the offset where the {@link com.quange.jhds.R.attr#type}
           attribute's value can be found in the {@link #RoundImageView} array.
 
 
@@ -1394,7 +1394,7 @@ containing a value of this type.
 <tr><td><code>circle</code></td><td>0</td><td></td></tr>
 <tr><td><code>round</code></td><td>1</td><td></td></tr>
 </table>
-          @attr name org.quange.game:type
+          @attr name com.quange.jhds:type
         */
         public static final int RoundImageView_type = 1;
     };

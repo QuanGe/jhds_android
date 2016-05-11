@@ -13,6 +13,7 @@ import android.graphics.Path;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -23,8 +24,8 @@ public class BrushView extends View {
 	private float lasty = 0;
 	private List<Path> pathList = new ArrayList<Path>();
 	private List<Paint> brushList = new ArrayList<Paint>();
-
-
+	private int brushColor = Color.BLUE;
+	private int brushwidth = 2;
 	public BrushView(Context context) {
 		this(context, null);
 		
@@ -37,20 +38,52 @@ public class BrushView extends View {
 		// invalidate the view
 		postInvalidate();
 	}
-	public void updateBrushColor(int color)
+	
+	public void updateBrushWidth(boolean up)
 	{
+		
+		brushwidth = brushwidth +(up?1:-1)*2;
+		if(brushwidth<2)
+		{
+			brushwidth =2;
+			return;
+		}
+		else if(brushwidth>16)
+		{
+			brushwidth = 16;
+			return;
+		}
 		Path path = new Path();
 		pathList.add(path);
 		Paint brush = new Paint();
 		brush.setAntiAlias(true);
-		brush.setColor(color);
+		
+		brush.setColor(brushColor);
 		brush.setStyle(Paint.Style.STROKE);
 		brush.setStrokeJoin(Paint.Join.ROUND);
 		DisplayMetrics dm = new DisplayMetrics();  
 		dm = getContext().getApplicationContext().getResources().getDisplayMetrics();  
 		
-		brush.setStrokeWidth(2f*dm.density);
-		brush.setColor(color);
+		brush.setStrokeWidth(brushwidth*dm.density);
+		
+		brushList.add(brush);
+	}
+	public void updateBrushColor(int color)
+	{
+		brushColor = color;
+		Path path = new Path();
+		pathList.add(path);
+		Paint brush = new Paint();
+		brush.setAntiAlias(true);
+		
+		brush.setColor(brushColor);
+		brush.setStyle(Paint.Style.STROKE);
+		brush.setStrokeJoin(Paint.Join.ROUND);
+		DisplayMetrics dm = new DisplayMetrics();  
+		dm = getContext().getApplicationContext().getResources().getDisplayMetrics();  
+		
+		brush.setStrokeWidth(brushwidth*dm.density);
+	
 		brushList.add(brush);
 	
 	
@@ -85,11 +118,12 @@ public class BrushView extends View {
 			if(lastx==pointX &&lasty == pointY)
 				pathList.get(pathList.size()-1).lineTo(pointX+1, pointY+1);
 			
-			System.out.println("sss");
+			
 			break;
 		case MotionEvent.ACTION_CANCEL:
 			System.out.println("取消");
 			break;
+			
 		default:
 			return false;
 		}
@@ -106,4 +140,6 @@ public class BrushView extends View {
 			canvas.drawPath(pathList.get(i), brushList.get(i));
 		}
 	}
+	
+	
 }

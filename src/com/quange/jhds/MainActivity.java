@@ -1,4 +1,4 @@
-package org.quange.game;
+package com.quange.jhds;
 
 
 

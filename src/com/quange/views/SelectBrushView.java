@@ -3,10 +3,10 @@ package com.quange.views;
 import android.app.Activity;
 import android.app.Dialog;
 
-import org.quange.game.DrawActivity;
-import org.quange.game.R;
+import com.quange.jhds.R;
 
 import com.larswerkman.holocolorpicker.ColorPicker;
+import com.quange.jhds.DrawActivity;
 
 import android.util.DisplayMetrics;
 import android.view.View;

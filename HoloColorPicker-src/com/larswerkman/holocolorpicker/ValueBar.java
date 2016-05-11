@@ -31,7 +31,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
-import org.quange.game.R;
+import com.quange.jhds.R;
 
 public class ValueBar extends View {
 
