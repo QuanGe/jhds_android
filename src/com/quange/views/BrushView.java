@@ -30,6 +30,11 @@ public class BrushView extends View {
 		this(context, null);
 		
 	}
+	
+	public int getBrushWidth()
+	{
+		return brushwidth;
+	}
 
 	public void clearAll(){
 		pathList.clear();
@@ -75,7 +80,6 @@ public class BrushView extends View {
 		pathList.add(path);
 		Paint brush = new Paint();
 		brush.setAntiAlias(true);
-		
 		brush.setColor(brushColor);
 		brush.setStyle(Paint.Style.STROKE);
 		brush.setStrokeJoin(Paint.Join.ROUND);

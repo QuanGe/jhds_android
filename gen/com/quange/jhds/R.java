@@ -459,33 +459,31 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int onclick_select_curri_group=0x7f020007;
     }
     public static final class id {
-        public static final int action_settings=0x7f07001c;
+        public static final int action_settings=0x7f07001a;
         public static final int both=0x7f070003;
-        public static final int brushView=0x7f070012;
+        public static final int brushView=0x7f07000f;
         public static final int circle=0x7f07000c;
-        public static final int clearBtn=0x7f070010;
         public static final int disabled=0x7f070004;
-        public static final int drawBtn=0x7f070013;
-        public static final int fl_inner=0x7f070017;
+        public static final int drawBtn=0x7f070011;
+        public static final int fl_inner=0x7f070015;
         public static final int flip=0x7f07000a;
         public static final int gridview=0x7f070000;
-        public static final int jigsqwBtn=0x7f070015;
+        public static final int jigsqwBtn=0x7f070013;
         public static final int manualOnly=0x7f070005;
-        public static final int paintBtn=0x7f070014;
-        public static final int picker=0x7f070016;
+        public static final int paintBtn=0x7f070012;
+        public static final int picker=0x7f070014;
         public static final int pullDownFromTop=0x7f070006;
         public static final int pullFromEnd=0x7f070007;
         public static final int pullFromStart=0x7f070008;
         public static final int pullUpFromBottom=0x7f070009;
-        public static final int pull_to_refresh_image=0x7f070018;
-        public static final int pull_to_refresh_progress=0x7f070019;
-        public static final int pull_to_refresh_sub_text=0x7f07001b;
-        public static final int pull_to_refresh_text=0x7f07001a;
+        public static final int pull_to_refresh_image=0x7f070016;
+        public static final int pull_to_refresh_progress=0x7f070017;
+        public static final int pull_to_refresh_sub_text=0x7f070019;
+        public static final int pull_to_refresh_text=0x7f070018;
         public static final int rotate=0x7f07000b;
         public static final int round=0x7f07000d;
         public static final int scrollview=0x7f070002;
-        public static final int selectBtn=0x7f07000f;
-        public static final int shareBtn=0x7f070011;
+        public static final int selectBtn=0x7f070010;
         public static final int tools=0x7f07000e;
         public static final int webview=0x7f070001;
     }
