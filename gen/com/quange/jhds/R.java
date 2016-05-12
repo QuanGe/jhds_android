@@ -9,10 +9,12 @@ package com.quange.jhds;
 
 public final class R {
     public static final class anim {
-        public static final int slide_in_from_bottom=0x7f040000;
-        public static final int slide_in_from_top=0x7f040001;
-        public static final int slide_out_to_bottom=0x7f040002;
-        public static final int slide_out_to_top=0x7f040003;
+        public static final int dialog_in=0x7f040000;
+        public static final int dialog_out=0x7f040001;
+        public static final int slide_in_from_bottom=0x7f040002;
+        public static final int slide_in_from_top=0x7f040003;
+        public static final int slide_out_to_bottom=0x7f040004;
+        public static final int slide_out_to_top=0x7f040005;
     }
     public static final class attr {
         /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
@@ -459,31 +461,32 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int onclick_select_curri_group=0x7f020007;
     }
     public static final class id {
-        public static final int action_settings=0x7f07001a;
+        public static final int action_settings=0x7f07001b;
         public static final int both=0x7f070003;
         public static final int brushView=0x7f07000f;
         public static final int circle=0x7f07000c;
         public static final int disabled=0x7f070004;
-        public static final int drawBtn=0x7f070011;
-        public static final int fl_inner=0x7f070015;
+        public static final int drawBtn=0x7f070012;
+        public static final int fl_inner=0x7f070016;
         public static final int flip=0x7f07000a;
         public static final int gridview=0x7f070000;
-        public static final int jigsqwBtn=0x7f070013;
+        public static final int jigsqwBtn=0x7f070014;
         public static final int manualOnly=0x7f070005;
-        public static final int paintBtn=0x7f070012;
-        public static final int picker=0x7f070014;
+        public static final int paintBtn=0x7f070013;
+        public static final int picker=0x7f070015;
         public static final int pullDownFromTop=0x7f070006;
         public static final int pullFromEnd=0x7f070007;
         public static final int pullFromStart=0x7f070008;
         public static final int pullUpFromBottom=0x7f070009;
-        public static final int pull_to_refresh_image=0x7f070016;
-        public static final int pull_to_refresh_progress=0x7f070017;
-        public static final int pull_to_refresh_sub_text=0x7f070019;
-        public static final int pull_to_refresh_text=0x7f070018;
+        public static final int pull_to_refresh_image=0x7f070017;
+        public static final int pull_to_refresh_progress=0x7f070018;
+        public static final int pull_to_refresh_sub_text=0x7f07001a;
+        public static final int pull_to_refresh_text=0x7f070019;
         public static final int rotate=0x7f07000b;
         public static final int round=0x7f07000d;
         public static final int scrollview=0x7f070002;
-        public static final int selectBtn=0x7f070010;
+        public static final int selectBrushView=0x7f070010;
+        public static final int selectBtn=0x7f070011;
         public static final int tools=0x7f07000e;
         public static final int webview=0x7f070001;
     }
