@@ -1,8 +1,9 @@
 package com.quange.views;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.quange.jhds.AppSetManager;
 
 
 import android.content.Context;
@@ -12,20 +13,18 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.KeyEvent;
+
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.Button;
+
 
 public class BrushView extends View {
 	private float lastx = 0;
 	private float lasty = 0;
 	private List<Path> pathList = new ArrayList<Path>();
 	private List<Paint> brushList = new ArrayList<Paint>();
-	private int brushColor = Color.BLUE;
-	private int brushwidth = 2;
+	private int brushColor = AppSetManager.getBrushColor();
+	private int brushwidth = AppSetManager.getBrushWidth();
 	public BrushView(Context context) {
 		this(context, null);
 		
@@ -39,7 +38,7 @@ public class BrushView extends View {
 	public void clearAll(){
 		pathList.clear();
 		brushList.clear();
-		updateBrushColor(Color.BLUE);
+		updateBrushColor(brushColor);
 		// invalidate the view
 		postInvalidate();
 	}
@@ -72,6 +71,8 @@ public class BrushView extends View {
 		brush.setStrokeWidth(brushwidth*dm.density);
 		
 		brushList.add(brush);
+		
+		AppSetManager.saveBrushWidth(brushwidth);
 	}
 	public void updateBrushColor(int color)
 	{
@@ -89,16 +90,17 @@ public class BrushView extends View {
 		brush.setStrokeWidth(brushwidth*dm.density);
 	
 		brushList.add(brush);
+		AppSetManager.saveBrushColor(color);
 	
+	}
 	
+	public int getBrushColor()
+	{
+		return brushColor;
 	}
 	public BrushView(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		updateBrushColor(Color.BLUE);
-
-		
-		
-		
+		updateBrushColor(brushColor);
 	}
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
@@ -138,6 +140,8 @@ public class BrushView extends View {
 	}
 	@Override
 	protected void onDraw(Canvas canvas) {
+		canvas.drawColor(Color.WHITE); 
+		
 		for(int i = 0;i<pathList.size();i++)
 		{
 			

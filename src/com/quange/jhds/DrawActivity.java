@@ -1,31 +1,59 @@
 package com.quange.jhds;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
 import com.larswerkman.holocolorpicker.ColorPicker.OnColorChangedListener;
 import com.quange.views.SelectBrushView;
 import com.quange.views.BrushView;
+import com.umeng.analytics.MobclickAgent;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Service;
+import android.content.Intent;
+import android.content.res.Resources;
+import android.database.DataSetObserver;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Vibrator;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.Animation.AnimationListener;
+import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 import android.widget.RelativeLayout.LayoutParams;
+import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 
 @SuppressLint("NewApi") public class DrawActivity extends Activity implements OnColorChangedListener, SensorEventListener{
@@ -67,6 +95,9 @@ import android.widget.RelativeLayout.LayoutParams;
 		});
         
         selectBrushView = (RelativeLayout)findViewById(R.id.selectBrushView);
+        GradientDrawable selectBrushViewColor = new GradientDrawable();
+        selectBrushViewColor.setColor(0x88000000);
+        selectBrushView.setBackground(selectBrushViewColor);
         selectBrushView.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -86,11 +117,11 @@ import android.widget.RelativeLayout.LayoutParams;
         brushIcon = new View(this);
         {
         	brushColor =  new GradientDrawable();
-        	brushColor.setCornerRadius( brushView.getBrushWidth()/2);
-        	brushColor.setColor(Color.RED);
+        	brushColor.setCornerRadius( brushView.getBrushWidth()*dm.density/2);
+        	brushColor.setColor(brushView.getBrushColor());
         	brushIcon.setBackground(brushColor);
         }
-        brushFrame = new RelativeLayout.LayoutParams(brushView.getBrushWidth(), brushView.getBrushWidth());
+        brushFrame = new RelativeLayout.LayoutParams((int)(brushView.getBrushWidth()*dm.density), (int)(brushView.getBrushWidth()*dm.density));
         brushFrame.addRule(RelativeLayout.CENTER_IN_PARENT); 
         selectBtn.addView(brushIcon, brushFrame);
         
@@ -121,20 +152,113 @@ import android.widget.RelativeLayout.LayoutParams;
 	
 	private void buildSelectBrushView()
 	{
+		//背景
 		GradientDrawable shape =  new GradientDrawable();
         DisplayMetrics dm = new DisplayMetrics();  
 		dm = this.getApplicationContext().getResources().getDisplayMetrics(); 
         shape.setCornerRadius( 5 *dm.density);
         shape.setColor(Color.WHITE);
        
-        View brushBox = new View(this);
+        RelativeLayout brushBox = new RelativeLayout(this);
         brushBox.setBackground(shape);
        
-        RelativeLayout.LayoutParams brushBoxFrame = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT ,(int) (350*dm.density) );
+        RelativeLayout.LayoutParams brushBoxFrame = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT ,(int) (380*dm.density) );
         brushBoxFrame.leftMargin = (int) (20*dm.density);
         brushBoxFrame.rightMargin = (int) (20*dm.density);
         brushBoxFrame.addRule(RelativeLayout.CENTER_IN_PARENT); 
         selectBrushView.addView(brushBox, brushBoxFrame);
+        
+        //titile
+        TextView title = new TextView(this);
+        title.setText("选择笔的颜色");
+        title.setTextSize(20);
+        title.setTextColor(Color.BLACK);
+        title.setGravity(Gravity.CENTER);
+        RelativeLayout.LayoutParams titleFrame = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT ,(int) (30*dm.density) );
+        titleFrame.topMargin = (int)(5*dm.density);
+        brushBox.addView(title, titleFrame);
+ 
+		int width3 = dm.widthPixels;
+        int[] colors = {0xffDF0526,0xffEC0B5F,0xff9D25A9,0xff6438A0,0xff4052AE,
+        		0xff5A78F4,0xff00AAF0,0xff00BED2,0xff009687,0xff119B39,
+        		0xff87C35B,0xffCADC57,0xffFFEB5F,0xffFFBF3E,0xffFF512F,
+        		0xff73554B,0xff9E9E00,0xff5F7D8A,0xffeeeeee,0xffcccccc,
+        		0xff888888,0xff555555,0xff333333,0xff111111,0xff000000};
+        //all brush
+        for(int  i = 0;i<colors.length;i++)
+        {
+	        View brush = new View(this);
+	        GradientDrawable brushBackground =  new GradientDrawable();
+	        brushBackground.setCornerRadius(25*dm.density);
+	        final int theColor =  colors[i];
+	        brushBackground.setColor(colors[i]);
+	        brush.setBackground(brushBackground);
+	        brush.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					
+					brushView.updateBrushColor(theColor);
+					brushColor.setColor(brushView.getBrushColor());
+				}
+			});
+	        RelativeLayout.LayoutParams brushFrame = new RelativeLayout.LayoutParams((int) (50*dm.density) ,(int) (50*dm.density) );
+	        brushFrame.topMargin = (int)(55*dm.density*(i/5)+35*dm.density);
+	        int subWidth = (int) (width3-20*dm.density*2);
+	        
+	        int sub = (int) ((subWidth-50*dm.density*5)/6);
+	        brushFrame.leftMargin = sub +(i%5)*(int) (50*dm.density + sub);
+	        
+	        brushBox.addView(brush, brushFrame);
+        }
+        
+        Button saveBtn = new Button(this);
+        saveBtn.setBackgroundResource(R.drawable.btn_cancel);
+        saveBtn.setText("保存作品");
+        RelativeLayout.LayoutParams saveBtnFrame = new RelativeLayout.LayoutParams((int) (100*dm.density) ,(int) (30*dm.density) );
+        saveBtnFrame.leftMargin = (int) (40*dm.density);
+        saveBtnFrame.topMargin = (int) (340*dm.density);
+        saveBtn.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				
+				Bitmap bitmap = screenShot(brushView);
+				
+				Calendar c = Calendar.getInstance();
+				
+				try {
+					saveBitmapToFile(bitmap,getSDPath()+"/jhds/jianhuadashi/"+c.get(Calendar.YEAR)+c.get(Calendar.MONTH)+c.get(Calendar.DAY_OF_MONTH)+c.get(Calendar.HOUR_OF_DAY)+c.get(Calendar.MINUTE)+".jpg");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+        brushBox.addView(saveBtn, saveBtnFrame);
+        
+        Button shareBtn = new Button(this);
+        shareBtn.setBackgroundResource(R.drawable.btn_cancel);
+        shareBtn.setText("分享作品");
+        RelativeLayout.LayoutParams shareBtnFrame = new RelativeLayout.LayoutParams((int) (100*dm.density) ,(int) (30*dm.density) );
+        shareBtnFrame.leftMargin = (int) (width3-20*dm.density*2-40*dm.density-100*dm.density);
+        shareBtnFrame.topMargin = (int) (340*dm.density);
+        brushBox.addView(shareBtn, shareBtnFrame);
+        shareBtn.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				
+			}
+		});
+        
+	}
+	public Bitmap screenShot(View view) {
+	    Bitmap bitmap = Bitmap.createBitmap(view.getWidth(),
+	            view.getHeight(), Config.ARGB_8888);
+	    Canvas canvas = new Canvas(bitmap);
+	    view.draw(canvas);
+	    return bitmap;
 	}
 	
 	private void showDeleteDialog() {
@@ -228,4 +352,63 @@ import android.widget.RelativeLayout.LayoutParams;
   
         }  
     }  
+    
+    /** 
+     * Save Bitmap to a file.保存图片到SD卡。 
+     *  
+     * @param bitmap 
+     * @param file 
+     * @return error message if the saving is failed. null if the saving is 
+     *         successful. 
+     * @throws IOException 
+     */  
+    public void saveBitmapToFile(Bitmap bitmap, String _file)  
+            throws IOException {//_file = <span style="font-family: Arial, Helvetica, sans-serif;">getSDPath()+"</span><span style="font-family: Arial, Helvetica, sans-serif;">/xx自定义文件夹</span><span style="font-family: Arial, Helvetica, sans-serif;">/hot.png</span><span style="font-family: Arial, Helvetica, sans-serif;">"</span>  
+        BufferedOutputStream os = null;  
+       
+        try {  
+            File file = new File(_file);  
+            // String _filePath_file.replace(File.separatorChar +  
+            // file.getName(), "");  
+            int end = _file.lastIndexOf(File.separator);  
+            String _filePath = _file.substring(0, end);  
+            File filePath = new File(_filePath);  
+            if (!filePath.exists()) {  
+                filePath.mkdirs();  
+            }  
+            file.createNewFile();  
+            os = new BufferedOutputStream(new FileOutputStream(file));  
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, os);  
+        } finally {  
+            if (os != null) {  
+                try {  
+                	os.flush();
+                    os.close();  
+                    Toast.makeText(this, "已经成功保存在"+_file, Toast.LENGTH_SHORT).show();
+                    this.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,Uri
+                            .parse("file://" + _file)));
+                    
+                } catch (IOException e) {  
+                	System.out.println(e.getMessage());
+                	Toast.makeText(this, "保存失败"+e.getMessage(), Toast.LENGTH_SHORT).show();
+                }  
+            }  
+        }  
+    }  
+    /** 
+     * 获取SDK路径 
+     * @return 
+     */  
+    public String getSDPath(){   
+           File sdDir = null;   
+           boolean sdCardExist = Environment.getExternalStorageState()     
+                               .equals(android.os.Environment.MEDIA_MOUNTED);   //判断sd卡是否存在   
+           if   (sdCardExist)     
+           {                                 
+             sdDir = Environment.getExternalStorageDirectory();//获取跟目录   
+          }     
+           return sdDir.toString();   
+             
+    }  
+    
 }
