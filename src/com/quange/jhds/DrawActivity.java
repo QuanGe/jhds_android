@@ -31,6 +31,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Vibrator;
@@ -97,7 +98,10 @@ import android.widget.TextView;
         selectBrushView = (RelativeLayout)findViewById(R.id.selectBrushView);
         GradientDrawable selectBrushViewColor = new GradientDrawable();
         selectBrushViewColor.setColor(0x88000000);
-        selectBrushView.setBackground(selectBrushViewColor);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+        	selectBrushView.setBackground(selectBrushViewColor);
+        else
+        	selectBrushView.setBackgroundDrawable(selectBrushViewColor);
         selectBrushView.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -112,14 +116,19 @@ import android.widget.TextView;
 		dm = this.getApplicationContext().getResources().getDisplayMetrics(); 
         shape.setCornerRadius( 25 *dm.density);
         shape.setColor(Color.LTGRAY);
-       
-        selectBtn.setBackground(shape);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+        	selectBtn.setBackground(shape);
+        else
+        	selectBtn.setBackgroundDrawable(shape);
         brushIcon = new View(this);
         {
         	brushColor =  new GradientDrawable();
         	brushColor.setCornerRadius( brushView.getBrushWidth()*dm.density/2);
         	brushColor.setColor(brushView.getBrushColor());
+        	if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
         	brushIcon.setBackground(brushColor);
+        	else
+        		brushIcon.setBackgroundDrawable(brushColor);
         }
         brushFrame = new RelativeLayout.LayoutParams((int)(brushView.getBrushWidth()*dm.density), (int)(brushView.getBrushWidth()*dm.density));
         brushFrame.addRule(RelativeLayout.CENTER_IN_PARENT); 
@@ -160,7 +169,10 @@ import android.widget.TextView;
         shape.setColor(Color.WHITE);
        
         RelativeLayout brushBox = new RelativeLayout(this);
-        brushBox.setBackground(shape);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+        	brushBox.setBackground(shape);
+        else
+        	brushBox.setBackgroundDrawable(shape);
        
         RelativeLayout.LayoutParams brushBoxFrame = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT ,(int) (380*dm.density) );
         brushBoxFrame.leftMargin = (int) (20*dm.density);
@@ -192,7 +204,10 @@ import android.widget.TextView;
 	        brushBackground.setCornerRadius(25*dm.density);
 	        final int theColor =  colors[i];
 	        brushBackground.setColor(colors[i]);
-	        brush.setBackground(brushBackground);
+	        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+	        	brush.setBackground(brushBackground);
+	        else
+	        	brush.setBackgroundDrawable(brushBackground);
 	        brush.setOnClickListener(new OnClickListener() {
 
 				@Override
@@ -200,6 +215,7 @@ import android.widget.TextView;
 					
 					brushView.updateBrushColor(theColor);
 					brushColor.setColor(brushView.getBrushColor());
+					selectBrushView.startAnimation(mOutAnim);
 				}
 			});
 	        RelativeLayout.LayoutParams brushFrame = new RelativeLayout.LayoutParams((int) (50*dm.density) ,(int) (50*dm.density) );
@@ -215,7 +231,7 @@ import android.widget.TextView;
         Button saveBtn = new Button(this);
         saveBtn.setBackgroundResource(R.drawable.btn_cancel);
         saveBtn.setText("保存作品");
-        RelativeLayout.LayoutParams saveBtnFrame = new RelativeLayout.LayoutParams((int) (100*dm.density) ,(int) (30*dm.density) );
+        RelativeLayout.LayoutParams saveBtnFrame = new RelativeLayout.LayoutParams((int) (80*dm.density) ,(int) (30*dm.density) );
         saveBtnFrame.leftMargin = (int) (40*dm.density);
         saveBtnFrame.topMargin = (int) (340*dm.density);
         saveBtn.setOnClickListener(new OnClickListener() {
@@ -240,15 +256,21 @@ import android.widget.TextView;
         Button shareBtn = new Button(this);
         shareBtn.setBackgroundResource(R.drawable.btn_cancel);
         shareBtn.setText("分享作品");
-        RelativeLayout.LayoutParams shareBtnFrame = new RelativeLayout.LayoutParams((int) (100*dm.density) ,(int) (30*dm.density) );
-        shareBtnFrame.leftMargin = (int) (width3-20*dm.density*2-40*dm.density-100*dm.density);
+        RelativeLayout.LayoutParams shareBtnFrame = new RelativeLayout.LayoutParams((int) (80*dm.density) ,(int) (30*dm.density) );
+        shareBtnFrame.leftMargin = (int) (width3-20*dm.density*2-40*dm.density-80*dm.density);
         shareBtnFrame.topMargin = (int) (340*dm.density);
         brushBox.addView(shareBtn, shareBtnFrame);
         shareBtn.setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				
+				Intent shareIntent = new Intent();
+		        shareIntent.setAction(Intent.ACTION_SEND);
+		        shareIntent.putExtra(Intent.EXTRA_TEXT, "This is my Share text.");
+		        shareIntent.setType("text/plain");
+
+		        //设置分享列表的标题，并且每次都显示分享列表
+		        startActivity(Intent.createChooser(shareIntent, "分享到"));
 			}
 		});
         
@@ -339,15 +361,15 @@ import android.widget.TextView;
         float[] values = event.values;  
         if (sensorType == Sensor.TYPE_ACCELEROMETER)  
         {  
-            if ((Math.abs(values[0]) > 17 || Math.abs(values[1]) > 17 || Math  
-                    .abs(values[2]) > 17))  
+            if ((Math.abs(values[0]) > 19 || Math.abs(values[1]) > 19 || Math  
+                    .abs(values[2]) > 19))  
             {  
                 Log.d("sensor x ", "============ values[0] = " + values[0]);  
                 Log.d("sensor y ", "============ values[1] = " + values[1]);  
                 Log.d("sensor z ", "============ values[2] = " + values[2]);  
                 brushView.clearAll();
                 //摇动手机后，再伴随震动提示~~  
-                vibrator.vibrate(500);  
+                vibrator.vibrate(100);  
             }  
   
         }  

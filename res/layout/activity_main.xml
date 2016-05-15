@@ -6,48 +6,57 @@
     android:background="@color/white"
     tools:context="com.quange.jhds.MainActivity" >
 
+    <FrameLayout
+        android:id="@+id/realtabcontent"
+        android:layout_width="fill_parent"
+        android:layout_above="@+id/line"
+        android:layout_height="fill_parent"
+         >
+    </FrameLayout>
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_above="@+id/tabhost"
+        android:background="@color/line_color" />
+
+    <!-- android:background="@drawable/tab_background" -->
+    <android.support.v4.app.FragmentTabHost
+        android:id="@+id/tabhost"
+        android:layout_width="fill_parent"
+        android:background="@color/navg_back_btn_bar" 
+        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content">
+
+        <TabHost
+            android:id="@+id/tabs"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+             >
+        </TabHost>
+
+        <!-- 
+        <FrameLayout
+            android:id="@+id/tabcontent"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+        </FrameLayout>
+        -->
+    </android.support.v4.app.FragmentTabHost>
+    
      <Button
-         
-         android:id="@+id/drawBtn"
-        android:layout_width="60dp"
-        android:layout_height="30dp"
-       	android:layout_centerHorizontal="true"
-       android:layout_marginBottom="30dp"
-        android:alpha="0.5"
-        android:layout_above="@+id/paintBtn"
-        android:background="@drawable/btn_cancel"
-        android:text="@string/draw"
-        android:textColor="#2f2f2f"
-        android:textSize="14dp"
-        android:visibility="visible" />
-     <Button
-         
-         android:id="@+id/paintBtn"
-        android:layout_width="60dp"
-        android:layout_height="30dp"
-       	android:layout_centerHorizontal="true"
-       	android:layout_centerVertical="true"
-        android:alpha="0.5"
-        android:background="@drawable/btn_cancel"
-        android:text="@string/paint"
-        android:textColor="#2f2f2f"
-        android:textSize="14dp"
-        android:visibility="visible" />
-     <Button
-         
-         android:id="@+id/jigsqwBtn"
-        android:layout_width="60dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="30dp"
-       	android:layout_centerHorizontal="true"
-       	android:layout_below="@+id/paintBtn"
-        android:alpha="0.5"
-        android:background="@drawable/btn_cancel"
-        android:text="@string/jigsaw"
-        android:textColor="#2f2f2f"
-        android:textSize="14dp"
-        android:visibility="visible" />
-         
-     
- 
+		android:id="@+id/drawBtn"
+		android:layout_width="60dp"
+		android:layout_height="30dp"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentTop="true"
+		android:layout_marginTop="230dp"
+		android:layout_marginRight="30dp"
+		android:alpha="0.5"
+		android:background="@drawable/btn_cancel"
+		android:text="@string/draw"
+		android:textColor="#2f2f2f"
+		android:textSize="14sp"
+		android:visibility="visible" />
 </RelativeLayout>

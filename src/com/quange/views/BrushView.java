@@ -122,7 +122,13 @@ public class BrushView extends View {
 			break;
 		case MotionEvent.ACTION_UP:
 			if(lastx==pointX &&lasty == pointY)
+			{
+				pathList.get(pathList.size()-1).lineTo(pointX+1, pointY);
 				pathList.get(pathList.size()-1).lineTo(pointX+1, pointY+1);
+				pathList.get(pathList.size()-1).lineTo(pointX, pointY+1);
+				pathList.get(pathList.size()-1).lineTo(pointX, pointY);
+				pathList.get(pathList.size()-1).lineTo(pointX+1, pointY);
+			}
 			
 			
 			break;

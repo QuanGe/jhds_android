@@ -5,10 +5,10 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 	<string name="draw">画画</string>
-	<string name="paint">涂色</string>
-	<string name="jigsaw">拼图</string>
 	<string name="clear">清除</string>
 	<string name="select">选笔</string>
 	<string name="share">分享</string>
-	
+	<string name="copy">临摹</string>
+	<string name="learn">教程</string>
+	<string name="mine">我的</string>
 </resources>
