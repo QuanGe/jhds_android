@@ -57,8 +57,8 @@ public class JHDSCopyAdapter extends BaseAdapter{
 		
 		//hv.contentIv.setType(RoundImageView.TYPE_ROUND);
 		//hv.contentIv.setBorderRadius(5);
-		hv.contentIv.setScaleType(ScaleType.CENTER_CROP);
-		AppCommon.getInstance().imageLoader.displayImage(ls.imageUrlStr, hv.contentIv, AppCommon.getInstance().options);
+		hv.contentIv.setScaleType(ScaleType.CENTER_INSIDE);
+		AppCommon.getInstance().imageLoader.displayImage(ls.url, hv.contentIv, AppCommon.getInstance().options);
 		
 		return cv;
 	}

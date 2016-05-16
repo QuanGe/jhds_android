@@ -26,10 +26,10 @@ public class CopyFragment extends Fragment {
 		if (fgmView == null) {
 			fgmView = inflater.inflate(R.layout.fragment_copy, container, false);
 			copyViewPaper = (ViewPager) fgmView.findViewById(R.id.copyViewPaper);
-			subs.add(new CopyGridView(getActivity(), 3));
-			subs.add(new CopyGridView(getActivity(), 6));
-			subs.add(new CopyGridView(getActivity(), 4));
+			subs.add(new CopyGridView(getActivity(), 0));
+			subs.add(new CopyGridView(getActivity(), 1));
 			subs.add(new CopyGridView(getActivity(), 2));
+			subs.add(new CopyGridView(getActivity(), 3));
 			
 			for(CopyGridView sub :subs)
 			{

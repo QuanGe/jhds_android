@@ -8,12 +8,17 @@ import com.quange.views.CopyFragment;
 import com.quange.views.LearnFragment;
 import com.quange.views.MineFragment;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
+import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -28,7 +33,7 @@ import android.widget.Toast;
 import android.widget.TabHost.OnTabChangeListener;
 
 
-public class MainActivity extends FragmentActivity {
+@SuppressLint("NewApi") public class MainActivity extends FragmentActivity {
 	private Button drawbtn;
 	public static FragmentTabHost mTabHost;
 	private Class<?> fragmentArray[] = {CopyFragment.class,LearnFragment.class,MineFragment.class};
@@ -43,6 +48,16 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         drawbtn = (Button)findViewById(R.id.drawBtn);
+        
+        GradientDrawable shape =  new GradientDrawable();
+        DisplayMetrics dm = new DisplayMetrics();  
+		dm = this.getApplicationContext().getResources().getDisplayMetrics(); 
+        shape.setCornerRadius( 35 *dm.density);
+        shape.setColor(Color.GREEN);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+        	drawbtn.setBackground(shape);
+        else
+        	drawbtn.setBackgroundDrawable(shape);
         drawbtn.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -80,7 +95,7 @@ public class MainActivity extends FragmentActivity {
     
  // 底部导航的文本颜色
 	protected void setTvTextColor(String tabId) {
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < tv.length; i++) {
 			if (tv[i].getText().toString().equals(tabId)) {
 				tv[i].setTextColor(re.getColor(R.color.color_two));
 			} else {
@@ -100,7 +115,7 @@ public class MainActivity extends FragmentActivity {
 			tv[index] = textView;
 			textView.setText(re.getString(titleArray[index]));
 			if (index == 0) {
-				textView.setTextColor(re.getColor(R.color.bottom_tab_text_true));
+				textView.setTextColor(re.getColor(R.color.color_two));
 			} else {
 				textView.setTextColor(re.getColor(R.color.black_deep));
 			}

@@ -19,6 +19,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
 import com.quange.model.JHDSCopyModel;
 
 public class JHDSAPIManager {
@@ -49,34 +50,25 @@ public class JHDSAPIManager {
         getRequestQueue().add(req);
     }
     
+    public void fetchCopyPageNum(int type,final Listener<String> listener, ErrorListener errorListener)
+    {
+    	StringRequest request = new StringRequest("http://quangelab.com/images/jhds/copy_"+type+".txt", new Listener<String>() {
+			public void onResponse(String body) {
+				listener.onResponse(body);
+			}
+		},errorListener);
+		addToRequestQueue(request);
+    	
+    }
+    
     public void fetchCopyList(int pageNum,int type,final Listener<List<JHDSCopyModel>> listener, ErrorListener errorListener)
     {
-    	StringRequest request = new StringRequest("http://www.dbmeinv.com/dbgroup/show.htm?pager_offset="+pageNum+"&cid="+type, new Listener<String>() {
+    	StringRequest request = new StringRequest("http://quangelab.com/images/jhds/copy_"+type+"_"+pageNum+".txt", new Listener<String>() {
 			public void onResponse(String body) {
-				ArrayList<JHDSCopyModel> result = new ArrayList<JHDSCopyModel>();
 				
-				
-			    // if(href.contains("http://www.dbmeinv.com/dbgroup/") && target.equals("_topic_detail"))
-				Document doc = Jsoup.parse(body);                    	
-				Elements eles=doc.getElementsByTag("a");
-		         for(Element e :eles)
-		         {
-		               System.out.println(e.text());
-		               System.out.println(e.attr("href"));
-		               if(e.attr("href") != null &&e.attr("target")!=null)
-		               {
-		            	   if(e.attr("href").contains("http://www.dbmeinv.com/dbgroup/") && e.attr("target").equals("_topic_detail"))
-		            	   {
-		            		   Elements images = e.getElementsByTag("img");
-		            		   for(Element image :images)
-			      		         {
-		            			   JHDSCopyModel girl = new JHDSCopyModel();
-		            			   girl.imageUrlStr = image.attr("src");
-		            			   result.add(girl);
-			      		         }
-		            	   }
-		               }
-		         }
+				List<JHDSCopyModel> result = new Gson().fromJson(body,
+						new TypeToken<List<JHDSCopyModel>>() {
+						}.getType());
 					
 				listener.onResponse(result);
 				

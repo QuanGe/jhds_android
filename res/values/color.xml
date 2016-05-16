@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="black_deep">#ff666666</color>
-    <color name="background_line">#EEEEEE</color>
+    <color name="background_line">#ffdddddd</color>
     <color name="line_color">#424242</color>
     <color name="cell_separate_color">#c4c4c4</color>
     <color name="white">#FFFFFF</color>
@@ -14,5 +14,5 @@
     <color name="red">#CB0A0A</color>
     <color name="navg_back_btn_bar">#F2F2F2</color>
     <color name="bottom_tab_text_true">#009FBF</color>
-    <color name="color_two">#0494ba</color>
+    <color name="color_two">#11bb11</color>
 </resources>

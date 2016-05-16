@@ -6,6 +6,7 @@ import java.util.List;
 import com.quange.jhds.R;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.Resources.Theme;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AbsListView;
@@ -13,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView.OnItemClickListener;
 
@@ -45,6 +47,7 @@ public class CopyGridView implements OnItemClickListener {
 		this.mAct = act;
 		this.doubanType = type;
 		mView = View.inflate(mAct, R.layout.view_copy, null);
+		
 		appPath = mAct.getApplicationContext().getFilesDir().getAbsolutePath();
 		initView();
 	}
@@ -125,25 +128,46 @@ public class CopyGridView implements OnItemClickListener {
 	}
 
 	public void refresh(final boolean isRefresh) {
-		mCurPage = isRefresh ? 1 : ++mCurPage ;
-			JHDSAPIManager.getInstance(mAct).fetchCopyList(mCurPage, doubanType, new Listener<List<JHDSCopyModel>>(){
-				@Override
-				public void onResponse(List<JHDSCopyModel> response) {
-					if(isRefresh)
-						mLSList.clear();
-					mLSList.addAll(response);
-					lAdapter.notifyDataSetChanged();
+		
+		JHDSAPIManager.getInstance(mAct).fetchCopyPageNum( doubanType, new Listener<String>(){
+			@Override
+			public void onResponse(String response) {
+				int num = Integer.parseInt(response);
+				mCurPage = isRefresh ? 1 : ++mCurPage ;
+				if(num>=mCurPage)
+				JHDSAPIManager.getInstance(mAct).fetchCopyList(num-mCurPage, doubanType, new Listener<List<JHDSCopyModel>>(){
+					@Override
+					public void onResponse(List<JHDSCopyModel> response) {
+						if(isRefresh)
+							mLSList.clear();
+						mLSList.addAll(response);
+						lAdapter.notifyDataSetChanged();
+						
+					}
 					
-				}
+					
+				} ,  new ErrorListener() {
+					@Override
+					public void onErrorResponse(VolleyError error) {
+						System.out.println(error);
+						--mCurPage;
+					}
+				});
 				
 				
-			} ,  new ErrorListener() {
-				@Override
-				public void onErrorResponse(VolleyError error) {
-					System.out.println(error);
-					--mCurPage;
-				}
-			});
+				
+			}
+			
+			
+		} ,  new ErrorListener() {
+			@Override
+			public void onErrorResponse(VolleyError error) {
+				System.out.println(error);
+			
+			}
+		});
+		
+			
 				
 	}
 

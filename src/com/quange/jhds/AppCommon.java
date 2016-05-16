@@ -34,7 +34,7 @@ public class AppCommon extends Application {
 		super.onCreate();
 		appCommon = this;
 		AppSetManager.initialize(this); 
-		
+		initImageLoader();
 		new Thread() {
 			public void run() {
 				initImageLoader(getApplicationContext());
