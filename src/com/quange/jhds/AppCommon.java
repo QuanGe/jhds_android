@@ -66,7 +66,7 @@ public class AppCommon extends Application {
 	void initImageLoader() {
 		options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.n)
 				.showImageForEmptyUri(R.drawable.n).showImageOnFail(R.drawable.n)
-				.cacheInMemory(true).cacheOnDisc(true).displayer(new RoundedBitmapDisplayer(20))
+				.cacheInMemory(true).cacheOnDisc(true).displayer(new RoundedBitmapDisplayer(5))
 				.bitmapConfig(Bitmap.Config.RGB_565).build();
 	}
 }
