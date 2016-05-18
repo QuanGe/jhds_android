@@ -25,14 +25,20 @@ public class BrushView extends View {
 	private List<Paint> brushList = new ArrayList<Paint>();
 	private int brushColor = AppSetManager.getBrushColor();
 	private int brushwidth = AppSetManager.getBrushWidth();
+	private boolean enable;
 	public BrushView(Context context) {
 		this(context, null);
-		
+		enable = true;
 	}
 	
 	public int getBrushWidth()
 	{
 		return brushwidth;
+	}
+	
+	public void setEnable(boolean e)
+	{
+		this.enable =e;
 	}
 
 	public void clearAll(){
@@ -101,6 +107,7 @@ public class BrushView extends View {
 	public BrushView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		updateBrushColor(brushColor);
+		enable = true;
 	}
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
@@ -110,18 +117,23 @@ public class BrushView extends View {
 		// Checks for the event that occurs
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN:
-			lastx = pointX;
-			lasty = pointY;
-			pathList.get(pathList.size()-1).moveTo(pointX, pointY);
-
+			if(enable)
+			{
+				lastx = pointX;
+				lasty = pointY;
+				pathList.get(pathList.size()-1).moveTo(pointX, pointY);
+			}
 			return true;
 		case MotionEvent.ACTION_MOVE:
-			lastx = pointX;
-			lasty = pointY;
-			pathList.get(pathList.size()-1).lineTo(pointX, pointY);
+			if(enable)
+			{
+				lastx = pointX;
+				lasty = pointY;
+				pathList.get(pathList.size()-1).lineTo(pointX, pointY);
+			}
 			break;
 		case MotionEvent.ACTION_UP:
-			if(lastx==pointX &&lasty == pointY)
+			if(lastx==pointX &&lasty == pointY &&enable)
 			{
 				pathList.get(pathList.size()-1).lineTo(pointX+1, pointY);
 				pathList.get(pathList.size()-1).lineTo(pointX+1, pointY+1);
@@ -146,8 +158,10 @@ public class BrushView extends View {
 	}
 	@Override
 	protected void onDraw(Canvas canvas) {
-		canvas.drawColor(Color.WHITE); 
 		
+		canvas.drawColor(Color.WHITE); 
+		if(!enable)
+			return;
 		for(int i = 0;i<pathList.size();i++)
 		{
 			

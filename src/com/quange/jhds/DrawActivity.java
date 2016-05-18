@@ -58,8 +58,8 @@ import android.widget.TextView;
 
 
 @SuppressLint("NewApi") public class DrawActivity extends Activity implements OnColorChangedListener, SensorEventListener{
-	private BrushView brushView;
-	private RelativeLayout selectBtn;
+	protected BrushView brushView;
+	protected RelativeLayout selectBtn;
 	private RelativeLayout selectBrushView;
 	private Animation mInAnim, mOutAnim;
 	private GradientDrawable brushColor;

@@ -3,6 +3,7 @@ package com.quange.views;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.quange.jhds.JHDSCopyDetailActivity;
 import com.quange.jhds.R;
 import android.app.Activity;
 import android.content.Intent;
@@ -203,21 +204,16 @@ public class CopyGridView implements OnItemClickListener {
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		/*try {
+		try {
 			Bundle bundle = new Bundle();
 			String allUrl = "";
-			for (GDouBanModel girl : mLSList)
-			{
-				allUrl = allUrl+girl.imageUrlStr+"*";
-			}
-			bundle.putString("allUrl", allUrl);
-			bundle.putString("curUrl", mLSList.get(position).imageUrlStr);
-			Intent intent = new Intent(this.mAct, DouBanPhotosActivity.class);
+			bundle.putString("detail", mLSList.get(position).detail);
+			Intent intent = new Intent(this.mAct, JHDSCopyDetailActivity.class);
 			intent.putExtras(bundle);
 			this.mAct.startActivity(intent);
 		} catch (Exception ex) {
 			ex.printStackTrace();
-		}*/
+		}
 	}
 
 }
