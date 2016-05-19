@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import com.larswerkman.holocolorpicker.ColorPicker.OnColorChangedListener;
 import com.quange.views.SelectBrushView;
@@ -67,6 +69,7 @@ import android.widget.TextView;
 	private View brushIcon;
 	private SensorManager sensorManager = null;  
 	private Vibrator vibrator = null;  
+	protected static boolean isBack = false;
 	protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_draw);
@@ -322,6 +325,24 @@ import android.widget.TextView;
 			if(l.leftMargin == 0)
 			{
 				selectBrushView.startAnimation(mOutAnim);
+				return false;
+			}
+			else
+			{
+				if (isBack) {
+					return super.onKeyDown(keyCode, event);
+				} else {
+					brushView.backToFront();
+					Toast.makeText(this, "已经返回到上一次落笔，连续按两次返回页面", Toast.LENGTH_SHORT).show();
+					isBack = true;
+					Timer timer = new Timer(); // 实例化Timer定时器对象
+					timer.schedule(new TimerTask() { // schedule方法(安排,计划)需要接收一个TimerTask对象和一个代表毫秒的int值作为参数
+								@Override
+								public void run() {
+									isBack = false;
+								}
+							}, 500);
+				}
 				return false;
 			}
 			
