@@ -23,7 +23,7 @@ import android.widget.LinearLayout.LayoutParams;
 public class JHDSCopyAdapter extends BaseAdapter{
 	private Activity mAct;
 	private float density = 0;
-	private int screenWidth = 0;
+	
 	private List<JHDSCopyModel> mlList = new ArrayList<JHDSCopyModel>();
 	public JHDSCopyAdapter(Activity act, List<JHDSCopyModel>lList) {
 		this.mAct = act;
@@ -64,10 +64,8 @@ public class JHDSCopyAdapter extends BaseAdapter{
 			cv.setTag(hv);
 		} else {
 			hv = (HoldView) cv.getTag();
-		}
-		
-		
-		hv.contentIv.setScaleType(ScaleType.CENTER_INSIDE);
+		}		
+		hv.contentIv.setScaleType(ScaleType.FIT_CENTER);
 		AppCommon.getInstance().imageLoader.displayImage(ls.url, hv.contentIv, AppCommon.getInstance().options);
 		
 		return cv;

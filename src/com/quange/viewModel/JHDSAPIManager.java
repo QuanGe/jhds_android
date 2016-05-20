@@ -21,6 +21,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import com.quange.model.JHDSCopyModel;
+import com.quange.model.JHDSLearnModel;
 
 public class JHDSAPIManager {
 	private static  JHDSAPIManager sharedInstance;
@@ -68,6 +69,34 @@ public class JHDSAPIManager {
 				
 				List<JHDSCopyModel> result = new Gson().fromJson(body,
 						new TypeToken<List<JHDSCopyModel>>() {
+						}.getType());
+					
+				listener.onResponse(result);
+				
+			}
+		},errorListener);
+		addToRequestQueue(request);
+    	
+    }
+    
+    public void fetchLearnPageNum(int type,final Listener<String> listener, ErrorListener errorListener)
+    {
+    	StringRequest request = new StringRequest("http://quangelab.com/images/jhds/learn_"+type+".txt", new Listener<String>() {
+			public void onResponse(String body) {
+				listener.onResponse(body);
+			}
+		},errorListener);
+		addToRequestQueue(request);
+    	
+    }
+    
+    public void fetchLearnList(int pageNum,int type,final Listener<List<JHDSLearnModel>> listener, ErrorListener errorListener)
+    {
+    	StringRequest request = new StringRequest("http://quangelab.com/images/jhds/learn_"+type+"_"+pageNum+".txt", new Listener<String>() {
+			public void onResponse(String body) {
+				
+				List<JHDSLearnModel> result = new Gson().fromJson(body,
+						new TypeToken<List<JHDSLearnModel>>() {
 						}.getType());
 					
 				listener.onResponse(result);
