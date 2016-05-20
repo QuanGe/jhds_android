@@ -15,4 +15,6 @@
     <color name="navg_back_btn_bar">#F2F2F2</color>
     <color name="bottom_tab_text_true">#009FBF</color>
     <color name="color_two">#11bb11</color>
+    <color name="item_under_line_shadow">#d9d9d9</color>
+    <color name="text_dark">#46505A</color>
 </resources>

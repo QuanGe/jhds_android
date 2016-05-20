@@ -356,6 +356,7 @@ import android.widget.TextView;
 	    protected void onPause()  
 	    {  
 	        super.onPause();  
+	        MobclickAgent.onResume(this);
 	        sensorManager.unregisterListener(this);  
 	    }  
 	  
@@ -363,6 +364,7 @@ import android.widget.TextView;
 	    protected void onResume()  
 	    {  
 	        super.onResume();  
+	        MobclickAgent.onPause(this);
 	        sensorManager.registerListener(this,  
 	                sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER),  
 	                SensorManager.SENSOR_DELAY_NORMAL);  
@@ -453,5 +455,5 @@ import android.widget.TextView;
            return sdDir.toString();   
              
     }  
-    
+ 
 }

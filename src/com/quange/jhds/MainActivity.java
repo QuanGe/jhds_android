@@ -7,6 +7,7 @@ import java.util.TimerTask;
 import com.quange.views.CopyFragment;
 import com.quange.views.LearnFragment;
 import com.quange.views.MineFragment;
+import com.umeng.analytics.MobclickAgent;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -172,4 +173,13 @@ import android.widget.TabHost.OnTabChangeListener;
 		return super.onKeyDown(keyCode, event);
 
 	}
+    
+    public void onResume() {
+    	super.onResume();
+    	MobclickAgent.onResume(this);
+    	}
+    	public void onPause() {
+    	super.onPause();
+    	MobclickAgent.onPause(this);
+    	}
 }
