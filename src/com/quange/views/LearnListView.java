@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AbsListView;
@@ -23,6 +25,8 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 
+import com.quange.jhds.JHDSCopyDetailActivity;
+import com.quange.jhds.JHDSLearnDetailActivity;
 import com.quange.jhds.R;
 import com.quange.model.JHDSCopyModel;
 import com.quange.model.JHDSLearnModel;
@@ -198,7 +202,23 @@ public class LearnListView implements OnItemClickListener{
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		
+		try {
+			Bundle bundle = new Bundle();
+			String allUrl = "";
+			for (int i = 0;i<mLSList.get(position).detail.length;i++)
+			{
+				if(i==mLSList.get(position).detail.length-1)
+					allUrl = allUrl+mLSList.get(position).detail[i];
+				else 
+					allUrl = allUrl + mLSList.get(position).detail[i]+",";
+			}
+			bundle.putString("detail", allUrl);
+			Intent intent = new Intent(this.mAct, JHDSLearnDetailActivity.class);
+			intent.putExtras(bundle);
+			this.mAct.startActivity(intent);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
 	}
 
 
