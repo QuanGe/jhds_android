@@ -205,12 +205,12 @@ public class LearnListView implements OnItemClickListener{
 		try {
 			Bundle bundle = new Bundle();
 			String allUrl = "";
-			for (int i = 0;i<mLSList.get(position).detail.length;i++)
+			for (int i = 0;i<mLSList.get(position-1).detail.length;i++)
 			{
-				if(i==mLSList.get(position).detail.length-1)
-					allUrl = allUrl+mLSList.get(position).detail[i];
+				if(i==mLSList.get(position-1).detail.length-1)
+					allUrl = allUrl+mLSList.get(position-1).detail[i];
 				else 
-					allUrl = allUrl + mLSList.get(position).detail[i]+",";
+					allUrl = allUrl + mLSList.get(position-1).detail[i]+",";
 			}
 			bundle.putString("detail", allUrl);
 			Intent intent = new Intent(this.mAct, JHDSLearnDetailActivity.class);

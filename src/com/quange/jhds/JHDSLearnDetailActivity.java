@@ -1,4 +1,9 @@
 package com.quange.jhds;
+import java.util.List;
+
+import com.quange.model.JHDSCopyModel;
+
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -11,13 +16,18 @@ import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 
 public class JHDSLearnDetailActivity extends DrawActivity {
+	private ViewPager photoViewPager;
 	private RelativeLayout topView;
 	private Button tryBtn;
-	private String[] detail = null ;
+	private String[] detail ;
 	public class CurriAdapter extends PagerAdapter {
 
 		private View mCurrentView;
-	    
+	    private String[] urls;
+	    public CurriAdapter(String[] imageUrls) {
+			
+			this.urls = imageUrls;
+		}
 	    @Override
 	    public void setPrimaryItem(ViewGroup container, int position, Object object) {
 	        mCurrentView = (View)object;
@@ -31,16 +41,38 @@ public class JHDSLearnDetailActivity extends DrawActivity {
 			}
 
 			public int getCount() {
-				return detail.length;
+				return urls.length;
 			}
 
 			public void destroyItem(View container, int position, Object object) {
+				((ViewPager) container).removeView((View) object);
 			}
 
 			public Object instantiateItem(View container, int position) {
 				//indexTV.setText(position+"/"+allUrls.length);
-				return ((ViewPager) container).getChildAt(position);
-	        
+				//return ((ViewPager) container).getChildAt(position);
+				ImageView photoView = new ImageView(container.getContext());
+				
+				String url = "http://quangelab.com/images/jhds/learn/"+urls[position]+".jpg";
+				AppCommon.getInstance().imageLoader.displayImage(url, photoView, AppCommon.getInstance().options);
+				photoView.setOnClickListener(new OnClickListener() {   
+
+					@Override
+					public void onClick(View v) {
+						if(tryBtn.getVisibility() == View.INVISIBLE)
+						{
+							resetTopView();
+						}
+						else
+						{
+							
+						}
+						
+					}
+				});
+				
+				((ViewPager) container).addView(photoView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+				return photoView;
 			}
 
 
@@ -67,7 +99,8 @@ public class JHDSLearnDetailActivity extends DrawActivity {
 		topView = (RelativeLayout) this.findViewById(R.id.topView);
 		topView.setVisibility(View.VISIBLE);
 		
-		ViewPager vp = new ViewPager(this);
+		photoViewPager = new ViewPager(this);
+		/*
 		for(int i = 0;i<detail.length;i++)
 		{
 			ImageView photoView = new ImageView(this);
@@ -91,9 +124,10 @@ public class JHDSLearnDetailActivity extends DrawActivity {
 			
 			vp.addView(photoView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 		}
+		*/
 		RelativeLayout.LayoutParams imgelp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
-		topView.addView(vp, imgelp);
-		vp.setAdapter(new CurriAdapter() );
+		topView.addView(photoViewPager, imgelp);
+		photoViewPager.setAdapter(new CurriAdapter(detail) );
 		
 		
 		tryBtn =new Button(this);

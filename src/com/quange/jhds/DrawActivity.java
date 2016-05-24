@@ -42,6 +42,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.view.animation.Animation;
@@ -74,7 +75,7 @@ import android.widget.TextView;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_draw);
         brushView = (BrushView)findViewById(R.id.brushView);
-     
+        brushView.setOnLongClickListener(new OnLongClickListenerImpl()); 
         selectBtn = (RelativeLayout)findViewById(R.id.selectBtn);
         selectBtn.setOnClickListener(new OnClickListener() {
 
@@ -327,24 +328,7 @@ import android.widget.TextView;
 				selectBrushView.startAnimation(mOutAnim);
 				return false;
 			}
-			else
-			{
-				if (isBack) {
-					return super.onKeyDown(keyCode, event);
-				} else {
-					brushView.backToFront();
-					Toast.makeText(this, "已经返回到上一次落笔，连续按两次返回页面", Toast.LENGTH_SHORT).show();
-					isBack = true;
-					Timer timer = new Timer(); // 实例化Timer定时器对象
-					timer.schedule(new TimerTask() { // schedule方法(安排,计划)需要接收一个TimerTask对象和一个代表毫秒的int值作为参数
-								@Override
-								public void run() {
-									isBack = false;
-								}
-							}, 500);
-				}
-				return false;
-			}
+			
 			
         }
         
@@ -454,6 +438,19 @@ import android.widget.TextView;
           }     
            return sdDir.toString();   
              
+    }  
+    
+    private class OnLongClickListenerImpl implements OnLongClickListener{  
+    	  
+        @Override  
+        public boolean onLongClick(View arg0) {  
+            
+        	brushView.backToFront();
+         
+            return true;  
+        }  
+          
+          
     }  
  
 }
