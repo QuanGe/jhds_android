@@ -41,6 +41,14 @@
             android:name=".JHDSLearnDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar" />
+         <activity
+            android:name=".JHDSSavedImagesActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar" />
+         <activity
+            android:name=".PhotosActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar" />
         <meta-data android:value="573576d367e58e88a3002940" android:name="UMENG_APPKEY"></meta-data>
 		<meta-data android:value="develop" android:name="UMENG_CHANNEL"/>
     </application>

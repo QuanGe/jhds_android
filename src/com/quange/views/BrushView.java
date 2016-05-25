@@ -17,6 +17,7 @@ import android.util.DisplayMetrics;
 
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 
 public class BrushView extends View {
@@ -71,6 +72,8 @@ public class BrushView extends View {
 		}
 		else
 			clearAll();
+		
+		Toast.makeText(this.getContext(), "已经后退至上一次落笔处", Toast.LENGTH_SHORT).show();
 	}
 	
 	public void setEnable(boolean e)
@@ -152,6 +155,7 @@ public class BrushView extends View {
 		updateBrushColor(brushColor);
 		enable = true;
 	}
+	
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		float pointX = event.getX();
@@ -169,7 +173,7 @@ public class BrushView extends View {
 				mDrawing.get(mDrawing.size()-1).add(line);
 				pathList.get(pathList.size()-1).moveTo(pointX, pointY);
 			}
-			return true;
+			break;
 		case MotionEvent.ACTION_MOVE:
 			if(enable)
 			{
@@ -206,11 +210,11 @@ public class BrushView extends View {
 			break;
 			
 		default:
-			return false;
+			return true;
 		}
 		// Force a view to draw.
 		postInvalidate();
-		return false;
+		return true;
 
 	}
 	@Override

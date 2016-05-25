@@ -74,8 +74,10 @@ import android.widget.TextView;
 	protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_draw);
+        
+        
         brushView = (BrushView)findViewById(R.id.brushView);
-        brushView.setOnLongClickListener(new OnLongClickListenerImpl()); 
+       
         selectBtn = (RelativeLayout)findViewById(R.id.selectBtn);
         selectBtn.setOnClickListener(new OnClickListener() {
 
@@ -440,17 +442,26 @@ import android.widget.TextView;
              
     }  
     
-    private class OnLongClickListenerImpl implements OnLongClickListener{  
-    	  
-        @Override  
-        public boolean onLongClick(View arg0) {  
+    public boolean dispatchKeyEvent(KeyEvent event)    
+    {    
+        int keyCode=event.getKeyCode();    
+        switch(keyCode)    
+        {    
+            case KeyEvent.KEYCODE_BACK: {    
+                 if(event.isLongPress())    
+                 {    
+                    brushView.backToFront(); 
+                     return true;    
+                 }else    
+                 {    
+                     return false;    
+      
+                 }    
+            }      
+        }    
+        return super.dispatchKeyEvent(event);    
             
-        	brushView.backToFront();
-         
-            return true;  
-        }  
-          
-          
     }  
+
  
 }

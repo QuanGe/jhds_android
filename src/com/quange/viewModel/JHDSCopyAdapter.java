@@ -53,7 +53,7 @@ public class JHDSCopyAdapter extends BaseAdapter{
 			cv = View.inflate(mAct, R.layout.gridview_item_copy, null);
 			GradientDrawable backColor = new GradientDrawable();
 			backColor.setColor(0xffffffff);
-			backColor.setCornerRadius( 5 *AppCommon.getInstance().metrics.density);
+			//backColor.setCornerRadius( 5 *AppCommon.getInstance().metrics.density);
 	        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
 	        	cv.setBackground(backColor);
 	        else

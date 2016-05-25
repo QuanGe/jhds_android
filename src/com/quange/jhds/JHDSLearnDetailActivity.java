@@ -100,31 +100,7 @@ public class JHDSLearnDetailActivity extends DrawActivity {
 		topView.setVisibility(View.VISIBLE);
 		
 		photoViewPager = new ViewPager(this);
-		/*
-		for(int i = 0;i<detail.length;i++)
-		{
-			ImageView photoView = new ImageView(this);
-			String url = "http://quangelab.com/images/jhds/learn/"+detail[i]+".jpg";
-			AppCommon.getInstance().imageLoader.displayImage(url, photoView, AppCommon.getInstance().options);
-			photoView.setOnClickListener(new OnClickListener() {   
-
-				@Override
-				public void onClick(View v) {
-					if(tryBtn.getVisibility() == View.INVISIBLE)
-					{
-						resetTopView();
-					}
-					else
-					{
-						
-					}
-					
-				}
-			});
-			
-			vp.addView(photoView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-		}
-		*/
+		photoViewPager.setBackgroundColor(0xff888888);
 		RelativeLayout.LayoutParams imgelp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
 		topView.addView(photoViewPager, imgelp);
 		photoViewPager.setAdapter(new CurriAdapter(detail) );
@@ -143,7 +119,7 @@ public class JHDSLearnDetailActivity extends DrawActivity {
 			public void onClick(View v) {
 				RelativeLayout.LayoutParams lp = (LayoutParams) topView.getLayoutParams();
 				lp.width = AppCommon.getInstance().screenWidth/4;
-				lp.height = AppCommon.getInstance().screenHeight/4;
+				lp.height = AppCommon.getInstance().screenWidth/4;
 				((RelativeLayout)topView.getParent()).updateViewLayout(topView, lp);
 				
 				tryBtn.setVisibility(View.INVISIBLE);
