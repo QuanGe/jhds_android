@@ -454,7 +454,7 @@ import android.widget.TextView;
                      return true;    
                  }else    
                  {    
-                     return false;    
+                	 return super.dispatchKeyEvent(event);    
       
                  }    
             }      
