@@ -46,7 +46,7 @@ public class BrushView extends View {
 	public BrushView(Context context) {
 		this(context, null);
 		enable = true;
-		loadSaveDataAndDraw();
+		//loadSaveDataAndDraw();
 	}
 	
 	public void loadSaveDataAndDraw()
@@ -59,6 +59,8 @@ public class BrushView extends View {
 				JSONObject jsObj = new JSONObject(str);
 				JSONArray ja =  jsObj.getJSONArray("a");
 				mDrawing.clear();
+				pathList.clear();
+				brushList.clear();
 				for(int i = 0;i<ja.length();i++)
 				{
 					JSONObject brushModel = ja.getJSONObject(i);
@@ -263,7 +265,7 @@ public class BrushView extends View {
 		super(context, attrs);
 		updateBrushColor(brushColor);
 		enable = true;
-		loadSaveDataAndDraw();
+		//loadSaveDataAndDraw();
 	}
 	
 	@Override

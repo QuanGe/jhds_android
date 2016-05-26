@@ -1,5 +1,7 @@
 package com.quange.views;
 
+import com.quange.jhds.DrawActivity;
+import com.quange.jhds.JHDSLastDrawActivity;
 import com.quange.jhds.JHDSSavedImagesActivity;
 import com.quange.jhds.R;
 
@@ -15,6 +17,7 @@ import android.widget.RelativeLayout;
 public class MineFragment extends Fragment {
 	private View fgmView;
 	private RelativeLayout savedImageBtn;
+	private RelativeLayout lastBtn;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
@@ -26,6 +29,18 @@ public class MineFragment extends Fragment {
 				@Override
 				public void onClick(View v) {
 					Intent intent = new Intent(getActivity(), JHDSSavedImagesActivity.class);
+				
+					getActivity().startActivity(intent);
+					
+				}
+			});
+			
+			lastBtn = (RelativeLayout)fgmView.findViewById(R.id.rl_my_last);
+			lastBtn.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					Intent intent = new Intent(getActivity(), JHDSLastDrawActivity.class);
 				
 					getActivity().startActivity(intent);
 					
