@@ -25,6 +25,8 @@ import android.app.Application;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Environment;
 import android.util.DisplayMetrics;
 
@@ -268,4 +270,54 @@ public class AppCommon extends Application {
             return false;
         }
     }
+    
+    
+    /**
+	 * 判断网络是否连接
+	 * 
+	 * @param context
+	 * @return - true 网络连接 - false 网络连接异常
+	 */
+	public static boolean isConnect(Context context) {
+		try {
+			ConnectivityManager connectivity = (ConnectivityManager) context
+					.getSystemService(Context.CONNECTIVITY_SERVICE);
+			if (connectivity != null) {
+				NetworkInfo info = connectivity.getActiveNetworkInfo();
+				if (info != null && info.isConnected() && info.isAvailable()) {
+					if (info.getState() == NetworkInfo.State.CONNECTED) {
+						return true;
+					}
+				}
+			}
+		} catch (Exception e) {
+		}
+		return false;
+	}
+
+	/**
+	 * 判断网络是否是Wifi
+	 * 
+	 * @param context
+	 * @return - true 网络连接是Wifi - false 网络连接不是Wifi
+	 */
+	public static boolean isWifi(Context context) {
+		try {
+			ConnectivityManager connectivity = (ConnectivityManager) context
+					.getSystemService(Context.CONNECTIVITY_SERVICE);
+			if (connectivity != null) {
+				NetworkInfo activeNetInfo = connectivity.getActiveNetworkInfo();
+				if (activeNetInfo != null && activeNetInfo.isConnected() && activeNetInfo.isAvailable()) {
+					if (activeNetInfo.getState() == NetworkInfo.State.CONNECTED) {
+						if (activeNetInfo.getType() == ConnectivityManager.TYPE_WIFI) {
+							return true;
+						}
+					}
+				}
+				return false;
+			}
+		} catch (Exception e) {
+		}
+		return false;
+	}
 }

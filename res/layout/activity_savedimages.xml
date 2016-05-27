@@ -1,16 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    android:orientation="vertical" >
+     >
+    <RelativeLayout 
+	    android:id="@+id/header"
+	    android:layout_width="match_parent"
+    	android:layout_height="56dp"
+    	android:background="@color/background">
+
+    	<ImageView
+    	    android:id="@+id/backImg"
+    	    android:layout_width="18dp"
+    	    android:layout_height="32dp"
+    	    android:layout_centerVertical="true"
+    	    android:layout_marginLeft="19dp"
+    	    android:background="@drawable/back" >
+
+	    </ImageView>
+	    
+	    <RelativeLayout 
+	    android:id="@+id/backBtn"
+	    android:layout_width="64dp"
+    	android:layout_height="56dp"
+    	android:layout_alignParentLeft="true"
+    	>
+    	</RelativeLayout>
+
+	    <TextView
+	        android:id="@+id/headerTitle"
+	        android:layout_width="match_parent"
+	        android:layout_height="32dp"
+	        android:layout_centerVertical="true"
+	        android:layout_marginRight="37dp"
+	        android:layout_toRightOf="@+id/backImg"
+	        android:gravity="center"
+	        android:text="已保存"
+	        android:textColor="@color/black"
+	        android:textSize="18sp" >
+
+	        </TextView>
+	     <View
+                    
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/item_under_line_shadow" />
+	</RelativeLayout>
 	<LinearLayout 
 	    android:id="@+id/content"
 	    android:layout_width="match_parent"
+	    android:layout_below="@+id/header"
     	android:layout_height="match_parent"
     	android:background="@color/background"
     	android:orientation="vertical"
 	    >
 	    
 	</LinearLayout>
-</LinearLayout>
+
+	<com.quange.views.JHDSErrorMessage
+	    android:id="@+id/errorMessage"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:layout_below="@+id/header"
+	    android:background="@color/background"
+	    android:visibility="gone" >
+	    
+	</com.quange.views.JHDSErrorMessage>
+</RelativeLayout>

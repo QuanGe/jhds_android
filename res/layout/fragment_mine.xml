@@ -174,7 +174,7 @@
                         android:layout_toRightOf="@id/iv_my_buy_img"
                         android:gravity="center_vertical"
                         android:paddingRight="10dp"
-                        android:text="简优惠"
+                        android:text="简便宜"
                         android:textColor="@color/text_dark"
                         android:textSize="16sp" />
 

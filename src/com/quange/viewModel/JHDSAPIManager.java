@@ -22,6 +22,7 @@ import com.google.gson.reflect.TypeToken;
 
 import com.quange.model.JHDSCopyModel;
 import com.quange.model.JHDSLearnModel;
+import com.quange.model.JHDSShopModel;
 
 public class JHDSAPIManager {
 	private static  JHDSAPIManager sharedInstance;
@@ -106,4 +107,34 @@ public class JHDSAPIManager {
 		addToRequestQueue(request);
     	
     }
+    
+    public void fetchShopPageNum(int type,final Listener<String> listener, ErrorListener errorListener)
+    {
+    	StringRequest request = new StringRequest("http://quangelab.com/images/jhds/shop_"+type+".txt", new Listener<String>() {
+			public void onResponse(String body) {
+				listener.onResponse(body);
+			}
+		},errorListener);
+		addToRequestQueue(request);
+    	
+    }
+    
+    public void fetchShopList(int pageNum,int type,final Listener<List<JHDSShopModel>> listener, ErrorListener errorListener)
+    {
+    	StringRequest request = new StringRequest("http://quangelab.com/images/jhds/shop_"+type+"_"+pageNum+".txt", new Listener<String>() {
+			public void onResponse(String body) {
+				
+				List<JHDSShopModel> result = new Gson().fromJson(body,
+						new TypeToken<List<JHDSShopModel>>() {
+						}.getType());
+					
+				listener.onResponse(result);
+				
+			}
+		},errorListener);
+		addToRequestQueue(request);
+    	
+    }
+    
+    
 }

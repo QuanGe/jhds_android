@@ -14,22 +14,32 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
+import com.lidroid.xutils.view.annotation.event.OnClick;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.quange.model.*;
 import com.quange.viewModel.*;
+import com.quange.views.JHDSErrorMessage;
 
 public class JHDSShopActivity extends Activity implements OnItemClickListener {
+	
+	@ViewInject(R.id.backBtn)
+	private ImageView backBtn;
+	@ViewInject(R.id.errorMessage)
+	private JHDSErrorMessage errorMessage;
 	 @ViewInject(R.id.shop_list)
 	 private PullToRefreshListView shopList;
 	 private List<JHDSShopModel> data = new ArrayList<JHDSShopModel>();
@@ -84,21 +94,47 @@ public class JHDSShopActivity extends Activity implements OnItemClickListener {
 				}
 			}
 		});
+		
+		firstLoadData();
+		errorMessage.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				firstLoadData();
+				errorMessage.setVisibility(View.GONE);
+			}
+		});
 	 }
 	 public void refresh(final boolean isRefresh) {
-			
-			mCurPage = isRefresh ? 1 : ++mCurPage ;
-			JHDSAPIManager.getInstance(this).fetchLearnList(0, 0, new Listener<List<JHDSLearnModel>>(){
+		
+		 if(AppCommon.getInstance().isConnect(this))
+		 {
+		 JHDSAPIManager.getInstance(this).fetchShopPageNum( 0, new Listener<String>(){
 				@Override
-				public void onResponse(List<JHDSLearnModel> response) {
-					if(isRefresh)
-						data.clear();
-					JHDSShopModel sm = new JHDSShopModel();
-					sm.content = "这里是商品的介绍。叔大叔大叔大叔的撒的撒打算打算的";
-					sm.imgUrl = "https://www.gravatar.com/avatar/81eb1640098b8a17542c1eb5c65dcdcd?s=32&d=identicon&r=PG&f=1";
-					sm.clickUrl = "https://item.taobao.com/item.htm?spm=a1z0k.7385981.1997993937.d4919305.CbNzMM&id=526036223669&_u=rev6nao97a6";
-					data.add(sm);
-					lAdapter.notifyDataSetChanged();
+				public void onResponse(String response) {
+					int num = Integer.parseInt(response);
+					mCurPage = isRefresh ? 1 : ++mCurPage ;
+					if(num>=mCurPage)
+					JHDSAPIManager.getInstance(null).fetchShopList(num-mCurPage, 0, new Listener<List<JHDSShopModel>>(){
+						@Override
+						public void onResponse(List<JHDSShopModel> response) {
+							if(isRefresh)
+								data.clear();
+							data.addAll(response);
+							lAdapter.notifyDataSetChanged();
+							
+						}
+						
+						
+					} ,  new ErrorListener() {
+						@Override
+						public void onErrorResponse(VolleyError error) {
+							System.out.println(error);
+							--mCurPage;
+						}
+					});
+					
+					
 					
 				}
 				
@@ -107,12 +143,14 @@ public class JHDSShopActivity extends Activity implements OnItemClickListener {
 				@Override
 				public void onErrorResponse(VolleyError error) {
 					System.out.println(error);
-					--mCurPage;
+				
 				}
 			});
-					
-					
-					
+		 }
+		 else
+		 {
+			 showError("您当前没有网络，请检查网络后点击屏幕重新获取数据");
+		 }
 			
 		}
 
@@ -154,6 +192,26 @@ public class JHDSShopActivity extends Activity implements OnItemClickListener {
 		 }
 		 startActivity(intent);
 		}
-
-	 
+	 public void firstLoadData()
+		{
+			if(data.size()==0)
+			{
+				shopList.post(new Runnable() {
+				      @Override public void run() {
+				    	  shopList.setRefreshing(true);
+				      }
+				 });
+			}
+		}
+	 @OnClick(R.id.backBtn)
+		public void OnBackClick(View view) {
+			
+			finish();
+		}
+		
+		public void showError(String ms)
+		{
+			errorMessage.setVisibility(View.VISIBLE);
+			errorMessage.updateMessage(ms);
+		}
 }

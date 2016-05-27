@@ -7,6 +7,7 @@ import java.util.List;
 import com.handmark.pulltorefresh.library.PullToRefreshGridView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 
+import com.quange.jhds.JHDSSavedImagesActivity;
 import com.quange.jhds.PhotosActivity;
 import com.quange.jhds.R;
 
@@ -18,10 +19,11 @@ import android.os.Environment;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.RelativeLayout;
 
 public class JHDSSavedImagesGridView implements OnItemClickListener { 
 	private View mView;
-	private Activity mAct;
+	private JHDSSavedImagesActivity mAct;
 	private String appPath;
 	private PullToRefreshGridView lList;
 	private JHDSSaveImagesAdapter lAdapter;
@@ -30,11 +32,13 @@ public class JHDSSavedImagesGridView implements OnItemClickListener {
 	public JHDSSavedImagesGridView(Activity act)
 	{
 		super();
-		this.mAct = act;
+		this.mAct = (JHDSSavedImagesActivity)act;
 		mView = View.inflate(mAct, R.layout.view_copy, null);
 		appPath = mAct.getApplicationContext().getFilesDir().getAbsolutePath();
 		initView();
 	}
+	
+	
 	
 	/**
 	 * 得到视图
@@ -51,20 +55,25 @@ public class JHDSSavedImagesGridView implements OnItemClickListener {
 			
 			String path = getSDPath()+"/jhds/jianhuadashi";
 			File f = new File(path);        
-			File file[] = f.listFiles();
-			for (int i=0; i < file.length; i++)
+			if (!f.exists()) {  
+				mAct.showError();
+            }  
+			else
 			{
-				mlList.add(file[i].getAbsolutePath());
+				File file[] = f.listFiles();
+				for (int i=0; i < file.length; i++)
+				{
+					mlList.add(file[i].getAbsolutePath());
+				}
+				lList = (PullToRefreshGridView) mView.findViewById(R.id.copy_gridView);
+				
+				lAdapter = new JHDSSaveImagesAdapter(mAct, mlList);
+				lList.setMode(Mode.DISABLED);
+				lList.setAdapter(lAdapter);
+				
+			
+				lList.setOnItemClickListener(this);
 			}
-			lList = (PullToRefreshGridView) mView.findViewById(R.id.copy_gridView);
-			
-			lAdapter = new JHDSSaveImagesAdapter(mAct, mlList);
-			lList.setMode(Mode.DISABLED);
-			lList.setAdapter(lAdapter);
-			
-		
-			lList.setOnItemClickListener(this);
-			
 			
 			
 		}

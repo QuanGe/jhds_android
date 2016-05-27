@@ -56,7 +56,7 @@ public class JHDSShopAdapter extends BaseAdapter {
 
 			hv.contentTv = (TextView) cv.findViewById(R.id.tv_title);
 			hv.contentIv = (ImageView) cv.findViewById(R.id.contentImageView);
-	
+			hv.ortherTv = (TextView) cv.findViewById(R.id.tv_orther);
 			
 			cv.setTag(hv);
 		} else {
@@ -64,6 +64,7 @@ public class JHDSShopAdapter extends BaseAdapter {
 		}
 		
 		hv.contentTv.setText(ls.content);
+		hv.ortherTv.setText(ls.orther);
 		{
 			int width = (int) (AppCommon.getInstance().screenWidth-24*density)/3;
 			
@@ -72,7 +73,7 @@ public class JHDSShopAdapter extends BaseAdapter {
 			llp.bottomMargin = (int) (2*density);
 			llp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT); 
 			llp.addRule(RelativeLayout.ALIGN_PARENT_TOP); 
-			hv.contentIv.setScaleType(ScaleType.FIT_XY);
+			hv.contentIv.setScaleType(ScaleType.CENTER_CROP);
 			hv.contentIv.setLayoutParams(llp);
 		}
 		
@@ -99,6 +100,6 @@ public class JHDSShopAdapter extends BaseAdapter {
 	
 		private TextView contentTv; // name
 		private ImageView contentIv;
-		
+		private TextView ortherTv; // name
 	}
 }
