@@ -23,6 +23,7 @@ import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Environment;
 import android.util.DisplayMetrics;
@@ -254,4 +255,17 @@ public class AppCommon extends Application {
         } 
         return res; 
     } 
+    
+    /**
+     * 检测是否安装淘宝客户端
+     */
+    public boolean isAppInstalled(Context context, String packageName) {
+        try {
+            context.getPackageManager().getPackageInfo(packageName, 0);
+            return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
