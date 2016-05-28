@@ -25,6 +25,8 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PointF;
+import android.os.Handler;
+import android.os.Message;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 
@@ -48,63 +50,86 @@ public class BrushView extends View {
 		enable = true;
 		//loadSaveDataAndDraw();
 	}
-	
+	private Handler mHandler = new Handler() {
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case 1:
+				postInvalidate();
+				break;
+			case 2:
+				Toast.makeText(getContext(), "您还没有画过画呦，开始您的创作之旅吧", Toast.LENGTH_SHORT).show();
+				break;
+			}
+		}
+	};
 	public void loadSaveDataAndDraw()
 	{
-		String str = AppCommon.getInstance().readLineData();
-		if(str != "")
-		{
-			try { 
-				str = "{\"a\":"+str+"}";
-				JSONObject jsObj = new JSONObject(str);
-				JSONArray ja =  jsObj.getJSONArray("a");
-				mDrawing.clear();
-				pathList.clear();
-				brushList.clear();
-				for(int i = 0;i<ja.length();i++)
+		new Thread() {
+			public void run() {
+				String str = AppCommon.getInstance().readLineData();
+				if(str != "")
 				{
-					JSONObject brushModel = ja.getJSONObject(i);
-					updateBrushInfor(brushModel.getInt("brushwidth"),brushModel.getInt("brushColor"));
-					JHDSBrushModel bm = mDrawing.get(i);
-					JSONArray lines =  brushModel.getJSONArray("lines");
-					for(int j = 0;j<lines.length();j++)
-					{
-						JSONObject line = lines.getJSONObject(j);
-						JHDSBrushLineModel lm = new JHDSBrushLineModel();
-						JSONArray points = line.getJSONArray("points");
-						for(int m = 0;m<points.length();m++)
+					try { 
+						str = "{\"a\":"+str+"}";
+						JSONObject jsObj = new JSONObject(str);
+						JSONArray ja =  jsObj.getJSONArray("a");
+						mDrawing.clear();
+						pathList.clear();
+						brushList.clear();
+						for(int i = 0;i<ja.length();i++)
 						{
-							JSONObject point = points.getJSONObject(m);
-							PointF p = new PointF();
-							p.x = (float) point.getDouble("x");
-							p.y = (float) point.getDouble("y");
-							if(m ==0)
+							JSONObject brushModel = ja.getJSONObject(i);
+							updateBrushInfor(brushModel.getInt("brushwidth"),brushModel.getInt("brushColor"));
+							JHDSBrushModel bm = mDrawing.get(i);
+							JSONArray lines =  brushModel.getJSONArray("lines");
+							for(int j = 0;j<lines.length();j++)
 							{
-								pathList.get(i).moveTo(p.x, p.y);
+								JSONObject line = lines.getJSONObject(j);
+								JHDSBrushLineModel lm = new JHDSBrushLineModel();
+								JSONArray points = line.getJSONArray("points");
+								for(int m = 0;m<points.length();m++)
+								{
+									JSONObject point = points.getJSONObject(m);
+									PointF p = new PointF();
+									p.x = (float) point.getDouble("x");
+									p.y = (float) point.getDouble("y");
+									if(m ==0)
+									{
+										pathList.get(i).moveTo(p.x, p.y);
+									}
+									else
+									{
+										pathList.get(i).lineTo(p.x, p.y);
+									}
+									lm.points.add(p);
+								}
+								bm.lines.add(lm);
 							}
-							else
-							{
-								pathList.get(i).lineTo(p.x, p.y);
-							}
-							lm.points.add(p);
+							mDrawing.add(bm);
+							
 						}
-						bm.lines.add(lm);
-					}
-					mDrawing.add(bm);
+						System.out.println("");
+					 } 
+			        catch (Exception e) { 
+			            e.printStackTrace(); 
+			        } 
+				
+					Message message=new Message();  
+	                message.what=1;  
+	                mHandler.sendMessage(message); 
+					
 					
 				}
-				System.out.println("");
-			 } 
-	        catch (Exception e) { 
-	            e.printStackTrace(); 
-	        } 
+				else
+				{
+					Message message=new Message();  
+	                message.what=2;  
+	                mHandler.sendMessage(message); 
+				}
+			}
+		}.start();
 		
-			postInvalidate();
-			
-			
-		}
-		else
-			Toast.makeText(this.getContext(), "您还没有画过画呦，开始您的创作之旅吧", Toast.LENGTH_SHORT).show();
+		
 	}
 	
 	public int getBrushWidth()
@@ -314,7 +339,13 @@ public class BrushView extends View {
 				pathList.get(pathList.size()-1).lineTo(pointX, pointY);
 				pathList.get(pathList.size()-1).lineTo(pointX+1, pointY);
 			}
-			AppCommon.getInstance().saveLineData(convertLineToString());
+			
+			new Thread() {
+				public void run() {
+					AppCommon.getInstance().saveLineData(convertLineToString());
+				}
+			}.start();
+			
 			break;
 		case MotionEvent.ACTION_CANCEL:
 			System.out.println("取消");
