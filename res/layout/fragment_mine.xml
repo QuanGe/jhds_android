@@ -22,6 +22,29 @@
                 android:id="@+id/my_head"
                 android:layout_width="match_parent"
                 android:layout_height="120dp" >
+
+                <com.quange.views.RoundImageView
+                    android:id="@+id/logoIcon"
+                    android:layout_width="80dip"
+                    android:layout_height="80dip"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/jhds_launcher" >
+
+		        </com.quange.views.RoundImageView>
+		         <TextView
+                        android:id="@+id/tv_appVersion"
+                        android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentBottom="true"
+                        android:gravity="center"
+                        android:text="当前版本1.0"
+                        android:textColor="@color/text_dark"
+                        android:textSize="14sp" >
+
+	        	</TextView>
+		        
             </RelativeLayout>
             
             <View
@@ -281,7 +304,7 @@
                         android:src="@drawable/icon_my_set" />
 
                     <TextView
-                        android:id="@+id/tv_my_set_tag"
+                        android:id="@+id/tv_addStart"
                         android:layout_width="wrap_content"
                         android:layout_height="60dp"
                         android:layout_centerVertical="true"
@@ -289,7 +312,7 @@
                         android:layout_toRightOf="@id/iv_my_set_img"
                         android:gravity="center_vertical"
                         android:paddingRight="10dp"
-                        android:text="设置"
+                        android:text="给我好评"
                         android:textColor="@color/text_dark"
                         android:textSize="16sp" />
 

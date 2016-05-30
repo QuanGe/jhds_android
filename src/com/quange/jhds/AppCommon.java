@@ -278,7 +278,7 @@ public class AppCommon extends Application {
 	 * @param context
 	 * @return - true 网络连接 - false 网络连接异常
 	 */
-	public static boolean isConnect(Context context) {
+	public boolean isConnect(Context context) {
 		try {
 			ConnectivityManager connectivity = (ConnectivityManager) context
 					.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -301,7 +301,7 @@ public class AppCommon extends Application {
 	 * @param context
 	 * @return - true 网络连接是Wifi - false 网络连接不是Wifi
 	 */
-	public static boolean isWifi(Context context) {
+	public boolean isWifi(Context context) {
 		try {
 			ConnectivityManager connectivity = (ConnectivityManager) context
 					.getSystemService(Context.CONNECTIVITY_SERVICE);

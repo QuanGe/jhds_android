@@ -24,9 +24,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView.OnItemClickListener;
 
@@ -36,8 +34,6 @@ import com.quange.views.JHDSErrorMessage;
 
 public class JHDSShopActivity extends Activity implements OnItemClickListener {
 	
-	@ViewInject(R.id.backBtn)
-	private ImageView backBtn;
 	@ViewInject(R.id.errorMessage)
 	private JHDSErrorMessage errorMessage;
 	 @ViewInject(R.id.shop_list)

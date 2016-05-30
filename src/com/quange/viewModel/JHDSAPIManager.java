@@ -22,6 +22,7 @@ import com.google.gson.reflect.TypeToken;
 
 import com.quange.model.JHDSCopyModel;
 import com.quange.model.JHDSLearnModel;
+import com.quange.model.JHDSMessageModel;
 import com.quange.model.JHDSShopModel;
 
 public class JHDSAPIManager {
@@ -130,6 +131,32 @@ public class JHDSAPIManager {
 					
 				listener.onResponse(result);
 				
+			}
+		},errorListener);
+		addToRequestQueue(request);
+    	
+    }
+    
+    public void fetchMessageTag( final Listener<String> listener, ErrorListener errorListener)
+    {
+    	StringRequest request = new StringRequest("http://quangelab.com/images/jhds/messageTag.txt", new Listener<String>() {
+			public void onResponse(String body) {
+				listener.onResponse(body);
+			}
+		},errorListener);
+		addToRequestQueue(request);
+    	
+    }
+    
+    public void fetchMessageList( final Listener<List<JHDSMessageModel>> listener, ErrorListener errorListener)
+    {
+    	StringRequest request = new StringRequest("http://quangelab.com/images/jhds/message.txt", new Listener<String>() {
+			public void onResponse(String body) {
+				List<JHDSMessageModel> result = new Gson().fromJson(body,
+						new TypeToken<List<JHDSMessageModel>>() {
+						}.getType());
+					
+				listener.onResponse(result);
 			}
 		},errorListener);
 		addToRequestQueue(request);
