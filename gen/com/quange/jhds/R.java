@@ -490,8 +490,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int about_other_area=0x7f050036;
         public static final int about_set_area=0x7f050041;
         public static final int action_settings=0x7f050054;
-        public static final int backBtn=0x7f05001a;
-        public static final int backImg=0x7f050019;
+        public static final int backBtn=0x7f050013;
+        public static final int backImg=0x7f050014;
         public static final int both=0x7f050003;
         public static final int brushView=0x7f05000f;
         public static final int circle=0x7f050009;
@@ -501,12 +501,12 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int copyViewPaper=0x7f050024;
         public static final int copy_gridView=0x7f050053;
         public static final int disabled=0x7f050000;
-        public static final int drawBtn=0x7f050017;
+        public static final int drawBtn=0x7f050019;
         public static final int errorMessage=0x7f05001d;
         public static final int fl_inner=0x7f05004c;
         public static final int flip=0x7f050008;
         public static final int gridview=0x7f05000b;
-        public static final int header=0x7f050018;
+        public static final int header=0x7f05001a;
         public static final int headerTitle=0x7f05001b;
         public static final int indexTextView=0x7f050020;
         public static final int iv_icon=0x7f050051;
@@ -522,7 +522,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int iv_my_shop_more=0x7f05002f;
         public static final int learnViewPaper=0x7f050025;
         public static final int learn_list=0x7f050048;
-        public static final int line=0x7f050014;
+        public static final int line=0x7f050016;
         public static final int logoIcon=0x7f050028;
         public static final int manualOnly=0x7f050004;
         public static final int message_list=0x7f05001c;
@@ -539,7 +539,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int pull_to_refresh_progress=0x7f05004e;
         public static final int pull_to_refresh_sub_text=0x7f050050;
         public static final int pull_to_refresh_text=0x7f05004f;
-        public static final int realtabcontent=0x7f050013;
+        public static final int realtabcontent=0x7f050015;
         public static final int rl_my_buy=0x7f050037;
         public static final int rl_my_last=0x7f050031;
         public static final int rl_my_message=0x7f05003c;
@@ -552,8 +552,8 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int selectBtn=0x7f050012;
         public static final int shareBtn=0x7f05001f;
         public static final int shop_list=0x7f050022;
-        public static final int tabhost=0x7f050015;
-        public static final int tabs=0x7f050016;
+        public static final int tabhost=0x7f050017;
+        public static final int tabs=0x7f050018;
         public static final int tools=0x7f05000e;
         public static final int topView=0x7f050010;
         public static final int tv_addStart=0x7f050044;

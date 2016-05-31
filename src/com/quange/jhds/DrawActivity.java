@@ -19,7 +19,9 @@ import com.umeng.analytics.MobclickAgent;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Service;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.DataSetObserver;
@@ -63,6 +65,7 @@ import android.widget.TextView;
 @SuppressLint("NewApi") public class DrawActivity extends Activity implements OnColorChangedListener, SensorEventListener{
 	protected BrushView brushView;
 	protected RelativeLayout selectBtn;
+	protected RelativeLayout backBtn;
 	private RelativeLayout selectBrushView;
 	private Animation mInAnim, mOutAnim;
 	private GradientDrawable brushColor;
@@ -70,14 +73,14 @@ import android.widget.TextView;
 	private View brushIcon;
 	private SensorManager sensorManager = null;  
 	private Vibrator vibrator = null;  
-	protected static boolean isBack = false;
+	
 	protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_draw);
         
         
         brushView = (BrushView)findViewById(R.id.brushView);
-       
+        backBtn = (RelativeLayout)findViewById(R.id.backBtn);
         selectBtn = (RelativeLayout)findViewById(R.id.selectBtn);
         selectBtn.setOnClickListener(new OnClickListener() {
 
@@ -98,6 +101,13 @@ import android.widget.TextView;
 					System.out.println(selectBrushView.getAlpha());
 					selectBrushView.startAnimation(mInAnim);
 				}
+			}
+		});
+        
+        backBtn.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				back();
 			}
 		});
         
@@ -163,6 +173,17 @@ import android.widget.TextView;
 		});
         
         buildSelectBrushView();
+        
+        {
+        	GradientDrawable backColor =  new GradientDrawable();
+        	backColor.setCornerRadius( 50*dm.density/2);
+        	backColor.setColor(0x55555555);
+        	if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+        		backBtn.setBackground(backColor);
+        	else
+        		backBtn.setBackgroundDrawable(backColor);
+        	
+        }
     }
 	
 	private void buildSelectBrushView()
@@ -311,6 +332,7 @@ import android.widget.TextView;
             brushFrame.height = (int) (brushView.getBrushWidth()*dm.density);
             brushColor.setCornerRadius(brushView.getBrushWidth()*dm.density/2); 
             selectBtn.updateViewLayout(brushIcon, brushFrame);
+         
             return true;
         } else if (keyCode == KeyEvent.KEYCODE_VOLUME_UP) {
            
@@ -330,6 +352,29 @@ import android.widget.TextView;
 				selectBrushView.startAnimation(mOutAnim);
 				return false;
 			}
+			else
+			{
+				if(brushView.actCanBack)
+					finish();
+				else
+				{
+					new AlertDialog.Builder(this).setMessage("请选择是撤销还是返回上一页")
+					.setNegativeButton("撤销", new DialogInterface.OnClickListener() {
+	
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							brushView.backToFront();
+							
+						}
+					}).setPositiveButton("返回", new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							finish();
+						}
+					}).show();
+					return false;
+				}
+			}
 			
 			
         }
@@ -338,6 +383,34 @@ import android.widget.TextView;
         return super.onKeyDown(keyCode, event);
  
     }
+	
+	private void back()
+	{
+		RelativeLayout.LayoutParams l = (LayoutParams) selectBrushView.getLayoutParams();
+		if(l.leftMargin == 0)
+		{
+			selectBrushView.startAnimation(mOutAnim);
+			
+		}
+		else
+		{
+			new AlertDialog.Builder(this).setMessage("请选择是撤销还是返回上一页")
+			.setNegativeButton("撤销", new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					brushView.backToFront();
+					
+				}
+			}).setPositiveButton("返回", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					finish();
+				}
+			}).show();
+		
+		}
+	}
 	 @Override  
 	    protected void onPause()  
 	    {  
@@ -440,27 +513,6 @@ import android.widget.TextView;
           }     
            return sdDir.toString();   
              
-    }  
-    
-    public boolean dispatchKeyEvent(KeyEvent event)    
-    {    
-        int keyCode=event.getKeyCode();    
-        switch(keyCode)    
-        {    
-            case KeyEvent.KEYCODE_BACK: {    
-                 if(event.isLongPress())    
-                 {    
-                    brushView.backToFront(); 
-                     return true;    
-                 }else    
-                 {    
-                	 return super.dispatchKeyEvent(event);    
-      
-                 }    
-            }      
-        }    
-        return super.dispatchKeyEvent(event);    
-            
     }  
 
  

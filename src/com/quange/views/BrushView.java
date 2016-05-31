@@ -45,6 +45,7 @@ public class BrushView extends View {
 	private int brushColor = AppSetManager.getBrushColor();
 	private int brushwidth = AppSetManager.getBrushWidth();
 	private boolean enable;
+	public boolean actCanBack = true; 
 	public BrushView(Context context) {
 		this(context, null);
 		enable = true;
@@ -146,31 +147,42 @@ public class BrushView extends View {
 		 	pathList.get(pathList.size()-1).reset();
 			JHDSBrushModel bm = mDrawing.get(mDrawing.size()-1);
 			
-			
-			bm.lines.remove(bm.lines.size() -1);
-			for(int i = 0;i<bm.lines.size();i++)
+			if(bm.lines.size()>0)
 			{
-				JHDSBrushLineModel line = bm.lines.get(i);
-				pathList.get(pathList.size()-1).moveTo(line.points.get(0).x,line.points.get(0).y);
-				for(int j =1;j<line.points.size();j++)
+				bm.lines.remove(bm.lines.size() -1);
+				for(int i = 0;i<bm.lines.size();i++)
 				{
-					pathList.get(pathList.size()-1).lineTo(line.points.get(j).x,line.points.get(j).y);
+					JHDSBrushLineModel line = bm.lines.get(i);
+					pathList.get(pathList.size()-1).moveTo(line.points.get(0).x,line.points.get(0).y);
+					for(int j =1;j<line.points.size();j++)
+					{
+						pathList.get(pathList.size()-1).lineTo(line.points.get(j).x,line.points.get(j).y);
+					}
 				}
+				if(bm.lines.size() ==0)
+				{
+					pathList.remove(pathList.size()-1);
+					brushList.remove(brushList.size()-1);
+					mDrawing.remove(mDrawing.size()-1);
+				}
+				
+				postInvalidate();
+				
+				Toast.makeText(this.getContext(), "已经后退至上一次落笔处", Toast.LENGTH_SHORT).show();
 			}
-			if(bm.lines.size() ==0)
-			{
-				pathList.remove(pathList.size()-1);
-				brushList.remove(brushList.size()-1);
-				mDrawing.remove(mDrawing.size()-1);
-			}
+			else
+				Toast.makeText(this.getContext(), "您还没有开始画，现在开始动笔吧", Toast.LENGTH_SHORT).show();
 			
 			
-			postInvalidate();
+			
 		}
 		else
+		{
 			clearAll();
+			
+		}
 		
-		Toast.makeText(this.getContext(), "已经后退至上一次落笔处", Toast.LENGTH_SHORT).show();
+		
 	}
 	
 	public void setEnable(boolean e)
@@ -309,6 +321,7 @@ public class BrushView extends View {
 				line.points.add(new PointF(pointX,pointY));
 				mDrawing.get(mDrawing.size()-1).lines.add(line);
 				pathList.get(pathList.size()-1).moveTo(pointX, pointY);
+				actCanBack = false;
 			}
 			break;
 		case MotionEvent.ACTION_MOVE:
