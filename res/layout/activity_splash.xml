@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical" >
+
+     <ImageView
+        android:id="@+id/iv_splash"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/app_name"
+        android:scaleType="fitXY"
+         />
+
+    <Button
+        android:id="@+id/btn_skip_splashimage"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="20dp"
+        android:alpha="1"
+        android:background="@drawable/btn_cancel"
+        android:text="跳过"
+        android:textColor="#2f2f2f"
+        android:textSize="14dp"
+        android:visibility="visible" />
+    <RelativeLayout 
+        android:id="@+id/guidePagesBox"
+        android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            >
+        <android.support.v4.view.ViewPager
+            android:id="@+id/guidePages"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"/>
+	    <LinearLayout
+	        android:id="@+id/ll"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentTop="true"
+	        android:layout_centerHorizontal="true"
+	        android:layout_marginTop="24.0dip"
+	        android:orientation="horizontal" >
+	
+	        <ImageView
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_gravity="center_vertical"
+	            android:clickable="true"
+	            
+	            android:padding="15.0dip"
+	            android:src="@drawable/btn_page_drawable" />
+	
+	        <ImageView
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_gravity="center_vertical"
+	            android:clickable="true"
+	            
+	            android:padding="15.0dip"
+	            android:src="@drawable/btn_page_drawable" />
+	
+	        <ImageView
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_gravity="center_vertical"
+	            android:clickable="true"
+	         
+	            android:padding="15.0dip"
+	            android:src="@drawable/btn_page_drawable" />
+	
+	        <ImageView
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_gravity="center_vertical"
+	            android:clickable="true"
+	           
+	            android:padding="15.0dip"
+	            android:src="@drawable/btn_page_drawable" />
+	        <ImageView
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_gravity="center_vertical"
+	            android:clickable="true"
+	           
+	            android:padding="15.0dip"
+	            android:src="@drawable/btn_page_drawable" />
+	    </LinearLayout>
+    </RelativeLayout>
+    
+
+</RelativeLayout>
