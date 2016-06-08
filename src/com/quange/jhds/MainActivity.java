@@ -48,6 +48,8 @@ import android.widget.TabHost.OnTabChangeListener;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if(AppSetManager.getFirstUseApp()==1)
+        	AppSetManager.setFirstUseApp(0);
         drawbtn = (Button)findViewById(R.id.drawBtn);
         
         GradientDrawable shape =  new GradientDrawable();

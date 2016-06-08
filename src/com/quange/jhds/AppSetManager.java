@@ -12,6 +12,16 @@ public class AppSetManager {
 		}
 	}
 	
+	public static int getFirstUseApp() {
+		return setPref.getInt("firstUseApp", 1);
+	}
+	
+	public static void setFirstUseApp(int firstUseApp)
+	{
+		setPref.edit().putInt("firstUseApp", firstUseApp).commit();
+	}
+	
+	
 	public static int getBrushWidth() {
 		return setPref.getInt("brushWidth", 8);
 	}

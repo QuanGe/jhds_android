@@ -1,13 +1,20 @@
 package com.quange.jhds;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
+import com.quange.views.CircularProgressButton;
 import com.quange.views.JHDSGuideView;
 import com.quange.views.JHDSTextGuideView;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.GradientDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -16,6 +23,7 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -26,6 +34,10 @@ public class SplashActivity extends Activity implements OnClickListener{
 	 private ViewPager guidePages;
 	 @ViewInject(R.id.guidePagesBox)
 	 private RelativeLayout guidePagesBox;
+	 @ViewInject(R.id.btn_skip_splashimage)
+	 private CircularProgressButton skipBtn;
+	 @ViewInject(R.id.iv_splash)
+	 private ImageView splashImg;
 	// 底部小点的图片
 	 private ImageView[] points;
 	// 记录当前选中位置
@@ -33,6 +45,8 @@ public class SplashActivity extends Activity implements OnClickListener{
 	 private String[] allInfo = {"给你一块画板\n画出你的天空","海量简画教程\n持续不断更新","临摹优秀作品\n提示自己笔格","手机摇一摇\n重新来画","音量键"};
 	 private int iconArray[] = { R.drawable.splash0, R.drawable.splash1,
 				R.drawable.splash2, R.drawable.splash3 };
+	 
+	 private Timer timer;
 	 public class guideAdapter extends PagerAdapter {
 
 			private View mCurrentView;
@@ -80,32 +94,58 @@ public class SplashActivity extends Activity implements OnClickListener{
 
 
 		}
-	 public void onCreate(Bundle savedInstanceState) {
+	 @SuppressLint("NewApi") public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.activity_splash);
 			ViewUtils.inject(this); // 注入view和事件
-			guidePages.setAdapter(new guideAdapter() );
-			initPoint();
-			//guidePagesBox.setVisibility(View.GONE);
-			guidePages.addOnPageChangeListener(new OnPageChangeListener() {
-
-				@Override
-				public void onPageSelected(int position) {
-					// TODO Auto-generated method stub
-					setCurDot(position);
-				}
-
-				@Override
-				public void onPageScrolled(int arg0, float arg1, int arg2) {
-					// TODO Auto-generated method stub
-
-				}
-
-				@Override
-				public void onPageScrollStateChanged(int arg0) {
-					// TODO Auto-generated method stub
-				}
-			});
+			
+			
+			//splash
+			{
+				GradientDrawable skipBack =  new GradientDrawable();
+				skipBack.setCornerRadius(40*AppCommon.getInstance().metrics.density/2);
+				skipBack.setColor(0x88555555);
+	        	if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+	        		skipBtn.setBackground(skipBack);
+	        	else
+	        		skipBtn.setBackgroundDrawable(skipBack);
+	        	
+	        	timer = new Timer(); // 实例化Timer定时器对象
+				timer.schedule(new TimerTask() { // schedule方法(安排,计划)需要接收一个TimerTask对象和一个代表毫秒的int值作为参数
+							@Override
+							public void run() {
+								startMainActivity();
+							}
+						}, 2600);
+			}
+			//guide
+			{
+				guidePages.setAdapter(new guideAdapter() );
+				initPoint();
+				if(AppSetManager.getFirstUseApp() ==1)
+					guidePagesBox.setVisibility(View.VISIBLE);
+				else
+					guidePagesBox.setVisibility(View.GONE);
+				guidePages.addOnPageChangeListener(new OnPageChangeListener() {
+	
+					@Override
+					public void onPageSelected(int position) {
+						// TODO Auto-generated method stub
+						setCurDot(position);
+					}
+	
+					@Override
+					public void onPageScrolled(int arg0, float arg1, int arg2) {
+						// TODO Auto-generated method stub
+	
+					}
+	
+					@Override
+					public void onPageScrollStateChanged(int arg0) {
+						// TODO Auto-generated method stub
+					}
+				});
+			}
 			
 		 }
 	 
@@ -174,8 +214,10 @@ public class SplashActivity extends Activity implements OnClickListener{
 		 }
 	    
 	    @OnClick(R.id.btn_skip_splashimage)
-	    private void skipToMain(View view)
+	    private void skipToMain(CircularProgressButton btn)
 	    {
+	    	btn.cancel();
+	    	timer.cancel();
 	    	startMainActivity();
 	    }
 }

@@ -34,7 +34,6 @@ public class AppCommon extends Application {
 	public static AppCommon appCommon;
 	public static int statusHeight;
 	public static DisplayMetrics metrics;
-	public static AppSetManager appset;
 	public static int screenHeight;
 	public static int screenWidth;
 	public static ImageLoader imageLoader = ImageLoader.getInstance();

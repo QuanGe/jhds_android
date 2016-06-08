@@ -2,35 +2,118 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
-    android:orientation="vertical" >
+    android:background="@color/white"
+     >
 
-     <ImageView
-        android:id="@+id/iv_splash"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:contentDescription="@string/app_name"
-        android:scaleType="fitXY"
-         />
+     <RelativeLayout
+        android:id="@+id/splashBox"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+	     <ImageView
+	        android:id="@+id/iv_splash"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:contentDescription="@string/app_name"
+	        android:scaleType="fitXY"
+	         />
 
-    <Button
-        android:id="@+id/btn_skip_splashimage"
-        android:layout_width="60dp"
-        android:layout_height="30dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_margin="20dp"
-        android:alpha="1"
-        android:background="@drawable/btn_cancel"
-        android:text="跳过"
-        android:textColor="#2f2f2f"
-        android:textSize="14dp"
-        android:visibility="visible" />
-    <RelativeLayout 
+	    <com.quange.views.CircularProgressButton
+	        android:id="@+id/btn_skip_splashimage"
+	        android:layout_width="40dp"
+	        android:layout_height="40dp"
+	        android:layout_alignParentRight="true"
+	        android:layout_alignParentTop="true"
+	        android:layout_margin="20dp"
+	        android:alpha="1"
+	        android:background="@drawable/btn_cancel"
+	        android:text="跳过"
+	        android:textColor="#ffffff"
+	        android:textSize="14dp"
+	        android:visibility="visible" />
+
+	    <RelativeLayout
+	        android:id="@+id/logobox"
+	        android:layout_width="match_parent"
+	        android:layout_height="100dp"
+	        android:layout_alignParentBottom="true"
+	        android:background="@color/background"
+	         >
+	        
+	        <LinearLayout
+	        
+	        android:layout_width="wrap_content"
+	        android:layout_height="100dp"
+	         android:layout_centerHorizontal="true"
+	        android:orientation="horizontal"
+	         >
+
+			     <com.quange.views.RoundImageView
+			         android:layout_width="40dp"
+			         android:layout_height="40dp"
+			         android:layout_gravity="center_vertical"
+			         android:padding="15.0dip"
+			         android:src="@drawable/jhds_launcher" />
+			     <TextView 
+			         android:layout_width="105dp"
+			         android:layout_height="40dp"
+	                 android:gravity="center"
+			         android:text=" 简画大师 ｜ "
+			         android:textColor="@color/text_dark"
+	                 android:textSize="18sp"
+	                 android:paddingLeft="5dp" 
+			         android:layout_gravity="center_vertical"
+			        
+			         >
+			         
+			         
+			     </TextView>
+			     <TextView 
+			         android:layout_width="50dp"
+			         android:layout_height="40dp"
+			         android:layout_gravity="center_vertical"
+	                 
+	                 android:gravity="center"
+			         android:text="有笔格"
+			         android:textColor="#DF0526"
+	                        android:textSize="14sp"
+			         
+			        
+			         >
+			         
+			         
+			     </TextView>
+
+			</LinearLayout>
+			<TextView 
+		         android:layout_width="match_parent"
+		         android:layout_height="30dp"
+		         android:layout_alignParentBottom="true"
+		         
+                 android:gravity="center"
+		         android:text="泉哥工作室出品"
+		         android:textColor="#bbbbbb"
+                 android:textSize="11sp"
+                 
+		         >
+		         
+		         
+		     </TextView>
+	    </RelativeLayout>
+	    
+
+		<View
+		    android:layout_width="match_parent"
+		    android:layout_height="1dp"
+		    android:layout_above="@+id/logobox"
+		    android:background="@color/background_line" />
+
+	</RelativeLayout>
+    <RelativeLayout
         android:id="@+id/guidePagesBox"
         android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            >
+        android:layout_height="fill_parent"
+        android:visibility="gone" >
+
         <android.support.v4.view.ViewPager
             android:id="@+id/guidePages"
             android:layout_width="fill_parent"
