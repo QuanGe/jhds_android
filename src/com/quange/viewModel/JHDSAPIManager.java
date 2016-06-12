@@ -49,6 +49,11 @@ public class JHDSAPIManager {
     	requestQueue = getRequestQueue();
 	 }
 	
+	public Context getContextVar()
+	{
+		return theContext;
+	}
+	
 	 public static synchronized JHDSAPIManager getInstance(Context context) {
 	        if (sharedInstance == null) {
 	        	sharedInstance = new JHDSAPIManager(context);

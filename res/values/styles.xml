@@ -39,4 +39,12 @@
         <!-- android:backgroundDimEnabled 标识是否允许Dialog的背景变暗，false 背景为无，Dialog外围纯透明，没有灰色半透明效果；为true时，Dialog外围纯有灰色半透明效果 -->
         <item name="android:backgroundDimEnabled">true</item>
     </style>
+    <style name="share_th_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:paddingTop">5dp</item>
+    </style>
 </resources>

@@ -17,4 +17,5 @@
     <color name="color_two">#11bb11</color>
     <color name="item_under_line_shadow">#d9d9d9</color>
     <color name="text_dark">#46505A</color>
+    <color name="mask_80_80">#b4333333</color>
 </resources>

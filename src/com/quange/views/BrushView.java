@@ -396,7 +396,7 @@ public class BrushView extends View {
 				public void run() {
 					AppCommon.getInstance().saveLineData(convertLineToString());
 				}
-			}, 2000);
+			}, 1000);
 			
 			/*
 			 new Thread() {

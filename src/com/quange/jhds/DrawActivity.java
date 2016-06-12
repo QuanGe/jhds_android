@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+
 import com.larswerkman.holocolorpicker.ColorPicker.OnColorChangedListener;
 import com.quange.views.SelectBrushView;
 import com.quange.views.BrushView;
@@ -269,12 +270,13 @@ import android.widget.TextView;
 				Bitmap bitmap = screenShot(brushView);
 				
 				Calendar c = Calendar.getInstance();
-				
+				String localImgUrl = getSDPath()+"/jhds/jianhuadashi/"+c.get(Calendar.YEAR)+c.get(Calendar.MONTH)+c.get(Calendar.DAY_OF_MONTH)+c.get(Calendar.HOUR_OF_DAY)+c.get(Calendar.MINUTE)+".jpg";
 				try {
-					saveBitmapToFile(bitmap,getSDPath()+"/jhds/jianhuadashi/"+c.get(Calendar.YEAR)+c.get(Calendar.MONTH)+c.get(Calendar.DAY_OF_MONTH)+c.get(Calendar.HOUR_OF_DAY)+c.get(Calendar.MINUTE)+".jpg");
+					AppCommon.getInstance().saveBitmapToFile(bitmap, localImgUrl, true);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+					
 				}
 			}
 		});
@@ -291,17 +293,22 @@ import android.widget.TextView;
 
 			@Override
 			public void onClick(View v) {
-				Intent shareIntent = new Intent();
-		        shareIntent.setAction(Intent.ACTION_SEND);
-		        shareIntent.putExtra(Intent.EXTRA_TEXT, "This is my Share text.");
-		        shareIntent.setType("text/plain");
-
-		        //设置分享列表的标题，并且每次都显示分享列表
-		        startActivity(Intent.createChooser(shareIntent, "分享到"));
+				Bitmap bitmap = screenShot(brushView);
+				Calendar c = Calendar.getInstance();
+				String localImgUrl = getSDPath()+"/jhds/jianhuadashi/"+c.get(Calendar.YEAR)+c.get(Calendar.MONTH)+c.get(Calendar.DAY_OF_MONTH)+c.get(Calendar.HOUR_OF_DAY)+c.get(Calendar.MINUTE)+".jpg";
+				share(localImgUrl,bitmap);
+				
 			}
 		});
         
 	}
+	
+	private void share(String localImgUrl,Bitmap bitmap) {
+		
+		final String content = "测试";
+		ShareCollectUtils.shareContent(this, content, localImgUrl, bitmap);
+	}
+	
 	public Bitmap screenShot(View view) {
 	    Bitmap bitmap = Bitmap.createBitmap(view.getWidth(),
 	            view.getHeight(), Config.ARGB_8888);
@@ -458,48 +465,7 @@ import android.widget.TextView;
         }  
     }  
     
-    /** 
-     * Save Bitmap to a file.保存图片到SD卡。 
-     *  
-     * @param bitmap 
-     * @param file 
-     * @return error message if the saving is failed. null if the saving is 
-     *         successful. 
-     * @throws IOException 
-     */  
-    public void saveBitmapToFile(Bitmap bitmap, String _file)  
-            throws IOException {//_file = <span style="font-family: Arial, Helvetica, sans-serif;">getSDPath()+"</span><span style="font-family: Arial, Helvetica, sans-serif;">/xx自定义文件夹</span><span style="font-family: Arial, Helvetica, sans-serif;">/hot.png</span><span style="font-family: Arial, Helvetica, sans-serif;">"</span>  
-        BufferedOutputStream os = null;  
-       
-        try {  
-            File file = new File(_file);  
-            // String _filePath_file.replace(File.separatorChar +  
-            // file.getName(), "");  
-            int end = _file.lastIndexOf(File.separator);  
-            String _filePath = _file.substring(0, end);  
-            File filePath = new File(_filePath);  
-            if (!filePath.exists()) {  
-                filePath.mkdirs();  
-            }  
-            file.createNewFile();  
-            os = new BufferedOutputStream(new FileOutputStream(file));  
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, os);  
-        } finally {  
-            if (os != null) {  
-                try {  
-                	os.flush();
-                    os.close();  
-                    Toast.makeText(this, "已经成功保存在"+_file, Toast.LENGTH_SHORT).show();
-                    this.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,Uri
-                            .parse("file://" + _file)));
-                    
-                } catch (IOException e) {  
-                	System.out.println(e.getMessage());
-                	Toast.makeText(this, "保存失败"+e.getMessage(), Toast.LENGTH_SHORT).show();
-                }  
-            }  
-        }  
-    }  
+    
     /** 
      * 获取SDK路径 
      * @return 

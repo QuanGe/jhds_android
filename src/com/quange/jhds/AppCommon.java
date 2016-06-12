@@ -3,6 +3,7 @@ package com.quange.jhds;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -17,6 +18,7 @@ import java.util.Locale;
 
 import java.net.URL;
 
+
 import org.apache.http.util.EncodingUtils;
 
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
@@ -25,6 +27,8 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
 import android.app.Application;
 import android.content.Context;
@@ -47,6 +51,8 @@ public class AppCommon extends Application {
 	public static int screenWidth;
 	public static ImageLoader imageLoader = ImageLoader.getInstance();
 	public static DisplayImageOptions options;
+	// IWXAPI 是第三方app和微信通信的openapi接口
+	public static IWXAPI api;
 	// 单例模式中获取唯一的MyApplication实例
     public static AppCommon getInstance(){
         if (null == appCommon){
@@ -70,6 +76,9 @@ public class AppCommon extends Application {
 		metrics = this.getApplicationContext().getResources().getDisplayMetrics(); 
 		screenWidth = metrics.widthPixels;
 		screenHeight = metrics.heightPixels; 
+		
+		api =  WXAPIFactory.createWXAPI(this, "wxd9d724f78ea966a8");
+		api.registerApp("wxd9d724f78ea966a8");
 	}
 	
 	public static void initImageLoader(Context context) {
@@ -351,6 +360,55 @@ public class AppCommon extends Application {
     	return savePath;
     }
     
+    /** 
+     * Save Bitmap to a file.保存图片到SD卡。 
+     *  
+     * @param bitmap 
+     * @param file 
+     * @return error message if the saving is failed. null if the saving is 
+     *         successful. 
+     * @throws IOException 
+     */  
+    public void saveBitmapToFile(Bitmap bitmap, String _file,boolean tip)  
+            throws IOException {//_file = <span style="font-family: Arial, Helvetica, sans-serif;">getSDPath()+"</span><span style="font-family: Arial, Helvetica, sans-serif;">/xx自定义文件夹</span><span style="font-family: Arial, Helvetica, sans-serif;">/hot.png</span><span style="font-family: Arial, Helvetica, sans-serif;">"</span>  
+        BufferedOutputStream os = null;  
+       
+        try {  
+            File file = new File(_file);  
+            // String _filePath_file.replace(File.separatorChar +  
+            // file.getName(), "");  
+            int end = _file.lastIndexOf(File.separator);  
+            String _filePath = _file.substring(0, end);  
+            File filePath = new File(_filePath);  
+            if (!filePath.exists()) {  
+                filePath.mkdirs();  
+            }  
+            file.createNewFile();  
+            os = new BufferedOutputStream(new FileOutputStream(file));  
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, os);  
+        } finally {  
+            if (os != null) {  
+                try {  
+                	os.flush();
+                    os.close();  
+                    if(tip)
+                    	Toast.makeText(this, "已经成功保存在"+_file, Toast.LENGTH_SHORT).show();
+                   
+                    this.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,Uri
+                            .parse("file://" + _file)));
+                    
+                } catch (IOException e) {  
+                	System.out.println(e.getMessage());
+                	if(tip)
+                	Toast.makeText(this, "保存失败"+e.getMessage(), Toast.LENGTH_SHORT).show();
+                }  
+            }  
+        }  
+    }  
     
-    
+    public byte[] Bitmap2Bytes(Bitmap bm) {
+    	ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.PNG, 100, baos);
+     	return baos.toByteArray();
+    }
 }

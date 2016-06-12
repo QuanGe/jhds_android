@@ -7,7 +7,7 @@
     android:background="@color/white" >
     
 	<com.quange.views.BrushView
-	    android:layout_below="@+id/tools"
+	    
 	    android:id="@+id/brushView"
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent">
