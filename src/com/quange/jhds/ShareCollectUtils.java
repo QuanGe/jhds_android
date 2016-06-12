@@ -88,18 +88,6 @@ public class ShareCollectUtils {
 			@Override
 			public void onClick(View v) {
 			
-				WXWebpageObject webpage = new WXWebpageObject();
-				webpage.webpageUrl = "http://qq.com";
-				WXMediaMessage msg = new WXMediaMessage(webpage);
-				msg.title = "hhh";
-				msg.description = "sadasd";
-				SendMessageToWX.Req req = new SendMessageToWX.Req();
-				req.transaction = String.valueOf(System.currentTimeMillis());
-				req.message = msg;
-				req.scene = SendMessageToWX.Req.WXSceneSession;
-				AppCommon.getInstance().api.sendReq(req);
-				popupWindow.dismiss();
-				/*
 				WXImageObject imgObj = new WXImageObject(bitmap);  
 				WXMediaMessage msg = new WXMediaMessage();
 				msg.mediaObject = imgObj;
@@ -111,7 +99,7 @@ public class ShareCollectUtils {
 				req.message = msg;
 				req.scene = SendMessageToWX.Req.WXSceneSession;
 				AppCommon.getInstance().api.sendReq(req);
-				popupWindow.dismiss();*/
+				popupWindow.dismiss();
 			}
 		});
 

@@ -77,7 +77,7 @@ public class AppCommon extends Application {
 		screenWidth = metrics.widthPixels;
 		screenHeight = metrics.heightPixels; 
 		
-		api =  WXAPIFactory.createWXAPI(this, "wxd9d724f78ea966a8");
+		api =  WXAPIFactory.createWXAPI(this, "wxd9d724f78ea966a8",true);
 		api.registerApp("wxd9d724f78ea966a8");
 	}
 	
