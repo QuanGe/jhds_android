@@ -1,8 +1,11 @@
 package com.quange.jhds;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,6 +14,8 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+
+import java.net.URL;
 
 import org.apache.http.util.EncodingUtils;
 
@@ -23,12 +28,16 @@ import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Environment;
 import android.util.DisplayMetrics;
+import android.widget.Toast;
 
 public class AppCommon extends Application {
 	public static AppCommon appCommon;
@@ -319,4 +328,29 @@ public class AppCommon extends Application {
 		}
 		return false;
 	}
+	
+	/**
+    * 加载本地图片
+    * @param url
+    * @return
+    */
+    public  Bitmap getLoacalBitmap(String url) {
+         try {
+              FileInputStream fis = new FileInputStream(url);
+              return BitmapFactory.decodeStream(fis);  ///把流转化为Bitmap图片        
+
+           } catch (FileNotFoundException e) {
+              e.printStackTrace();
+              return null;
+         }
+    }
+    
+    public String getSplashLocalUrl(String url)
+    {
+    	String savePath = getSDPath()+"/jhds/splash/"+SecurityV2Util.getSignatureByMD5(url);
+    	return savePath;
+    }
+    
+    
+    
 }

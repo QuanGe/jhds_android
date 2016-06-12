@@ -12,8 +12,12 @@ import com.quange.views.JHDSTextGuideView;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.drawable.GradientDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
@@ -111,12 +115,43 @@ public class SplashActivity extends Activity implements OnClickListener{
 	        		skipBtn.setBackgroundDrawable(skipBack);
 	        	
 	        	timer = new Timer(); // 实例化Timer定时器对象
-				timer.schedule(new TimerTask() { // schedule方法(安排,计划)需要接收一个TimerTask对象和一个代表毫秒的int值作为参数
-							@Override
-							public void run() {
-								startMainActivity();
+	        	if(AppSetManager.getFirstUseApp() !=1)
+					timer.schedule(new TimerTask() { // schedule方法(安排,计划)需要接收一个TimerTask对象和一个代表毫秒的int值作为参数
+								@Override
+								public void run() {
+									startMainActivity();
+								}
+							}, 2600);
+				
+				String splashUrl = AppSetManager.getSplashImgUrl();
+				if(!splashUrl.equals(""))
+				{
+					String localSplashUrl = AppCommon.getInstance().getSplashLocalUrl(splashUrl);
+					Bitmap b = AppCommon.getInstance().getLoacalBitmap(localSplashUrl);
+					if(b != null)
+					{
+						splashImg.setImageBitmap(b);
+					}
+					else
+						AppCommon.getInstance().imageLoader.displayImage(splashUrl, splashImg, AppCommon.getInstance().options);
+					
+					splashImg.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							
+							switch(AppSetManager.getSplashType())
+							{
+								case -1:
+									break;
+								case 0:
+									break;
+								case 1:
+									clickSplash();
+									break;
 							}
-						}, 2600);
+						}
+					});
+				}
 			}
 			//guide
 			{
@@ -148,6 +183,15 @@ public class SplashActivity extends Activity implements OnClickListener{
 			}
 			
 		 }
+	 
+	 public void clickSplash()
+	 {
+		 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(AppSetManager.getSplashDetail()));
+		 if (AppCommon.getInstance().isAppInstalled(getApplicationContext(), "com.taobao.taobao")) {
+		     intent.setClassName("com.taobao.taobao", "com.taobao.tao.shop.router.ShopUrlRouterActivity");
+		 }
+		 startActivity(intent);
+	 }
 	 
 	 /**
 	     * 初始化底部小点

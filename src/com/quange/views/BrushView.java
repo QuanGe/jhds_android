@@ -26,6 +26,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PointF;
 import android.os.Handler;
+import android.os.HandlerThread;
 import android.os.Message;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -353,11 +354,13 @@ public class BrushView extends View {
 				pathList.get(pathList.size()-1).lineTo(pointX+1, pointY);
 			}
 			
+			
 			new Thread() {
 				public void run() {
 					AppCommon.getInstance().saveLineData(convertLineToString());
 				}
 			}.start();
+			
 			
 			break;
 		case MotionEvent.ACTION_CANCEL:

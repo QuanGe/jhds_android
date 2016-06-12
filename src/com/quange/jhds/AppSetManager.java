@@ -37,4 +37,33 @@ public class AppSetManager {
 	public static void saveBrushColor(int brushColor) {
 		setPref.edit().putInt("brushColor", brushColor).commit();
 	}
+	
+	public static void saveSplashImgUrl(String url)
+	{
+		setPref.edit().putString("splashImgUrl", url).commit();
+	}
+	
+	public static String getSplashImgUrl()
+	{
+		return setPref.getString("splashImgUrl", "");
+	}
+	
+	public static void saveSplashType(int type)
+	{
+		setPref.edit().putInt("splashType", type).commit();
+	}
+	
+	public static int getSplashType() {
+		return setPref.getInt("splashType", -1);
+	}
+	
+	public static void saveSplashDetail(String detail)
+	{
+		setPref.edit().putString("splashDetail", detail).commit();
+	}
+	
+	public static String getSplashDetail()
+	{
+		return setPref.getString("splashDetail", "");
+	}
 }

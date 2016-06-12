@@ -60,7 +60,7 @@ public class PhotosActivity extends Activity {
 				
 	            // Now just add PhotoView to ViewPager and return it
 	            ((ViewPager) container).addView(photoView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-	            Bitmap bitmap = getLoacalBitmap(allUrls[position]); //从本地取图片(在cdcard中获取)  //
+	            Bitmap bitmap = AppCommon.getInstance().getLoacalBitmap(allUrls[position]); //从本地取图片(在cdcard中获取)  //
 	            photoView.setImageBitmap(bitmap);
 	            return photoView;
 			}
@@ -68,21 +68,7 @@ public class PhotosActivity extends Activity {
 
 	}
 	
-	/**
-	    * 加载本地图片
-	    * @param url
-	    * @return
-	    */
-	    public static Bitmap getLoacalBitmap(String url) {
-	         try {
-	              FileInputStream fis = new FileInputStream(url);
-	              return BitmapFactory.decodeStream(fis);  ///把流转化为Bitmap图片        
-
-	           } catch (FileNotFoundException e) {
-	              e.printStackTrace();
-	              return null;
-	         }
-	    }
+	
 	    
 	@Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -1,5 +1,11 @@
 package com.quange.viewModel;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,16 +16,25 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
+import android.net.Uri;
+import android.widget.Toast;
+import android.widget.ImageView.ScaleType;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
+import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import com.quange.jhds.AppCommon;
+import com.quange.jhds.AppSetManager;
 import com.quange.model.JHDSCopyModel;
 import com.quange.model.JHDSLearnModel;
 import com.quange.model.JHDSMessageModel;
@@ -51,6 +66,99 @@ public class JHDSAPIManager {
 
     public <T> void addToRequestQueue(Request<T> req) {
         getRequestQueue().add(req);
+    }
+    
+    
+    public void fetchSplashData(final Listener<String> listener, ErrorListener errorListener)
+    {
+    	StringRequest request = new StringRequest("http://quangelab.com/images/jhds/splash.txt", new Listener<String>() {
+			public void onResponse(String body) {
+				
+				try {
+					JSONObject jsObj = new JSONObject(body);
+					
+					String r = jsObj.getString("img");
+					if(r.equals(AppSetManager.getSplashImgUrl()))
+					{
+						String localSplashUrl = AppCommon.getInstance().getSplashLocalUrl(r);
+						Bitmap b = AppCommon.getInstance().getLoacalBitmap(localSplashUrl);
+						if(b != null)
+						{
+							return;
+						}
+						else
+						{
+							saveSplashImg(r);
+						}
+						
+					}
+					else
+					{
+						String detail = jsObj.getString("detail");
+						int type = jsObj.getInt("type");
+						AppSetManager.saveSplashImgUrl(r);
+						AppSetManager.saveSplashDetail(detail);
+						AppSetManager.saveSplashType(type);
+						saveSplashImg(r);
+						
+					}
+					listener.onResponse(body);
+					
+				} catch (Exception e) {
+					System.out.println("caocaocaocaocao");
+				}
+				
+				
+				
+			}
+		},errorListener);
+		addToRequestQueue(request);
+    }
+    
+    public void saveSplashImg(String url)
+    {
+    	final String savePath = AppCommon.getInstance().getSplashLocalUrl(url);
+     
+		ImageRequest ir = new ImageRequest(url,new Listener<Bitmap>() {
+			public void onResponse(Bitmap body) {
+				
+				 BufferedOutputStream os = null;  
+			       
+			        try {  
+			            File file = new File(savePath);  
+			            // String _filePath_file.replace(File.separatorChar +  
+			            // file.getName(), "");  
+			            int end = savePath.lastIndexOf(File.separator);  
+			            String _filePath = savePath.substring(0, end);  
+			            File filePath = new File(_filePath);  
+			            if (!filePath.exists()) {  
+			                filePath.mkdirs();  
+			            }  
+			            file.createNewFile();  
+			            os = new BufferedOutputStream(new FileOutputStream(file));  
+			            body.compress(Bitmap.CompressFormat.PNG, 100, os);  
+			        }catch (IOException e) {  
+	                	System.out.println(e.getMessage());
+	                	
+	                }finally {  
+			            if (os != null) {  
+			                try {  
+			                	os.flush();
+			                    os.close();  
+			                    
+			                    theContext.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,Uri
+			                            .parse("file://" + savePath)));
+			                    
+			                } catch (IOException e) {  
+			                	System.out.println(e.getMessage());
+			                	
+			                }  
+			            }  
+			        }  
+			}
+		} , 0, 0,ScaleType.CENTER_INSIDE, Config.RGB_565, null);
+		addToRequestQueue(ir);
+		
     }
     
     public void fetchCopyPageNum(int type,final Listener<String> listener, ErrorListener errorListener)

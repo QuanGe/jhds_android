@@ -4,6 +4,8 @@ package com.quange.jhds;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
+import com.quange.viewModel.JHDSAPIManager;
 import com.quange.views.CopyFragment;
 import com.quange.views.LearnFragment;
 import com.quange.views.MineFragment;
@@ -50,13 +52,14 @@ import android.widget.TabHost.OnTabChangeListener;
         setContentView(R.layout.activity_main);
         if(AppSetManager.getFirstUseApp()==1)
         	AppSetManager.setFirstUseApp(0);
+        JHDSAPIManager.getInstance(this).fetchSplashData(null, null);
         drawbtn = (Button)findViewById(R.id.drawBtn);
         
         GradientDrawable shape =  new GradientDrawable();
         DisplayMetrics dm = new DisplayMetrics();  
 		dm = this.getApplicationContext().getResources().getDisplayMetrics(); 
         shape.setCornerRadius( 35 *dm.density);
-        shape.setColor(Color.GREEN);
+        shape.setColor(0xff119B39);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
         	drawbtn.setBackground(shape);
         else
@@ -91,6 +94,10 @@ import android.widget.TabHost.OnTabChangeListener;
 
 		mTabHost.setOnTabChangedListener(new OnTabChangeListener() {
 			public void onTabChanged(String tabId) {
+				if(tabId.equals("我的"))
+					drawbtn.setVisibility(View.GONE);
+				else
+					drawbtn.setVisibility(View.VISIBLE);
 				setTvTextColor(tabId);
 			}
 		});
