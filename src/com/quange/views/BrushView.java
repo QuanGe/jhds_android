@@ -3,6 +3,8 @@ package com.quange.views;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -47,6 +49,8 @@ public class BrushView extends View {
 	private int brushwidth = AppSetManager.getBrushWidth();
 	private boolean enable;
 	public boolean actCanBack = true; 
+	private Timer timer;
+
 	public BrushView(Context context) {
 		this(context, null);
 		enable = true;
@@ -191,12 +195,40 @@ public class BrushView extends View {
 		this.enable =e;
 	}
 	
-	private String convertLineToString()
+	private synchronized String convertLineToString()
 	{
 		String str = "";
+		/*
 		Gson gson = new Gson(); 
 		str = gson.toJson(mDrawing,new TypeToken<ArrayList<JHDSBrushModel>>() {
-		}.getType());
+		}.getType());*/
+		str = "[";
+		for (int i = 0 ;i<mDrawing.size();++i)
+		{
+			JHDSBrushModel bm = mDrawing.get(i);
+			str = str+ "{"+"\"brushColor\":"+bm.brushColor+",\"brushwidth\":"+bm.brushwidth+",\"lines\":[";
+			for (int j = 0 ;j<bm.lines.size();++j)
+			{
+				JHDSBrushLineModel lm = bm.lines.get(j);
+				str = str+ "{"+"\"points\":[";
+				for(int m = 0;m<lm.points.size();++m)
+				{
+					PointF p = lm.points.get(m);
+					str= str+"{\"x\":"+p.x+",\"y\":"+p.y+"}";
+					if(m != lm.points.size()-1)
+						str= str+",";
+				}
+				str = str+"]}";
+				if(j != bm.lines.size()-1)
+					str= str+",";
+			}
+					
+			str = str+"]}";
+			if(i != mDrawing.size()-1)
+				str= str+",";
+		}
+		
+		str = str+"]";
 		return str;
 	}
 
@@ -304,16 +336,20 @@ public class BrushView extends View {
 		updateBrushColor(brushColor);
 		enable = true;
 		//loadSaveDataAndDraw();
+		
+		
 	}
 	
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		float pointX = event.getX();
 		float pointY = event.getY();
-
+		
 		// Checks for the event that occurs
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN:
+			if(timer != null)
+				timer.cancel();
 			if(enable)
 			{
 				lastx = pointX;
@@ -354,13 +390,21 @@ public class BrushView extends View {
 				pathList.get(pathList.size()-1).lineTo(pointX+1, pointY);
 			}
 			
-			
-			new Thread() {
+			timer = new Timer();
+			timer.schedule(new TimerTask() { // schedule方法(安排,计划)需要接收一个TimerTask对象和一个代表毫秒的int值作为参数
+				@Override
 				public void run() {
 					AppCommon.getInstance().saveLineData(convertLineToString());
 				}
-			}.start();
+			}, 2000);
 			
+			/*
+			 new Thread() {
+					public void run() {
+						AppCommon.getInstance().saveLineData(convertLineToString());
+					}
+				}.start();
+			 */
 			
 			break;
 		case MotionEvent.ACTION_CANCEL:
