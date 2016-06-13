@@ -10,6 +10,7 @@ import com.quange.views.CopyFragment;
 import com.quange.views.LearnFragment;
 import com.quange.views.MineFragment;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.message.*;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -19,9 +20,11 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -46,10 +49,28 @@ import android.widget.TabHost.OnTabChangeListener;
 	private int iconArray[] = {R.drawable.btn_copy_drawable,R.drawable.btn_learn_drawable,R.drawable.btn_mine_drawable};
 	protected static boolean isQuit = false;
 	private View theView;
+	private PushAgent mPushAgent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        mPushAgent = PushAgent.getInstance(this);
+        //开启推送并设置注册的回调处理
+        mPushAgent.enable(new IUmengRegisterCallback() {
+
+        	@Override
+        	public void onRegistered(final String registrationId) {
+        	      new Handler().post(new Runnable() {
+                          @Override
+                          public void run() {
+                    	       //onRegistered方法的参数registrationId即是device_token
+                        	  Log.d("device_token", registrationId);
+                          }
+                 });
+             }
+        });
+        
         if(AppSetManager.getFirstUseApp()==1)
         	AppSetManager.setFirstUseApp(0);
         JHDSAPIManager.getInstance(this).fetchSplashData(null, null);
