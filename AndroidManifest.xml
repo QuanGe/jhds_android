@@ -105,8 +105,16 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" >
         </activity>
-         
-        <meta-data android:value="573576d367e58e88a3002940" android:name="UMENG_APPKEY"></meta-data>
+         <meta-data
+	    android:name="UMENG_APPKEY"
+	    android:value="573576d367e58e88a3002940" >
+		</meta-data>
+		<meta-data
+		    android:name="UMENG_MESSAGE_SECRET"
+		    android:value="2ff61b208bb513a70df36396b4354b8f" >
+		</meta-data>
+        
+        
 		<meta-data android:value="develop" android:name="UMENG_CHANNEL"/>
     </application>
 

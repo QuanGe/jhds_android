@@ -14,6 +14,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.PopupWindow;
 
+import com.sina.weibo.sdk.api.ImageObject;
 import com.sina.weibo.sdk.api.TextObject;
 import com.sina.weibo.sdk.api.WebpageObject;
 import com.sina.weibo.sdk.api.WeiboMultiMessage;
@@ -61,6 +62,8 @@ public class ShareCollectUtils {
 					// 但该附件栏集成分享权限需要合作申请，详情请查看 Demo 提示
 					mWeiboShareAPI.registerApp();
 				}
+				
+				/*
 				WeiboMultiMessage weiboMessage = new WeiboMultiMessage();
 				TextObject textObject = new TextObject();
 				textObject.text = title;
@@ -78,7 +81,29 @@ public class ShareCollectUtils {
 				SendMultiMessageToWeiboRequest request = new SendMultiMessageToWeiboRequest();
 				request.transaction = String.valueOf(System.currentTimeMillis());
 				request.multiMessage = weiboMessage;
-
+				*/
+				
+				/*图片对象*/  
+			    ImageObject imageobj = new ImageObject();  
+			  
+			    if (bitmap != null) {  
+			        imageobj.setImageObject(bitmap);  
+			    }  
+			  
+			    /*微博数据的message对象*/  
+			    WeiboMultiMessage multmess = new WeiboMultiMessage();  
+			    TextObject textobj = new TextObject();  
+			    textobj.text = "我用#简画大师#创作了一副简画，快来围观吧";  
+			  
+			    multmess.textObject = textobj;  
+			    multmess.imageObject = imageobj;  
+			    /*微博发送的Request请求*/  
+			    SendMultiMessageToWeiboRequest request = new SendMultiMessageToWeiboRequest();  
+			    request.multiMessage = multmess;  
+			    //以当前时间戳为唯一识别符  
+			    request.transaction = String.valueOf(System.currentTimeMillis());  
+			   
+			    
 				mWeiboShareAPI.sendRequest(request);
 				popupWindow.dismiss();
 			}
