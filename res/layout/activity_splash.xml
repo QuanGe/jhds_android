@@ -9,14 +9,19 @@
         android:id="@+id/splashBox"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
-	     <ImageView
-	        android:id="@+id/iv_splash"
-	        android:layout_width="match_parent"
-	        android:layout_height="match_parent"
-	        android:contentDescription="@string/app_name"
-	        android:scaleType="fitXY"
-	         />
-
+        <RelativeLayout
+	        android:id="@+id/splashImgBox"
+	        android:layout_width="fill_parent"
+	        android:layout_above="@+id/logobox"
+	        android:layout_height="fill_parent">
+			     <ImageView
+			        android:id="@+id/iv_splash"
+			        android:layout_width="fill_parent"
+			        android:layout_height="fill_parent"
+			        android:contentDescription="@string/app_name"
+			        android:scaleType="centerCrop"
+			         />
+		</RelativeLayout>
 	    <com.quange.views.CircularProgressButton
 	        android:id="@+id/btn_skip_splashimage"
 	        android:layout_width="40dp"

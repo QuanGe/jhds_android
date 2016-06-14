@@ -8,3 +8,5 @@
 *.ap_
 
 bin/AndroidManifest.xml
+
+bin/classes.dex

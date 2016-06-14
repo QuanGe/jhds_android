@@ -121,7 +121,7 @@ public class SplashActivity extends Activity implements OnClickListener{
 								public void run() {
 									startMainActivity();
 								}
-							}, 2600);
+							}, 12600);
 				
 				String splashUrl = AppSetManager.getSplashImgUrl();
 				if(!splashUrl.equals(""))
