@@ -30,6 +30,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.quange.model.JHDSCopyModel;
 import com.quange.viewModel.JHDSAPIManager;
 import com.quange.viewModel.JHDSCopyAdapter;
+import com.umeng.analytics.MobclickAgent;
 
 public class CopyGridView implements OnItemClickListener {
 	private View mView;
@@ -135,6 +136,11 @@ public class CopyGridView implements OnItemClickListener {
 			public void onResponse(String response) {
 				int num = Integer.parseInt(response);
 				mCurPage = isRefresh ? 1 : ++mCurPage ;
+				if(isRefresh)
+		    		MobclickAgent.onEvent(mAct, "copy_"+doubanType+"_refresh");
+		    	else
+		    		MobclickAgent.onEvent(mAct, "copy_"+doubanType+"_more");
+				
 				if(num>=mCurPage)
 				JHDSAPIManager.getInstance(mAct).fetchCopyList(num-mCurPage, doubanType, new Listener<List<JHDSCopyModel>>(){
 					@Override

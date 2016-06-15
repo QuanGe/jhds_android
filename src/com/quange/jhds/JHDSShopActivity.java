@@ -17,6 +17,8 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -182,15 +184,39 @@ public class JHDSShopActivity extends Activity implements OnItemClickListener {
 		}
 
 	 @Override
-		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
 		 
-		 JHDSShopModel sm = data.get(position-1);
+		 new AlertDialog.Builder(this).setMessage("将要跳转到淘宝APP，请向店主报上暗号：简画大师")
+			.setNegativeButton("简便宜", new DialogInterface.OnClickListener() {
+
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					gotoTaobao(position);
+					
+				}
+			}).setPositiveButton("取消", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					
+				}
+			}).show();
+		 
+		
+		}
+	 
+	 public void gotoTaobao(int pos)
+	 {
+		 
+		 JHDSShopModel sm = data.get(pos-1);
+		 String  cu = SecurityV2Util.getSignatureByMD5(sm.clickUrl);
+		 MobclickAgent.onEvent(this, cu);
 		 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(sm.clickUrl));
 		 if (AppCommon.getInstance().isAppInstalled(this, "com.taobao.taobao")) {
 		     intent.setClassName("com.taobao.taobao", "com.taobao.tao.shop.router.ShopUrlRouterActivity");
 		 }
 		 startActivity(intent);
-		}
+	 }
+	 
 	 public void firstLoadData()
 		{
 			if(data.size()==0)

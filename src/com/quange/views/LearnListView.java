@@ -32,7 +32,8 @@ import com.quange.model.JHDSCopyModel;
 import com.quange.model.JHDSLearnModel;
 
 import com.quange.viewModel.JHDSAPIManager;
-import com.quange.viewModel.JHDSLearnAdapter;;
+import com.quange.viewModel.JHDSLearnAdapter;
+import com.umeng.analytics.MobclickAgent;
 
 public class LearnListView implements OnItemClickListener{
 	private View mView;
@@ -138,6 +139,11 @@ public class LearnListView implements OnItemClickListener{
 			public void onResponse(String response) {
 				int num = Integer.parseInt(response);
 				mCurPage = isRefresh ? 1 : ++mCurPage ;
+				
+				if(isRefresh)
+		    		MobclickAgent.onEvent(mAct, "learn_"+learnType+"_refresh");
+		    	else
+		    		MobclickAgent.onEvent(mAct, "learn_"+learnType+"_more");
 				if(num>=mCurPage)
 				JHDSAPIManager.getInstance(mAct).fetchLearnList(num-mCurPage, learnType, new Listener<List<JHDSLearnModel>>(){
 					@Override

@@ -180,10 +180,7 @@ public class JHDSAPIManager {
     
     public void fetchCopyList(int pageNum,int type,final Listener<List<JHDSCopyModel>> listener, ErrorListener errorListener)
     {
-    	if(pageNum==0)
-    		MobclickAgent.onEvent(theContext, "copy_"+type+"_refresh");
-    	else
-    		MobclickAgent.onEvent(theContext, "copy_"+type+"_more");
+    	
     	StringRequest request = new StringRequest("http://quangelab.com/images/jhds/copy_"+type+"_"+pageNum+".txt", new Listener<String>() {
 			public void onResponse(String body) {
 				
@@ -213,10 +210,7 @@ public class JHDSAPIManager {
     
     public void fetchLearnList(int pageNum,int type,final Listener<List<JHDSLearnModel>> listener, ErrorListener errorListener)
     {
-    	if(pageNum==0)
-    		MobclickAgent.onEvent(theContext, "learn_"+type+"_refresh");
-    	else
-    		MobclickAgent.onEvent(theContext, "learn_"+type+"_more");
+    	
     	StringRequest request = new StringRequest("http://quangelab.com/images/jhds/learn_"+type+"_"+pageNum+".txt", new Listener<String>() {
 			public void onResponse(String body) {
 				
