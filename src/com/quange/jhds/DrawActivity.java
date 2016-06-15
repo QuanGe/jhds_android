@@ -79,6 +79,7 @@ import android.widget.TextView;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_draw);
         
+        MobclickAgent.onEvent(this, "canvas");
         
         brushView = (BrushView)findViewById(R.id.brushView);
         backBtn = (RelativeLayout)findViewById(R.id.backBtn);
@@ -88,6 +89,7 @@ import android.widget.TextView;
 			@Override
 			public void onClick(View v) {
 				//showDeleteDialog();
+				MobclickAgent.onEvent(getApplicationContext(), "canvas_select_brush");
 				System.out.println(selectBrushView.getAlpha());
 				RelativeLayout.LayoutParams l = (LayoutParams) selectBrushView.getLayoutParams();
 				if(l.leftMargin == 0)
@@ -266,7 +268,7 @@ import android.widget.TextView;
 
 			@Override
 			public void onClick(View v) {
-				
+				MobclickAgent.onEvent(getApplicationContext(), "canvas_save");
 				Bitmap bitmap = screenShot(brushView);
 				
 				Calendar c = Calendar.getInstance();
@@ -333,7 +335,7 @@ import android.widget.TextView;
 		DisplayMetrics dm = new DisplayMetrics();  
 		dm = this.getApplicationContext().getResources().getDisplayMetrics(); 
         if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
-          
+        	MobclickAgent.onEvent(this, "canvas_brush_fine");
             brushView.updateBrushWidth(false);
             brushFrame.width = (int) (brushView.getBrushWidth()*dm.density);
             brushFrame.height = (int) (brushView.getBrushWidth()*dm.density);
@@ -347,6 +349,7 @@ import android.widget.TextView;
 //              
 //            }
         	brushView.updateBrushWidth(true);
+        	MobclickAgent.onEvent(this, "canvas_brush_bold");
         	brushFrame.width = (int) (brushView.getBrushWidth()*dm.density);
             brushFrame.height = (int) (brushView.getBrushWidth()*dm.density);
             brushColor.setCornerRadius(brushView.getBrushWidth()*dm.density/2); 

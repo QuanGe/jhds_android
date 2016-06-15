@@ -9,6 +9,7 @@ import com.quange.jhds.JHDSMessageActivity;
 import com.quange.jhds.JHDSSavedImagesActivity;
 import com.quange.jhds.JHDSShopActivity;
 import com.quange.jhds.R;
+import com.umeng.analytics.MobclickAgent;
 
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -103,6 +104,8 @@ public class MineFragment extends Fragment {
 		Intent it = new Intent(Intent.ACTION_VIEW, uri);
 		it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		getActivity().startActivity(it);
+		
+		MobclickAgent.onEvent(getContext(), "mine_add_start");
 
 	}
 }

@@ -3,6 +3,7 @@ package com.quange.views;
 import com.quange.jhds.AppCommon;
 import com.quange.jhds.MainActivity;
 import com.quange.jhds.R;
+import com.umeng.analytics.MobclickAgent;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -49,6 +50,8 @@ import android.widget.TextView;
 
 			@Override
 			public void onClick(View v) {
+				
+				MobclickAgent.onEvent(getContext(), "splash_guide_try");
 				Intent intent = new Intent(getContext(), MainActivity.class);
 				
 				getContext().startActivity(intent);

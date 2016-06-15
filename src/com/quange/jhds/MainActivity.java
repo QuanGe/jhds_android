@@ -115,10 +115,20 @@ import android.widget.TabHost.OnTabChangeListener;
 
 		mTabHost.setOnTabChangedListener(new OnTabChangeListener() {
 			public void onTabChanged(String tabId) {
+				
 				if(tabId.equals("我的"))
+				{
 					drawbtn.setVisibility(View.GONE);
+					MobclickAgent.onEvent(getApplicationContext(), "mine");
+				}
 				else
+				{
+					if(tabId.equals("教程"))
+						MobclickAgent.onEvent(getApplicationContext(), "copy");
+					else
+						MobclickAgent.onEvent(getApplicationContext(), "learn");
 					drawbtn.setVisibility(View.VISIBLE);
+				}
 				setTvTextColor(tabId);
 			}
 		});

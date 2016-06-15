@@ -26,6 +26,7 @@ import com.tencent.mm.sdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.sdk.modelmsg.WXImageObject;
 import com.tencent.mm.sdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.sdk.modelmsg.WXWebpageObject;
+import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 
 public class ShareCollectUtils {
@@ -55,6 +56,8 @@ public class ShareCollectUtils {
 
 		btn_weibo.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
+				
+				MobclickAgent.onEvent(v.getContext(), "canvas_share_sina");
 				IWeiboShareAPI mWeiboShareAPI = WeiboShareSDK.createWeiboAPI(
 						activity, "3129504298");
 				if (mWeiboShareAPI.checkEnvironment(true)) {
@@ -112,7 +115,7 @@ public class ShareCollectUtils {
 		btn_weixin_1.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-			
+				MobclickAgent.onEvent(v.getContext(), "canvas_share_wx");
 				WXImageObject imgObj = new WXImageObject(bitmap);  
 				WXMediaMessage msg = new WXMediaMessage();
 				msg.mediaObject = imgObj;
@@ -131,7 +134,7 @@ public class ShareCollectUtils {
 		btn_weixin_2.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				
+				MobclickAgent.onEvent(v.getContext(), "canvas_share_pyq");
 				WXImageObject imgObj = new WXImageObject(bitmap);  
 				WXMediaMessage msg = new WXMediaMessage();
 				msg.mediaObject = imgObj;
@@ -150,6 +153,7 @@ public class ShareCollectUtils {
 		btn_qq_1.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				MobclickAgent.onEvent(v.getContext(), "canvas_share_qq");
 				try {
 					AppCommon.getInstance().saveBitmapToFile(bitmap, shareUrl, false);
 					QQQZoneShare.addQQQZonePlatform(activity,

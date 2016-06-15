@@ -39,6 +39,7 @@ import com.quange.model.JHDSCopyModel;
 import com.quange.model.JHDSLearnModel;
 import com.quange.model.JHDSMessageModel;
 import com.quange.model.JHDSShopModel;
+import com.umeng.analytics.MobclickAgent;
 
 public class JHDSAPIManager {
 	private static  JHDSAPIManager sharedInstance;
@@ -179,6 +180,10 @@ public class JHDSAPIManager {
     
     public void fetchCopyList(int pageNum,int type,final Listener<List<JHDSCopyModel>> listener, ErrorListener errorListener)
     {
+    	if(pageNum==0)
+    		MobclickAgent.onEvent(theContext, "copy_"+type+"_refresh");
+    	else
+    		MobclickAgent.onEvent(theContext, "copy_"+type+"_more");
     	StringRequest request = new StringRequest("http://quangelab.com/images/jhds/copy_"+type+"_"+pageNum+".txt", new Listener<String>() {
 			public void onResponse(String body) {
 				
@@ -196,6 +201,7 @@ public class JHDSAPIManager {
     
     public void fetchLearnPageNum(int type,final Listener<String> listener, ErrorListener errorListener)
     {
+    	
     	StringRequest request = new StringRequest("http://quangelab.com/images/jhds/learn_"+type+".txt", new Listener<String>() {
 			public void onResponse(String body) {
 				listener.onResponse(body);
@@ -207,6 +213,10 @@ public class JHDSAPIManager {
     
     public void fetchLearnList(int pageNum,int type,final Listener<List<JHDSLearnModel>> listener, ErrorListener errorListener)
     {
+    	if(pageNum==0)
+    		MobclickAgent.onEvent(theContext, "learn_"+type+"_refresh");
+    	else
+    		MobclickAgent.onEvent(theContext, "learn_"+type+"_more");
     	StringRequest request = new StringRequest("http://quangelab.com/images/jhds/learn_"+type+"_"+pageNum+".txt", new Listener<String>() {
 			public void onResponse(String body) {
 				
@@ -263,6 +273,7 @@ public class JHDSAPIManager {
     
     public void fetchMessageList( final Listener<List<JHDSMessageModel>> listener, ErrorListener errorListener)
     {
+    	MobclickAgent.onEvent(theContext, "splash_img_load");
     	StringRequest request = new StringRequest("http://quangelab.com/images/jhds/message.txt", new Listener<String>() {
 			public void onResponse(String body) {
 				List<JHDSMessageModel> result = new Gson().fromJson(body,

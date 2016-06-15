@@ -31,6 +31,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import com.quange.model.*;
 import com.quange.viewModel.*;
 import com.quange.views.JHDSErrorMessage;
+import com.umeng.analytics.MobclickAgent;
 
 public class JHDSShopActivity extends Activity implements OnItemClickListener {
 	
@@ -46,6 +47,8 @@ public class JHDSShopActivity extends Activity implements OnItemClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_shop);
 		ViewUtils.inject(this); // 注入view和事件
+		
+		MobclickAgent.onEvent(getApplicationContext(), "mine_shop");
 		
 		lAdapter = new JHDSShopAdapter(this,data);
 		shopList.setAdapter(lAdapter);

@@ -17,6 +17,7 @@ import com.quange.model.JHDSMessageModel;
 import com.quange.viewModel.JHDSAPIManager;
 import com.quange.viewModel.JHDSMessageAdapter;
 import com.quange.views.JHDSErrorMessage;
+import com.umeng.analytics.MobclickAgent;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -40,6 +41,7 @@ public class JHDSMessageActivity extends Activity implements OnItemClickListener
 		setContentView(R.layout.activity_message);
 		ViewUtils.inject(this); // 注入view和事件
 		
+		MobclickAgent.onEvent(getApplicationContext(), "mine_message");
 		lAdapter = new JHDSMessageAdapter(this,data);
 		messgaeList.setAdapter(lAdapter);
 		

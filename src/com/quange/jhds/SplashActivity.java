@@ -9,6 +9,7 @@ import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.quange.views.CircularProgressButton;
 import com.quange.views.JHDSGuideView;
 import com.quange.views.JHDSTextGuideView;
+import com.umeng.analytics.MobclickAgent;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -76,7 +77,8 @@ public class SplashActivity extends Activity implements OnClickListener{
 			}
 
 			public Object instantiateItem(View container, int position) {
-			
+				MobclickAgent.onEvent(getApplicationContext(), "splash_guide_look");
+				
 				if(position!=4)
 				{
 					JHDSGuideView photoView = new JHDSGuideView(container.getContext());
@@ -102,7 +104,7 @@ public class SplashActivity extends Activity implements OnClickListener{
 			super.onCreate(savedInstanceState);
 			setContentView(R.layout.activity_splash);
 			ViewUtils.inject(this); // 注入view和事件
-			
+			MobclickAgent.onEvent(this, "splash");
 			
 			//splash
 			{
@@ -138,17 +140,9 @@ public class SplashActivity extends Activity implements OnClickListener{
 					splashImg.setOnClickListener(new OnClickListener() {
 						@Override
 						public void onClick(View v) {
+							clickSplash();
 							
-							switch(AppSetManager.getSplashType())
-							{
-								case -1:
-									break;
-								case 0:
-									break;
-								case 1:
-									clickSplash();
-									break;
-							}
+							
 						}
 					});
 				}
@@ -186,11 +180,23 @@ public class SplashActivity extends Activity implements OnClickListener{
 	 
 	 public void clickSplash()
 	 {
-		 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(AppSetManager.getSplashDetail()));
-		 if (AppCommon.getInstance().isAppInstalled(getApplicationContext(), "com.taobao.taobao")) {
-		     intent.setClassName("com.taobao.taobao", "com.taobao.tao.shop.router.ShopUrlRouterActivity");
-		 }
-		 startActivity(intent);
+		 MobclickAgent.onEvent(this, "splash_img_load");
+		 switch(AppSetManager.getSplashType())
+			{
+				case -1:
+					break;
+				case 0:
+					break;
+				case 1:
+					Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(AppSetManager.getSplashDetail()));
+					 if (AppCommon.getInstance().isAppInstalled(getApplicationContext(), "com.taobao.taobao")) {
+					     intent.setClassName("com.taobao.taobao", "com.taobao.tao.shop.router.ShopUrlRouterActivity");
+					 }
+					 startActivity(intent);
+					break;
+			}
+		 
+		 
 	 }
 	 
 	 /**

@@ -18,6 +18,7 @@ import com.quange.jhds.AppSetManager;
 import com.quange.model.JHDSBrushModel;
 import com.quange.model.JHDSBrushModel.JHDSBrushLineModel;
 import com.quange.model.JHDSCopyModel;
+import com.umeng.analytics.MobclickAgent;
 
 
 import android.R.integer;
@@ -145,7 +146,7 @@ public class BrushView extends View {
 	
 	public void backToFront()
 	{
-		
+		MobclickAgent.onEvent(getContext(), "canvas_last");
 		if(pathList.size()>0)
 		{
 			
@@ -397,7 +398,7 @@ public class BrushView extends View {
 					AppCommon.getInstance().saveLineData(convertLineToString());
 				}
 			}, 1000);
-			
+			MobclickAgent.onEvent(getContext(), "canvas_draw");
 			/*
 			 new Thread() {
 					public void run() {

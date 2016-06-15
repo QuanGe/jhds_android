@@ -5,6 +5,7 @@ import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 import com.quange.views.JHDSErrorMessage;
 import com.quange.views.JHDSSavedImagesGridView;
+import com.umeng.analytics.MobclickAgent;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -30,7 +31,7 @@ public class JHDSSavedImagesActivity extends Activity {
         
         JHDSSavedImagesGridView si = new JHDSSavedImagesGridView(this);
         content.addView(si.getView());
-        
+        MobclickAgent.onEvent(getApplicationContext(), "mine_save");
 	}
 	@OnClick(R.id.backBtn)
 	public void OnBackClick(View view) {

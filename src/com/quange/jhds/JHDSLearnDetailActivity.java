@@ -2,6 +2,7 @@ package com.quange.jhds;
 import java.util.List;
 
 import com.quange.model.JHDSCopyModel;
+import com.umeng.analytics.MobclickAgent;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -95,7 +96,7 @@ public class JHDSLearnDetailActivity extends DrawActivity {
 	public void buildCopyView(String[] detail)
 	{
 	
-	
+		MobclickAgent.onEvent(getApplicationContext(), "learn_detail");
 		topView = (RelativeLayout) this.findViewById(R.id.topView);
 		topView.setVisibility(View.VISIBLE);
 		
@@ -117,6 +118,7 @@ public class JHDSLearnDetailActivity extends DrawActivity {
 
 			@Override
 			public void onClick(View v) {
+				MobclickAgent.onEvent(getApplicationContext(), "learn_action");
 				RelativeLayout.LayoutParams lp = (LayoutParams) topView.getLayoutParams();
 				lp.width = AppCommon.getInstance().screenWidth/4;
 				lp.height = AppCommon.getInstance().screenWidth/4;

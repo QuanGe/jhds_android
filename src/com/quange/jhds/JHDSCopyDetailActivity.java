@@ -1,5 +1,7 @@
 package com.quange.jhds;
 
+import com.umeng.analytics.MobclickAgent;
+
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,7 +31,7 @@ public class JHDSCopyDetailActivity  extends DrawActivity{
 	public void buildCopyView(String detail)
 	{
 	
-	
+		MobclickAgent.onEvent(this, "copy_detail");
 		topView = (RelativeLayout) this.findViewById(R.id.topView);
 		topView.setVisibility(View.VISIBLE);
 		
@@ -63,6 +65,8 @@ public class JHDSCopyDetailActivity  extends DrawActivity{
 
 			@Override
 			public void onClick(View v) {
+				
+				MobclickAgent.onEvent(getApplicationContext(), "copy_action");
 				RelativeLayout.LayoutParams lp = (LayoutParams) topView.getLayoutParams();
 				lp.width = AppCommon.getInstance().screenWidth/4;
 				lp.height = AppCommon.getInstance().screenHeight/4;
