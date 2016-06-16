@@ -127,7 +127,7 @@ public class JHDSAPIManager {
      
 		ImageRequest ir = new ImageRequest(url,new Listener<Bitmap>() {
 			public void onResponse(Bitmap body) {
-				
+				MobclickAgent.onEvent(theContext, "splash_img_load");
 				 BufferedOutputStream os = null;  
 			       
 			        try {  
@@ -230,7 +230,25 @@ public class JHDSAPIManager {
     {
     	StringRequest request = new StringRequest("http://quangelab.com/images/jhds/shop_"+type+".txt", new Listener<String>() {
 			public void onResponse(String body) {
-				listener.onResponse(body);
+				try {
+					JSONObject jsObj = new JSONObject(body);
+					
+					String newAppVersion = jsObj.getString("appVersion");
+					String newShopTag = jsObj.getString("shopTag");
+					String newMessageTag = jsObj.getString("messageTag");
+					String newProtectBabyTag = jsObj.getString("protectBabyTag");
+						
+					AppSetManager.setNewAppVersion(newAppVersion);
+					AppSetManager.setNewShopTag(newShopTag);
+					AppSetManager.setNewMessageTag(newMessageTag);
+					AppSetManager.setNewProtectBabyTag(newProtectBabyTag);
+						
+					
+					listener.onResponse(body);
+					
+				} catch (Exception e) {
+					System.out.println("caocaocaocaocao");
+				}
 			}
 		},errorListener);
 		addToRequestQueue(request);
@@ -267,8 +285,24 @@ public class JHDSAPIManager {
     
     public void fetchMessageList( final Listener<List<JHDSMessageModel>> listener, ErrorListener errorListener)
     {
-    	MobclickAgent.onEvent(theContext, "splash_img_load");
+    	
     	StringRequest request = new StringRequest("http://quangelab.com/images/jhds/message.txt", new Listener<String>() {
+			public void onResponse(String body) {
+				List<JHDSMessageModel> result = new Gson().fromJson(body,
+						new TypeToken<List<JHDSMessageModel>>() {
+						}.getType());
+					
+				listener.onResponse(result);
+			}
+		},errorListener);
+		addToRequestQueue(request);
+    	
+    }
+    
+    public void fetchProtectBabyList( final Listener<List<JHDSMessageModel>> listener, ErrorListener errorListener)
+    {
+    	
+    	StringRequest request = new StringRequest("http://quangelab.com/images/jhds/protectBaby.txt", new Listener<String>() {
 			public void onResponse(String body) {
 				List<JHDSMessageModel> result = new Gson().fromJson(body,
 						new TypeToken<List<JHDSMessageModel>>() {

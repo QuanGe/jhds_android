@@ -44,6 +44,16 @@
                         android:textSize="14sp" >
 
 	        	</TextView>
+	        	<View
+	        	    android:id="@+id/tv_appVersionRedTip"
+	        	    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:background="@drawable/red_tip" 
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginBottom="10dp"
+                    
+	        	    ></View>
 		        
             </RelativeLayout>
             
@@ -214,6 +224,17 @@
                        
                         android:padding="10dp"
                         android:src="@drawable/arrow_right" />
+                    
+                    <View
+	        	    android:id="@+id/iv_my_buyRedTip"
+	        	    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:background="@drawable/red_tip" 
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    
+                    android:layout_marginRight="5dp"
+	        	    ></View>
                 </RelativeLayout>
 
                 <View
@@ -263,6 +284,16 @@
                       
                         android:padding="10dp"
                         android:src="@drawable/arrow_right" />
+                    <View
+	        	    android:id="@+id/iv_my_messageRedTip"
+	        	    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:background="@drawable/red_tip" 
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    
+                    android:layout_marginRight="5dp"
+	        	    ></View>
                 </RelativeLayout>
 
                 <View
@@ -280,13 +311,86 @@
                     android:layout_below="@id/rl_my_message"
                     android:background="@color/navg_back_btn_bar" />
             </RelativeLayout>
-            
+            <RelativeLayout
+                android:id="@+id/about_protect_baby_area"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+               
+                android:layout_below="@id/about_other_area">
+                
+        	  <RelativeLayout
+                    android:id="@+id/rl_protect_baby"
+                    android:layout_width="match_parent"
+                	android:layout_height="wrap_content"
+                	android:background="@color/white"
+                   >
+
+                    <ImageView
+                        android:id="@+id/iv_my_protect_baby_img"
+                        android:layout_width="48dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/icon_my_protect_baby" />
+
+                    <TextView
+                        android:id="@+id/tv_protect_baby"
+                        android:layout_width="wrap_content"
+                        android:layout_height="60dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@id/iv_my_protect_baby_img"
+                        android:layout_toRightOf="@id/iv_my_protect_baby_img"
+                        android:gravity="center_vertical"
+                        android:paddingRight="10dp"
+                        android:text="守护宝贝"
+                        android:textColor="@color/text_dark"
+                        android:textSize="16sp" />
+
+	                 <View
+	        	    	android:id="@+id/iv_my_protect_babyRedTip"
+	        	    	android:layout_width="10dp"
+	                    android:layout_height="10dp"
+	                    android:background="@drawable/red_tip" 
+	                    android:layout_alignParentLeft="true"
+	                    android:layout_alignParentTop="true"
+	                    android:layout_marginRight="5dp"
+	        	    	>
+	                     
+	                 </View>
+
+                    <ImageView
+                        android:id="@+id/iv_my_protect_baby"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="8dp"
+                       
+                        android:padding="10dp"
+                        android:src="@drawable/arrow_right" />
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/v_my_under_protect_baby"
+                    android:layout_width="match_parent"
+                    android:layout_height="1px"
+                    android:layout_below="@id/rl_protect_baby"
+                    android:background="@color/item_under_line_shadow" />
+                 <View
+                    android:id="@+id/v_my_under_v_protect_baby"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    android:layout_below="@id/v_my_under_protect_baby"
+                    android:background="@color/navg_back_btn_bar" />
+        
+            </RelativeLayout>
            <RelativeLayout
                 android:id="@+id/about_set_area"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                
-                android:layout_below="@id/about_other_area">
+                android:layout_below="@id/about_protect_baby_area">
                 
         	  <RelativeLayout
                     android:id="@+id/rl_my_set"

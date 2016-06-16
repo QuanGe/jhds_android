@@ -4,7 +4,7 @@
     android:layout_height="52dp"
     android:background="@color/navg_back_btn_bar" >
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="52dp"
         android:background="@color/navg_back_btn_bar"
@@ -17,15 +17,31 @@
             android:layout_height="24dp"
             android:layout_marginTop="7dp"
             android:layout_marginBottom="5dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
             android:scaleType="centerInside"
             android:src="@drawable/ic_launcher" />
 
         <TextView
             android:id="@+id/tv_icon"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/iv_icon"
             android:textSize="11sp"
              />
-    </LinearLayout>
+        <View
+      	    android:id="@+id/tv_mineRedTip"
+      	    android:layout_width="10dp"
+            android:layout_height="10dp"
+            
+            android:background="@drawable/red_tip" 
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/iv_icon"
+            android:layout_marginLeft="-5dp"  
+            android:layout_marginTop="5dp"  
+	         >
+        </View>
+    </RelativeLayout>
 
 </RelativeLayout>

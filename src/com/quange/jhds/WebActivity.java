@@ -9,11 +9,13 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.View.OnClickListener;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.webkit.WebSettings.LayoutAlgorithm;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -29,8 +31,15 @@ public class WebActivity extends Activity{
 	private WebView webview;
 	@ViewInject(R.id.headerTitle)
 	private TextView tv_title;
+	
+	@ViewInject(R.id.share)
+	private ImageView share;
+	
+	@ViewInject(R.id.shareBtn)
+	private RelativeLayout shareBtn;
 	private String url = null;
 	private String title = null;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -41,8 +50,19 @@ public class WebActivity extends Activity{
 		getInfo();
 		init();
 		setView();
-		MobclickAgent.updateOnlineConfig(this);
-		MobclickAgent.openActivityDurationTrack(false);
+	
+		shareBtn.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				share();
+			}
+		});
+	}
+	
+	private void share()
+	{
+		ShareCollectUtils.shareContent(this, title, url, null);
 	}
 
 	@Override
@@ -83,6 +103,10 @@ public class WebActivity extends Activity{
 			
 			url = bundle.getString("url", "");
 			title = bundle.getString("title", "");
+			tv_title.setText(title);
+			canShare(bundle.getBoolean("canShare",false)); 
+			
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -160,5 +184,19 @@ public class WebActivity extends Activity{
 		Map<String, String> headers = new HashMap<String, String>();
 		headers.put("platform", "Android");
 		return headers;
+	}
+	
+	public void canShare(boolean can)
+	{
+		if(!can)
+		{
+			share.setVisibility(View.GONE);
+			shareBtn.setVisibility(View.GONE);
+		}
+		else
+		{
+			share.setVisibility(View.VISIBLE);
+			shareBtn.setVisibility(View.VISIBLE);
+		}
 	}
 }

@@ -1,5 +1,4 @@
 package com.quange.jhds;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,8 +26,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
-
-public class JHDSMessageActivity extends Activity implements OnItemClickListener {
+public class JHDSBabyAcibity extends Activity implements OnItemClickListener {
 	@ViewInject(R.id.errorMessage)
 	private JHDSErrorMessage errorMessage;
 	 @ViewInject(R.id.message_list)
@@ -64,7 +62,7 @@ public class JHDSMessageActivity extends Activity implements OnItemClickListener
 		
 		 if(AppCommon.getInstance().isConnect(this))
 		 {
-			JHDSAPIManager.getInstance(null).fetchMessageList(new Listener<List<JHDSMessageModel>>(){
+			JHDSAPIManager.getInstance(null).fetchProtectBabyList(new Listener<List<JHDSMessageModel>>(){
 				@Override
 				public void onResponse(List<JHDSMessageModel> response) {
 					if(isRefresh)
@@ -128,8 +126,8 @@ public class JHDSMessageActivity extends Activity implements OnItemClickListener
 			JHDSMessageModel sm = data.get(position-1);
 			Bundle bundle = new Bundle();
 			bundle.putString("url", sm.detail);
-			bundle.putString("title", "官方公告");
-			bundle.putBoolean("canShare", false);
+			bundle.putString("title", "守护宝贝");
+			bundle.putBoolean("canShare", true);
 			Intent intent = new Intent(this, WebActivity.class);
 			intent.putExtras(bundle);
 			startActivity(intent);
@@ -157,3 +155,4 @@ public class JHDSMessageActivity extends Activity implements OnItemClickListener
 			errorMessage.updateMessage(ms);
 		}
 }
+

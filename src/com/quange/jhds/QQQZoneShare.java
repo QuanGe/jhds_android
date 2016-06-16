@@ -2,6 +2,7 @@ package com.quange.jhds;
 
 import java.io.File;
 
+
 import android.app.Activity;
 import android.content.Context;
 import android.widget.PopupWindow;
@@ -60,19 +61,19 @@ public class QQQZoneShare {
     	switch(whichshare){
     	case QQQZoneShare.SHARE_QQ:
     		 QQShareContent qqShareContent = new QQShareContent();
-             //qqShareContent.setShareContent(sharecontent);
-             qqShareContent.setTitle("呵呵");
-             //qqShareContent.setTargetUrl(shareurl);
-             qqShareContent.setShareImage(localImage);
+             qqShareContent.setShareContent(sharecontent);
+             qqShareContent.setTitle(sharetitle);
+             qqShareContent.setTargetUrl(shareurl);
+             qqShareContent.setShareMedia(localImage);
              mController.setShareMedia(qqShareContent);
     		 break;
     	case QQQZoneShare.SHARE_QZONE:
     		 // 设置QQ空间分享内容
              QZoneShareContent qzone = new QZoneShareContent();
-             qzone.setShareContent("测试一下");
-             //qzone.setTargetUrl(shareurl);
-             qzone.setTitle("呵呵");
-             qzone.setShareImage(localImage);
+             qzone.setShareContent(sharecontent);
+             qzone.setTargetUrl(shareurl);
+             qzone.setTitle(sharetitle);
+             qzone.setShareMedia(localImage);
              mController.setShareMedia(qzone);
     		 break;
     	}
@@ -116,9 +117,26 @@ public class QQQZoneShare {
 	public static String getShareContent(String content){
 		String str = "";
 		
-			 str = "我用#简画大师#这个app发现了一个好的简画教程《" 
+			 str = "我用#简画大师#这个APP发现了一个好的简画教程《" 
 	                 + content 
 	                 +"》";
+	
+		return str;
+		
+	}
+	
+	/**
+	 * 
+	 
+	 * @param content
+	 * @return
+	 */
+	public static String getProtectBabyShareContent(String content){
+		String str = "";
+		
+			 str = "我愿意转发，守护宝贝，助力早日回家,《" 
+	                 + content 
+	                 +"》，来自#简画大师#";
 	
 		return str;
 		

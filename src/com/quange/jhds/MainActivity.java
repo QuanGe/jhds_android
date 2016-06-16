@@ -2,9 +2,12 @@ package com.quange.jhds;
 
 
 
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.android.volley.Response.Listener;
+import com.quange.model.JHDSMessageModel;
 import com.quange.viewModel.JHDSAPIManager;
 import com.quange.views.CopyFragment;
 import com.quange.views.LearnFragment;
@@ -14,7 +17,12 @@ import com.umeng.message.*;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
@@ -95,11 +103,89 @@ import android.widget.TabHost.OnTabChangeListener;
         
         init();
         setupTabView();
+        
+        aboutNoti();
+        
+        JHDSAPIManager.getInstance(this).fetchMessageTag(new Listener<String>(){
+			@Override
+			public void onResponse(String response) {
+				Intent it = new Intent(AppSetManager.AboutRedTipNoti);
+				it.putExtra("updateRedTip", "true");
+				sendBroadcast(it);
+			
+				//updateRedTip();
+			}
+		}, null);
     }
     private void init() {
 		re = this.getResources();
 		
 	}
+    
+    private BroadcastReceiver br = new BroadcastReceiver() {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			String someargv = intent.getStringExtra("clearRedTip");
+			String updateRedTip = intent.getStringExtra("updateRedTip");
+			if(someargv != null)
+			{
+				if(someargv.equals("true"))
+				{
+					//
+					View redTip = theView.findViewById(R.id.tv_mineRedTip);
+					redTip.setVisibility(View.INVISIBLE);
+				}
+			}
+			if(updateRedTip != null)
+			{
+				if(updateRedTip.equals("true"))
+				{
+					updateRedTip();
+				}
+			}
+		}
+
+	};
+	
+    private void aboutNoti()
+    {
+    	
+    	IntentFilter ifilter = new IntentFilter(AppSetManager.AboutRedTipNoti);
+    	registerReceiver(br, ifilter);
+    }
+    
+    private void updateRedTip()
+    {
+    	//
+		View redTip = theView.findViewById(R.id.tv_mineRedTip);
+		if(AppSetManager.getOldShopTag().equals(""))
+			redTip.setVisibility(View.VISIBLE);
+		else
+		{
+			try {
+				PackageManager manager = this.getPackageManager();
+				PackageInfo info = manager.getPackageInfo(this.getPackageName(), 0);
+				if(((Float.valueOf(info.versionName) != Float.valueOf(AppSetManager.getNewAppVersion())) )||
+				(!AppSetManager.getOldShopTag().equals(AppSetManager.getNewShopTag()))||
+				(!AppSetManager.getOldMessageTag().equals(AppSetManager.getNewMessageTag()))||
+				(!AppSetManager.getOldProtectBabyTag().equals(AppSetManager.getNewProtectBabyTag()))
+				
+						)
+				{
+					redTip.setVisibility(View.VISIBLE);
+				}
+				else
+				{
+					redTip.setVisibility(View.INVISIBLE);
+				}
+			
+			} catch (Exception e) {
+				  e.printStackTrace();
+				  
+				}
+		}
+    }
     
     private void setupTabView() {
     	mTabHost = (FragmentTabHost) findViewById(R.id.tabhost); 
@@ -113,6 +199,8 @@ import android.widget.TabHost.OnTabChangeListener;
 			mTabHost.addTab(tabSpec, fragmentArray[i], null);
 		}
 
+		updateRedTip();
+		
 		mTabHost.setOnTabChangedListener(new OnTabChangeListener() {
 			public void onTabChanged(String tabId) {
 				
@@ -151,7 +239,8 @@ import android.widget.TabHost.OnTabChangeListener;
 
 			ImageView imageView = (ImageView) view.findViewById(R.id.iv_icon);
 			imageView.setImageResource(iconArray[index]);
-
+			View redTip = view.findViewById(R.id.tv_mineRedTip);
+			redTip.setVisibility(View.GONE);
 			TextView textView = (TextView) view.findViewById(R.id.tv_icon);
 			tv[index] = textView;
 			textView.setText(re.getString(titleArray[index]));

@@ -43,10 +43,10 @@
 	        </TextView>
 	     <View
                     
-                    android:layout_width="match_parent"
-                    android:layout_height="1px"
-                    android:layout_alignParentBottom="true"
-                    android:background="@color/item_under_line_shadow" />
+          android:layout_width="match_parent"
+          android:layout_height="1px"
+          android:layout_alignParentBottom="true"
+          android:background="@color/item_under_line_shadow" />
 	</RelativeLayout>
   <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/message_list"

@@ -111,6 +111,29 @@
                     style="@style/share_th_style"
                     android:text="QQ" />
             </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/zoneBtn"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingBottom="0dp"
+                android:paddingLeft="0dp"
+                android:paddingRight="0dp"
+                android:paddingTop="0dp" >
+
+                <Button
+                    android:id="@+id/btn_qq_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/th_qq_zone" />
+
+                <TextView
+                    style="@style/share_th_style"
+                    android:text="QQ空间" />
+            </LinearLayout>
         </LinearLayout>
 
         <Button

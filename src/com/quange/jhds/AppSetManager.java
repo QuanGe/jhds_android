@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 public class AppSetManager {
 	private static SharedPreferences setPref = null;
 
+	public static final String AboutRedTipNoti = "com.quange.ABOUT_RED_TIP_NOTI";
 	public static void initialize(Application app) {
 		if (setPref == null) {
 			setPref = app.getSharedPreferences("appSetPref", Application.MODE_PRIVATE);
@@ -65,5 +66,75 @@ public class AppSetManager {
 	public static String getSplashDetail()
 	{
 		return setPref.getString("splashDetail", "");
+	}
+	
+	public static String getNewAppVersion()
+	{
+		return setPref.getString("newAppVersion", "");
+	}
+	
+	public static void setNewAppVersion(String nav)
+	{
+		setPref.edit().putString("newAppVersion", nav).commit();
+	}
+	
+	public static String getNewShopTag()
+	{
+		return setPref.getString("newShopTag", "");
+	}
+	
+	public static void setNewShopTag(String nst)
+	{
+		setPref.edit().putString("newShopTag", nst).commit();
+	}
+	
+	public static String getNewMessageTag()
+	{
+		return setPref.getString("newMessageTag", "");
+	}
+	
+	public static void setNewMessageTag(String nmt)
+	{
+		setPref.edit().putString("newMessageTag", nmt).commit();
+	}
+	
+	public static String getNewProtectBabyTag()
+	{
+		return setPref.getString("newProtectBabyTag", "");
+	}
+	
+	public static void setNewProtectBabyTag(String npbt)
+	{
+		setPref.edit().putString("newProtectBabyTag", npbt).commit();
+	}
+	
+	public static String getOldShopTag()
+	{
+		return setPref.getString("oldShopTag", "");
+	}
+	
+	public static void setOldShopTag(String ost)
+	{
+		setPref.edit().putString("oldShopTag", ost).commit();
+	}
+	
+	public static String getOldMessageTag()
+	{
+		return setPref.getString("oldMessageTag", "");
+	}
+	
+	public static void setOldMessageTag(String omt)
+	{
+		setPref.edit().putString("oldMessageTag", omt).commit();
+	}
+	
+	public static String getOldProtectBabyTag()
+	{
+		return setPref.getString("oldProtectBabyTag", "");
+	}
+	
+	public static void setOldProtectBabyTag(String omt)
+	{
+		setPref.edit().putString("oldProtectBabyTag", omt).commit();
 	}
 }

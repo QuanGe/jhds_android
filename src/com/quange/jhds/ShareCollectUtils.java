@@ -50,7 +50,12 @@ public class ShareCollectUtils {
 		Button btn_weixin_2 = (Button) vPopWindow
 				.findViewById(R.id.btn_weixin_2);
 		Button btn_qq_1 = (Button) vPopWindow.findViewById(R.id.btn_qq_1);
+		Button btn_qq_2 = (Button) vPopWindow.findViewById(R.id.btn_qq_2);
 		
+		if(bitmap != null)
+			vPopWindow.findViewById(R.id.zoneBtn).setVisibility(View.GONE);
+		else
+			vPopWindow.findViewById(R.id.zoneBtn).setVisibility(View.VISIBLE);
 		Button btn_cancel = (Button) vPopWindow.findViewById(R.id.btn_cancel);
 		final String description = QQQZoneShare.getShareContent(title);
 
@@ -66,48 +71,52 @@ public class ShareCollectUtils {
 					mWeiboShareAPI.registerApp();
 				}
 				
-				/*
-				WeiboMultiMessage weiboMessage = new WeiboMultiMessage();
-				TextObject textObject = new TextObject();
-				textObject.text = title;
-				weiboMessage.textObject = textObject;
-				WebpageObject wo = new WebpageObject();
-				wo.actionUrl = shareUrl;
-				wo.title = title;
-				wo.description = description;
-				wo.identify = Utility.generateGUID();
-				Bitmap bmp = BitmapFactory.decodeResource(
-						activity.getResources(), R.drawable.icon_delete);
-				wo.setThumbImage(bmp);
-				weiboMessage.mediaObject = wo;
-
-				SendMultiMessageToWeiboRequest request = new SendMultiMessageToWeiboRequest();
-				request.transaction = String.valueOf(System.currentTimeMillis());
-				request.multiMessage = weiboMessage;
-				*/
+				if(bitmap != null)
+				{
+					/*图片对象*/  
+				    ImageObject imageobj = new ImageObject();  
+				  
+				    if (bitmap != null) {  
+				        imageobj.setImageObject(bitmap);  
+				    }  
+				  
+				    /*微博数据的message对象*/  
+				    WeiboMultiMessage multmess = new WeiboMultiMessage();  
+				    TextObject textobj = new TextObject();  
+				    textobj.text = "我用#简画大师#创作了一副简画，快来围观吧";  
+				  
+				    multmess.textObject = textobj;  
+				    multmess.imageObject = imageobj;  
+				    /*微博发送的Request请求*/  
+				    SendMultiMessageToWeiboRequest request = new SendMultiMessageToWeiboRequest();  
+				    request.multiMessage = multmess;  
+				    //以当前时间戳为唯一识别符  
+				    request.transaction = String.valueOf(System.currentTimeMillis());  
+				   
+				    
+					mWeiboShareAPI.sendRequest(request);
 				
-				/*图片对象*/  
-			    ImageObject imageobj = new ImageObject();  
-			  
-			    if (bitmap != null) {  
-			        imageobj.setImageObject(bitmap);  
-			    }  
-			  
-			    /*微博数据的message对象*/  
-			    WeiboMultiMessage multmess = new WeiboMultiMessage();  
-			    TextObject textobj = new TextObject();  
-			    textobj.text = "我用#简画大师#创作了一副简画，快来围观吧";  
-			  
-			    multmess.textObject = textobj;  
-			    multmess.imageObject = imageobj;  
-			    /*微博发送的Request请求*/  
-			    SendMultiMessageToWeiboRequest request = new SendMultiMessageToWeiboRequest();  
-			    request.multiMessage = multmess;  
-			    //以当前时间戳为唯一识别符  
-			    request.transaction = String.valueOf(System.currentTimeMillis());  
-			   
-			    
-				mWeiboShareAPI.sendRequest(request);
+				}
+				else
+				{
+					WeiboMultiMessage weiboMessage = new WeiboMultiMessage();
+					TextObject textObject = new TextObject();
+					textObject.text = title;
+					weiboMessage.textObject = textObject;
+					WebpageObject wo = new WebpageObject();
+					wo.actionUrl = shareUrl;
+					wo.title = title;
+					wo.description = QQQZoneShare.getProtectBabyShareContent(title);
+					wo.identify = Utility.generateGUID();
+					Bitmap bmp = BitmapFactory.decodeResource(
+							activity.getResources(), R.drawable.ic_launcher);
+					wo.setThumbImage(bmp);
+					weiboMessage.mediaObject = wo;
+
+					SendMultiMessageToWeiboRequest request = new SendMultiMessageToWeiboRequest();
+					request.transaction = String.valueOf(System.currentTimeMillis());
+					request.multiMessage = weiboMessage;
+				}
 				popupWindow.dismiss();
 			}
 		});
@@ -116,17 +125,38 @@ public class ShareCollectUtils {
 			@Override
 			public void onClick(View v) {
 				MobclickAgent.onEvent(v.getContext(), "canvas_share_wx");
-				WXImageObject imgObj = new WXImageObject(bitmap);  
-				WXMediaMessage msg = new WXMediaMessage();
-				msg.mediaObject = imgObj;
-				Bitmap thumbBitmap =  Bitmap.createScaledBitmap(bitmap, 150, 150, true);  
-		        bitmap.recycle();  
-		        msg.thumbData = AppCommon.getInstance().Bitmap2Bytes(thumbBitmap);  //设置缩略图 
-				SendMessageToWX.Req req = new SendMessageToWX.Req();
-				req.transaction = String.valueOf(System.currentTimeMillis());
-				req.message = msg;
-				req.scene = SendMessageToWX.Req.WXSceneSession;
-				AppCommon.getInstance().api.sendReq(req);
+				if(bitmap != null)
+				{
+					
+					WXImageObject imgObj = new WXImageObject(bitmap);  
+					WXMediaMessage msg = new WXMediaMessage();
+					msg.mediaObject = imgObj;
+					Bitmap thumbBitmap =  Bitmap.createScaledBitmap(bitmap, 150, 150, true);  
+			        bitmap.recycle();  
+			        msg.thumbData = AppCommon.getInstance().Bitmap2Bytes(thumbBitmap);  //设置缩略图 
+					SendMessageToWX.Req req = new SendMessageToWX.Req();
+					req.transaction = String.valueOf(System.currentTimeMillis());
+					req.message = msg;
+					req.scene = SendMessageToWX.Req.WXSceneSession;
+					AppCommon.getInstance().api.sendReq(req);
+					
+				}
+				else
+				{
+				
+					WXWebpageObject webpage = new WXWebpageObject();
+					webpage.webpageUrl = shareUrl;
+					WXMediaMessage msg = new WXMediaMessage(webpage);
+					msg.title = title;
+					msg.description = QQQZoneShare.getProtectBabyShareContent(title);
+					SendMessageToWX.Req req = new SendMessageToWX.Req();
+					req.transaction = String.valueOf(System.currentTimeMillis());
+					req.message = msg;
+					req.scene = SendMessageToWX.Req.WXSceneSession;
+					AppCommon.getInstance().api.sendReq(req);
+					
+				}
+				
 				popupWindow.dismiss();
 			}
 		});
@@ -135,17 +165,32 @@ public class ShareCollectUtils {
 			@Override
 			public void onClick(View v) {
 				MobclickAgent.onEvent(v.getContext(), "canvas_share_pyq");
-				WXImageObject imgObj = new WXImageObject(bitmap);  
-				WXMediaMessage msg = new WXMediaMessage();
-				msg.mediaObject = imgObj;
-				Bitmap thumbBitmap =  Bitmap.createScaledBitmap(bitmap, 150, 150, true);  
-		        bitmap.recycle();  
-		        msg.thumbData = AppCommon.getInstance().Bitmap2Bytes(thumbBitmap);  //设置缩略图 
-				SendMessageToWX.Req req = new SendMessageToWX.Req();
-				req.transaction = String.valueOf(System.currentTimeMillis());
-				req.message = msg;
-				req.scene = SendMessageToWX.Req.WXSceneTimeline;
-				AppCommon.getInstance().api.sendReq(req);
+				if(bitmap != null)
+				{
+					WXImageObject imgObj = new WXImageObject(bitmap);  
+					WXMediaMessage msg = new WXMediaMessage();
+					msg.mediaObject = imgObj;
+					Bitmap thumbBitmap =  Bitmap.createScaledBitmap(bitmap, 150, 150, true);  
+			        bitmap.recycle();  
+			        msg.thumbData = AppCommon.getInstance().Bitmap2Bytes(thumbBitmap);  //设置缩略图 
+					SendMessageToWX.Req req = new SendMessageToWX.Req();
+					req.transaction = String.valueOf(System.currentTimeMillis());
+					req.message = msg;
+					req.scene = SendMessageToWX.Req.WXSceneTimeline;
+					AppCommon.getInstance().api.sendReq(req);
+				}
+				else
+				{
+					WXWebpageObject webpage = new WXWebpageObject();
+					webpage.webpageUrl = shareUrl;
+					WXMediaMessage msg = new WXMediaMessage(webpage);
+					msg.title = title;
+					msg.description = QQQZoneShare.getProtectBabyShareContent(title);
+					SendMessageToWX.Req req = new SendMessageToWX.Req();
+					req.transaction = String.valueOf(System.currentTimeMillis());
+					req.message = msg;
+					req.scene = SendMessageToWX.Req.WXSceneTimeline;
+				}
 				popupWindow.dismiss();
 			}
 		});
@@ -154,13 +199,49 @@ public class ShareCollectUtils {
 			@Override
 			public void onClick(View v) {
 				MobclickAgent.onEvent(v.getContext(), "canvas_share_qq");
+				
+				if(bitmap != null)
+				{
+					try {
+						AppCommon.getInstance().saveBitmapToFile(bitmap, shareUrl, false);
+						QQQZoneShare.addQQQZonePlatform(activity,
+								QQQZoneShare.SHARE_QQ);
+						QQQZoneShare.setShareImg (shareUrl);
+						QQQZoneShare.performShare(activity,
+								QQQZoneShare.mController, SHARE_MEDIA.QQ,
+								popupWindow);
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
+				}
+				else
+				{
+					try {
+						QQQZoneShare.addQQQZonePlatform(activity,
+								QQQZoneShare.SHARE_QQ);
+						QQQZoneShare.setShareContent(QQQZoneShare.SHARE_QQ, title,
+								QQQZoneShare.getProtectBabyShareContent(title), shareUrl);
+						QQQZoneShare.performShare(activity,
+								QQQZoneShare.mController, SHARE_MEDIA.QQ,
+								popupWindow);
+					} catch (Exception ex) {
+						ex.printStackTrace();
+					}
+				}
+				popupWindow.dismiss();
+			}
+		});
+
+		btn_qq_2.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
 				try {
-					AppCommon.getInstance().saveBitmapToFile(bitmap, shareUrl, false);
 					QQQZoneShare.addQQQZonePlatform(activity,
-							QQQZoneShare.SHARE_QQ);
-					QQQZoneShare.setShareImg (shareUrl);
+							QQQZoneShare.SHARE_QZONE);
+					QQQZoneShare.setShareContent(QQQZoneShare.SHARE_QZONE,
+							title, QQQZoneShare.getProtectBabyShareContent(title), shareUrl);
 					QQQZoneShare.performShare(activity,
-							QQQZoneShare.mController, SHARE_MEDIA.QQ,
+							QQQZoneShare.mController, SHARE_MEDIA.QZONE,
 							popupWindow);
 				} catch (Exception ex) {
 					ex.printStackTrace();
@@ -168,8 +249,6 @@ public class ShareCollectUtils {
 				popupWindow.dismiss();
 			}
 		});
-
-
 		btn_cancel.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				popupWindow.dismiss();
