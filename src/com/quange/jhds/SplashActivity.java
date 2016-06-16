@@ -188,11 +188,14 @@ public class SplashActivity extends Activity implements OnClickListener{
 				case 0:
 					break;
 				case 1:
+				{
 					Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(AppSetManager.getSplashDetail()));
 					 if (AppCommon.getInstance().isAppInstalled(getApplicationContext(), "com.taobao.taobao")) {
 					     intent.setClassName("com.taobao.taobao", "com.taobao.tao.shop.router.ShopUrlRouterActivity");
 					 }
 					 startActivity(intent);
+				}
+				
 					break;
 			}
 		 

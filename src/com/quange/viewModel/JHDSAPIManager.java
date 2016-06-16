@@ -230,25 +230,7 @@ public class JHDSAPIManager {
     {
     	StringRequest request = new StringRequest("http://quangelab.com/images/jhds/shop_"+type+".txt", new Listener<String>() {
 			public void onResponse(String body) {
-				try {
-					JSONObject jsObj = new JSONObject(body);
-					
-					String newAppVersion = jsObj.getString("appVersion");
-					String newShopTag = jsObj.getString("shopTag");
-					String newMessageTag = jsObj.getString("messageTag");
-					String newProtectBabyTag = jsObj.getString("protectBabyTag");
-						
-					AppSetManager.setNewAppVersion(newAppVersion);
-					AppSetManager.setNewShopTag(newShopTag);
-					AppSetManager.setNewMessageTag(newMessageTag);
-					AppSetManager.setNewProtectBabyTag(newProtectBabyTag);
-						
-					
-					listener.onResponse(body);
-					
-				} catch (Exception e) {
-					System.out.println("caocaocaocaocao");
-				}
+				listener.onResponse(body);
 			}
 		},errorListener);
 		addToRequestQueue(request);
@@ -276,7 +258,29 @@ public class JHDSAPIManager {
     {
     	StringRequest request = new StringRequest("http://quangelab.com/images/jhds/messageTag.txt", new Listener<String>() {
 			public void onResponse(String body) {
-				listener.onResponse(body);
+				
+				
+				
+				try {
+					JSONObject jsObj = new JSONObject(body);
+					
+					String newAppVersion = jsObj.getString("appVersion");
+					String newShopTag = jsObj.getString("shopTag");
+					String newMessageTag = jsObj.getString("messageTag");
+					String newProtectBabyTag = jsObj.getString("protectBabyTag");
+						
+					AppSetManager.setNewAppVersion(newAppVersion);
+					AppSetManager.setNewShopTag(newShopTag);
+					AppSetManager.setNewMessageTag(newMessageTag);
+					AppSetManager.setNewProtectBabyTag(newProtectBabyTag);
+						
+					
+					listener.onResponse(body);
+					
+				} catch (Exception e) {
+					System.out.println("caocaocaocaocao");
+				}
+				
 			}
 		},errorListener);
 		addToRequestQueue(request);

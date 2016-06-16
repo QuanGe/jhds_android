@@ -193,10 +193,11 @@ public class MineFragment extends Fragment {
 			String version = "当前版本:"+info.versionName;
 			if(!AppSetManager.getNewAppVersion().equals(""))
 			{
-				if(Float.valueOf(info.versionName) != Float.valueOf(AppSetManager.getNewAppVersion()))
+				
+				if(Float.valueOf(info.versionName).floatValue() != Float.valueOf(AppSetManager.getNewAppVersion()).floatValue())
 				{
 					tv_appVersionRedTip.setVisibility(View.VISIBLE);
-					version = version+"  点击更新到最新版本";
+					version = version+"  点击更新到最新版本:"+AppSetManager.getNewAppVersion();
 					appVersionTv.setOnClickListener(new OnClickListener() {
 
 						@Override

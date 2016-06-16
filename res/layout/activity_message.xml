@@ -54,7 +54,7 @@
         android:layout_height="match_parent"
         android:cacheColorHint="@color/navg_back_btn_bar"
         android:divider="@color/cell_separate_color"
-        android:dividerHeight="5dip"
+        android:dividerHeight="2dip"
         android:layout_below="@+id/header"
         android:fadingEdge="none"
         android:fadingEdgeLength="0dp"

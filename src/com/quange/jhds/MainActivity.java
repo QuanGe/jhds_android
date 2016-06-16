@@ -166,7 +166,7 @@ import android.widget.TabHost.OnTabChangeListener;
 			try {
 				PackageManager manager = this.getPackageManager();
 				PackageInfo info = manager.getPackageInfo(this.getPackageName(), 0);
-				if(((Float.valueOf(info.versionName) != Float.valueOf(AppSetManager.getNewAppVersion())) )||
+				if(((Float.valueOf(info.versionName).floatValue() != Float.valueOf(AppSetManager.getNewAppVersion()).floatValue()) )||
 				(!AppSetManager.getOldShopTag().equals(AppSetManager.getNewShopTag()))||
 				(!AppSetManager.getOldMessageTag().equals(AppSetManager.getNewMessageTag()))||
 				(!AppSetManager.getOldProtectBabyTag().equals(AppSetManager.getNewProtectBabyTag()))
