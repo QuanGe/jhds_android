@@ -39,7 +39,7 @@ public class WebActivity extends Activity{
 	private RelativeLayout shareBtn;
 	private String url = null;
 	private String title = null;
-	
+	private String shareTitle = null;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -62,7 +62,7 @@ public class WebActivity extends Activity{
 	
 	private void share()
 	{
-		ShareCollectUtils.shareContent(this, title, url, null);
+		ShareCollectUtils.shareContent(this, shareTitle, url, null);
 	}
 
 	@Override
@@ -104,6 +104,7 @@ public class WebActivity extends Activity{
 			url = bundle.getString("url", "");
 			title = bundle.getString("title", "");
 			tv_title.setText(title);
+			shareTitle = bundle.getString("shareTitle", "");
 			canShare(bundle.getBoolean("canShare",false)); 
 			
 			

@@ -27,12 +27,15 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.TextView;
 
 public class JHDSMessageActivity extends Activity implements OnItemClickListener {
 	@ViewInject(R.id.errorMessage)
 	private JHDSErrorMessage errorMessage;
 	 @ViewInject(R.id.message_list)
 	 private PullToRefreshListView messgaeList;
+	 @ViewInject(R.id.headerTitle)
+	 private TextView headerTitle;
 	 private List<JHDSMessageModel> data = new ArrayList<JHDSMessageModel>();
 	 private JHDSMessageAdapter lAdapter;
 	 @Override
@@ -50,6 +53,8 @@ public class JHDSMessageActivity extends Activity implements OnItemClickListener
 		messgaeList.setOnRefreshListener(orfListener2());
 	
 		messgaeList.setOnItemClickListener(this);	
+		
+		headerTitle.setText("官方公告");
 		firstLoadData();
 		errorMessage.setOnClickListener(new OnClickListener() {
 
@@ -129,6 +134,7 @@ public class JHDSMessageActivity extends Activity implements OnItemClickListener
 			Bundle bundle = new Bundle();
 			bundle.putString("url", sm.detail);
 			bundle.putString("title", "官方公告");
+			bundle.putString("shareTitle", sm.title);
 			bundle.putBoolean("canShare", false);
 			Intent intent = new Intent(this, WebActivity.class);
 			intent.putExtras(bundle);

@@ -25,12 +25,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 public class JHDSBabyAcibity extends Activity implements OnItemClickListener {
 	@ViewInject(R.id.errorMessage)
 	private JHDSErrorMessage errorMessage;
 	 @ViewInject(R.id.message_list)
 	 private PullToRefreshListView messgaeList;
+	 @ViewInject(R.id.headerTitle)
+	 private TextView headerTitle;
 	 private List<JHDSMessageModel> data = new ArrayList<JHDSMessageModel>();
 	 private JHDSMessageAdapter lAdapter;
 	 @Override
@@ -46,7 +49,9 @@ public class JHDSBabyAcibity extends Activity implements OnItemClickListener {
 		messgaeList.setMode(Mode.PULL_FROM_START);
 
 		messgaeList.setOnRefreshListener(orfListener2());
-	
+		
+		headerTitle.setText("守护宝贝");
+		
 		messgaeList.setOnItemClickListener(this);	
 		firstLoadData();
 		errorMessage.setOnClickListener(new OnClickListener() {
@@ -127,6 +132,7 @@ public class JHDSBabyAcibity extends Activity implements OnItemClickListener {
 			Bundle bundle = new Bundle();
 			bundle.putString("url", sm.detail);
 			bundle.putString("title", "守护宝贝");
+			bundle.putString("shareTitle", sm.title);
 			bundle.putBoolean("canShare", true);
 			Intent intent = new Intent(this, WebActivity.class);
 			intent.putExtras(bundle);

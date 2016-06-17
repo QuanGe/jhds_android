@@ -67,6 +67,7 @@ import android.widget.TextView;
 	protected BrushView brushView;
 	protected RelativeLayout selectBtn;
 	protected RelativeLayout backBtn;
+	protected RelativeLayout topView;
 	private RelativeLayout selectBrushView;
 	private Animation mInAnim, mOutAnim;
 	private GradientDrawable brushColor;
@@ -369,7 +370,7 @@ import android.widget.TextView;
 				else
 				{
 					new AlertDialog.Builder(this).setMessage("请选择是撤销还是返回上一页")
-					.setNegativeButton("撤销", new DialogInterface.OnClickListener() {
+					.setNeutralButton("撤销", new DialogInterface.OnClickListener() {
 	
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
@@ -380,6 +381,11 @@ import android.widget.TextView;
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							finish();
+						}
+					}).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							dialog.dismiss();
 						}
 					}).show();
 					return false;

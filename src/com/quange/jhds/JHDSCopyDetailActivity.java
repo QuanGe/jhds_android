@@ -12,7 +12,6 @@ import android.widget.RelativeLayout.LayoutParams;
 
 public class JHDSCopyDetailActivity  extends DrawActivity{
 
-	private RelativeLayout topView;
 	private Button tryBtn;
 	protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

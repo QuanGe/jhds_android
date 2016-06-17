@@ -18,7 +18,7 @@ import android.widget.RelativeLayout.LayoutParams;
 
 public class JHDSLearnDetailActivity extends DrawActivity {
 	private ViewPager photoViewPager;
-	private RelativeLayout topView;
+	
 	private Button tryBtn;
 	private String[] detail ;
 	public class CurriAdapter extends PagerAdapter {
