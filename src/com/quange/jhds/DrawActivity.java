@@ -14,6 +14,7 @@ import java.util.TimerTask;
 
 
 import com.larswerkman.holocolorpicker.ColorPicker.OnColorChangedListener;
+import com.quange.views.JHDSBackSelectDialog;
 import com.quange.views.SelectBrushView;
 import com.quange.views.BrushView;
 import com.umeng.analytics.MobclickAgent;
@@ -68,6 +69,7 @@ import android.widget.TextView;
 	protected RelativeLayout selectBtn;
 	protected RelativeLayout backBtn;
 	protected RelativeLayout topView;
+	protected RelativeLayout screenShotView;
 	private RelativeLayout selectBrushView;
 	private Animation mInAnim, mOutAnim;
 	private GradientDrawable brushColor;
@@ -81,7 +83,7 @@ import android.widget.TextView;
         setContentView(R.layout.activity_draw);
         
         MobclickAgent.onEvent(this, "canvas");
-        
+        screenShotView = (RelativeLayout)findViewById(R.id.screenShotView);
         brushView = (BrushView)findViewById(R.id.brushView);
         backBtn = (RelativeLayout)findViewById(R.id.backBtn);
         selectBtn = (RelativeLayout)findViewById(R.id.selectBtn);
@@ -269,18 +271,7 @@ import android.widget.TextView;
 
 			@Override
 			public void onClick(View v) {
-				MobclickAgent.onEvent(getApplicationContext(), "canvas_save");
-				Bitmap bitmap = screenShot(brushView);
-				
-				Calendar c = Calendar.getInstance();
-				String localImgUrl = getSDPath()+"/jhds/jianhuadashi/"+c.get(Calendar.YEAR)+c.get(Calendar.MONTH)+c.get(Calendar.DAY_OF_MONTH)+c.get(Calendar.HOUR_OF_DAY)+c.get(Calendar.MINUTE)+".jpg";
-				try {
-					AppCommon.getInstance().saveBitmapToFile(bitmap, localImgUrl, true);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					
-				}
+				backToSave();
 			}
 		});
         brushBox.addView(saveBtn, saveBtnFrame);
@@ -296,10 +287,7 @@ import android.widget.TextView;
 
 			@Override
 			public void onClick(View v) {
-				Bitmap bitmap = screenShot(brushView);
-				Calendar c = Calendar.getInstance();
-				String localImgUrl = getSDPath()+"/jhds/jianhuadashi/"+c.get(Calendar.YEAR)+c.get(Calendar.MONTH)+c.get(Calendar.DAY_OF_MONTH)+c.get(Calendar.HOUR_OF_DAY)+c.get(Calendar.MINUTE)+".jpg";
-				share(localImgUrl,bitmap);
+				backToShare();
 				
 			}
 		});
@@ -369,25 +357,9 @@ import android.widget.TextView;
 					finish();
 				else
 				{
-					new AlertDialog.Builder(this).setMessage("请选择是撤销还是返回上一页")
-					.setNeutralButton("撤销", new DialogInterface.OnClickListener() {
-	
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							brushView.backToFront();
-							
-						}
-					}).setPositiveButton("返回", new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							finish();
-						}
-					}).setNegativeButton("取消", new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							dialog.dismiss();
-						}
-					}).show();
+					
+					JHDSBackSelectDialog ccDlog = new JHDSBackSelectDialog(this, R.style.selectBrush_dialog, Gravity.BOTTOM, true, true);
+					ccDlog.show();
 					return false;
 				}
 			}
@@ -410,7 +382,7 @@ import android.widget.TextView;
 		}
 		else
 		{
-			new AlertDialog.Builder(this).setMessage("请选择是撤销还是返回上一页")
+			/*new AlertDialog.Builder(this).setMessage("请选择是撤销还是返回上一页")
 			.setNegativeButton("撤销", new DialogInterface.OnClickListener() {
 
 				@Override
@@ -424,7 +396,10 @@ import android.widget.TextView;
 					
 					finish();
 				}
-			}).show();
+			}).show();*/
+			
+			JHDSBackSelectDialog ccDlog = new JHDSBackSelectDialog(this, R.style.selectBrush_dialog, 17, true, true);
+			ccDlog.show();
 		
 		}
 	}
@@ -491,5 +466,33 @@ import android.widget.TextView;
              
     }  
 
+    public void backToLast()
+    {
+    	brushView.backToFront();
+    }
+    
+    public void backToShare()
+    {
+    	Bitmap bitmap = screenShot(screenShotView);
+		Calendar c = Calendar.getInstance();
+		String localImgUrl = getSDPath()+"/jhds/jianhuadashi/"+c.get(Calendar.YEAR)+c.get(Calendar.MONTH)+c.get(Calendar.DAY_OF_MONTH)+c.get(Calendar.HOUR_OF_DAY)+c.get(Calendar.MINUTE)+".jpg";
+		share(localImgUrl,bitmap);
+    }
+    
+    public void backToSave()
+    {
+    	MobclickAgent.onEvent(getApplicationContext(), "canvas_save");
+		Bitmap bitmap = screenShot(screenShotView);
+		
+		Calendar c = Calendar.getInstance();
+		String localImgUrl = getSDPath()+"/jhds/jianhuadashi/"+c.get(Calendar.YEAR)+c.get(Calendar.MONTH)+c.get(Calendar.DAY_OF_MONTH)+c.get(Calendar.HOUR_OF_DAY)+c.get(Calendar.MINUTE)+".jpg";
+		try {
+			AppCommon.getInstance().saveBitmapToFile(bitmap, localImgUrl, true);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		}
+    }
  
 }

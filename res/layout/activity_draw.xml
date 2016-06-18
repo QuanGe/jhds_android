@@ -6,21 +6,30 @@
     
     android:background="@color/white" >
     
-	<com.quange.views.BrushView
+    <RelativeLayout
+        android:id="@+id/screenShotView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="1"
+        android:background="@color/white"
+        >
+        <com.quange.views.BrushView
 	    
 	    android:id="@+id/brushView"
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent">
 	    
-	</com.quange.views.BrushView>
+		</com.quange.views.BrushView>
 
-	<RelativeLayout
+		<RelativeLayout
         android:id="@+id/topView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:alpha="1"
         android:background="@color/white"
         android:visibility="gone" />
+    </RelativeLayout>
+	
 	
 	
 	<RelativeLayout

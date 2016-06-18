@@ -101,7 +101,7 @@ public class JHDSLearnDetailActivity extends DrawActivity {
 		topView.setVisibility(View.VISIBLE);
 		
 		photoViewPager = new ViewPager(this);
-		photoViewPager.setBackgroundColor(0xff888888);
+		photoViewPager.setBackgroundColor(0xffffffff);
 		RelativeLayout.LayoutParams imgelp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
 		topView.addView(photoViewPager, imgelp);
 		photoViewPager.setAdapter(new CurriAdapter(detail) );
@@ -121,7 +121,7 @@ public class JHDSLearnDetailActivity extends DrawActivity {
 				MobclickAgent.onEvent(getApplicationContext(), "learn_action");
 				RelativeLayout.LayoutParams lp = (LayoutParams) topView.getLayoutParams();
 				lp.width = AppCommon.getInstance().screenWidth/4;
-				lp.height = AppCommon.getInstance().screenWidth/4;
+				lp.height = AppCommon.getInstance().screenHeight/4;
 				((RelativeLayout)topView.getParent()).updateViewLayout(topView, lp);
 				
 				tryBtn.setVisibility(View.INVISIBLE);

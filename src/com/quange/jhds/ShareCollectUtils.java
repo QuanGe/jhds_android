@@ -131,7 +131,7 @@ public class ShareCollectUtils {
 					WXImageObject imgObj = new WXImageObject(bitmap);  
 					WXMediaMessage msg = new WXMediaMessage();
 					msg.mediaObject = imgObj;
-					Bitmap thumbBitmap =  Bitmap.createScaledBitmap(bitmap, 150, 150, true);  
+					Bitmap thumbBitmap =  Bitmap.createScaledBitmap(bitmap, 150, 150*(AppCommon.getInstance().screenHeight/AppCommon.getInstance().screenWidth), true);  
 			        bitmap.recycle();  
 			        msg.thumbData = AppCommon.getInstance().Bitmap2Bytes(thumbBitmap);  //设置缩略图 
 					SendMessageToWX.Req req = new SendMessageToWX.Req();
@@ -170,7 +170,7 @@ public class ShareCollectUtils {
 					WXImageObject imgObj = new WXImageObject(bitmap);  
 					WXMediaMessage msg = new WXMediaMessage();
 					msg.mediaObject = imgObj;
-					Bitmap thumbBitmap =  Bitmap.createScaledBitmap(bitmap, 150, 150, true);  
+					Bitmap thumbBitmap =  Bitmap.createScaledBitmap(bitmap, 150, 150*(AppCommon.getInstance().screenHeight/AppCommon.getInstance().screenWidth), true);  
 			        bitmap.recycle();  
 			        msg.thumbData = AppCommon.getInstance().Bitmap2Bytes(thumbBitmap);  //设置缩略图 
 					SendMessageToWX.Req req = new SendMessageToWX.Req();
