@@ -12,9 +12,9 @@
         android:layout_centerVertical="true"
         android:layout_alignParentTop="true"
         android:gravity="center"
-        android:text="客官，您看要点啥"
+        android:text="音量键控制画笔粗细，摇一摇清空画布"
         android:textColor="@color/text_dark"
-        android:textSize="16sp" />
+        android:textSize="12sp" />
     
     <Button
         android:id="@+id/lastBtn"

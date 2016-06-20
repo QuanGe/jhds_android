@@ -398,7 +398,7 @@ import android.widget.TextView;
 				}
 			}).show();*/
 			
-			JHDSBackSelectDialog ccDlog = new JHDSBackSelectDialog(this, R.style.selectBrush_dialog, 17, true, true);
+			JHDSBackSelectDialog ccDlog = new JHDSBackSelectDialog(this, R.style.selectBrush_dialog, Gravity.BOTTOM, true, true);
 			ccDlog.show();
 		
 		}

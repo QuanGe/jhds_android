@@ -171,7 +171,8 @@ public class BrushView extends View {
 					brushList.remove(brushList.size()-1);
 					mDrawing.remove(mDrawing.size()-1);
 				}
-				
+				if(mDrawing.size()==0)
+					clearAll();
 				postInvalidate();
 				
 				Toast.makeText(this.getContext(), "已经后退至上一次落笔处", Toast.LENGTH_SHORT).show();
@@ -234,6 +235,7 @@ public class BrushView extends View {
 	}
 
 	public void clearAll(){
+		MobclickAgent.onEvent(getContext(), "canvas_clear");
 		pathList.clear();
 		brushList.clear();
 	
