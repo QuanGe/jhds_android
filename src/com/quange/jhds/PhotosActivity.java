@@ -28,7 +28,7 @@ public class PhotosActivity extends Activity {
 	private Button shareBtn;
 	private String curUrl;
 	private String[] allUrls ;
-	
+	private int index = 0;
 	public class CurriAdapter extends PagerAdapter {
 
 		private View mCurrentView;
@@ -60,7 +60,7 @@ public class PhotosActivity extends Activity {
 				
 	            // Now just add PhotoView to ViewPager and return it
 	            ((ViewPager) container).addView(photoView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-	            Bitmap bitmap = AppCommon.getInstance().getLoacalBitmap(allUrls[position]); //从本地取图片(在cdcard中获取)  //
+	            Bitmap bitmap = AppCommon.getInstance().getLoacalBitmap(allUrls[position],AppCommon.getInstance().screenWidth,AppCommon.getInstance().screenHeight); //从本地取图片(在cdcard中获取)  //
 	            photoView.setImageBitmap(bitmap);
 	            return photoView;
 			}
@@ -90,9 +90,12 @@ public class PhotosActivity extends Activity {
 		shareBtn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-			
+				
+				share();
 			}
 		});
+		
+		
 	
 		photoViewPager.setAdapter(new CurriAdapter() );
 		
@@ -100,6 +103,7 @@ public class PhotosActivity extends Activity {
 		{
 			if(allUrls[i].equals(curUrl))
 			{
+				index = i;
 				photoViewPager.setCurrentItem(i);
 				indexTV.setText((i+1)+"/"+allUrls.length);
 				break;
@@ -110,6 +114,7 @@ public class PhotosActivity extends Activity {
 			@Override
 			public void onPageSelected(int position) {
 				// TODO Auto-generated method stub
+				index = position;
 				indexTV.setText((position+1)+"/"+allUrls.length);
 			}
 
@@ -124,6 +129,11 @@ public class PhotosActivity extends Activity {
 				// TODO Auto-generated method stub
 			}
 		});
+	}
+	
+	private void share()
+	{
+		ShareCollectUtils.shareContent(this, "简画大师", allUrls[index], null,1);
 	}
 	
 }

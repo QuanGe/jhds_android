@@ -87,7 +87,7 @@ public class JHDSAPIManager {
 					if(r.equals(AppSetManager.getSplashImgUrl()))
 					{
 						String localSplashUrl = AppCommon.getInstance().getSplashLocalUrl(r);
-						Bitmap b = AppCommon.getInstance().getLoacalBitmap(localSplashUrl);
+						Bitmap b = AppCommon.getInstance().getLoacalBitmap(localSplashUrl,AppCommon.getInstance().screenWidth,AppCommon.getInstance().screenHeight);
 						if(b != null)
 						{
 							return;

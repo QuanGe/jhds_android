@@ -47,7 +47,7 @@ public class SplashActivity extends Activity implements OnClickListener{
 	 private ImageView[] points;
 	// 记录当前选中位置
 	 private int currentIndex;
-	 private String[] allInfo = {"给你一块画板\n画出你的天空","海量简画教程\n持续不断更新","临摹优秀作品\n提示自己笔格","手机摇一摇\n重新来画","音量键"};
+	 private String[] allInfo = {"给你一块画板\n画出你的天空","海量简画教程\n持续不断更新","临摹优秀作品\n提升自己笔格","手机摇一摇\n重新来画","音量键"};
 	 private int iconArray[] = { R.drawable.splash0, R.drawable.splash1,
 				R.drawable.splash2, R.drawable.splash3 };
 	 
@@ -129,7 +129,7 @@ public class SplashActivity extends Activity implements OnClickListener{
 				if(!splashUrl.equals(""))
 				{
 					String localSplashUrl = AppCommon.getInstance().getSplashLocalUrl(splashUrl);
-					Bitmap b = AppCommon.getInstance().getLoacalBitmap(localSplashUrl);
+					Bitmap b = AppCommon.getInstance().getLoacalBitmap(localSplashUrl,AppCommon.getInstance().screenWidth,AppCommon.getInstance().screenHeight);
 					if(b != null)
 					{
 						splashImg.setImageBitmap(b);

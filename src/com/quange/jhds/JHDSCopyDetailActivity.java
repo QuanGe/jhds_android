@@ -1,5 +1,7 @@
 package com.quange.jhds;
 
+import android.annotation.SuppressLint;
+import android.graphics.drawable.Drawable;
 import com.umeng.analytics.MobclickAgent;
 
 import android.os.Bundle;
@@ -27,7 +29,7 @@ public class JHDSCopyDetailActivity  extends DrawActivity{
 		buildCopyView(detail);
 	}
 	
-	public void buildCopyView(String detail)
+	@SuppressLint("NewApi") public void buildCopyView(String detail)
 	{
 	
 		MobclickAgent.onEvent(this, "copy_detail");
@@ -35,7 +37,13 @@ public class JHDSCopyDetailActivity  extends DrawActivity{
 		topView.setVisibility(View.VISIBLE);
 		
 		ImageView imge = new ImageView(this);
-		RelativeLayout.LayoutParams imgelp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+		Drawable arrowD = getResources().getDrawable(R.drawable.img_border);
+		topView.setBackground(arrowD);
+		RelativeLayout.LayoutParams imgelp = new RelativeLayout.LayoutParams(
+				AppCommon.getInstance().screenWidth-(int) (4*AppCommon.getInstance().metrics.density),
+				AppCommon.getInstance().screenHeight-(int) (4*AppCommon.getInstance().metrics.density));
+		imgelp.leftMargin =(int) (2*AppCommon.getInstance().metrics.density);
+		imgelp.rightMargin =(int) (2*AppCommon.getInstance().metrics.density);
 		topView.addView(imge, imgelp);
 		imge.setOnClickListener(new OnClickListener() {   
 

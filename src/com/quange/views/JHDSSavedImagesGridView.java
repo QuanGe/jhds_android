@@ -4,8 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.handmark.pulltorefresh.library.PullToRefreshGridView;
-import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 
 import com.quange.jhds.JHDSSavedImagesActivity;
 import com.quange.jhds.PhotosActivity;
@@ -20,12 +18,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.RelativeLayout;
+import android.widget.GridView;
 
 public class JHDSSavedImagesGridView implements OnItemClickListener { 
 	private View mView;
 	private JHDSSavedImagesActivity mAct;
 	private String appPath;
-	private PullToRefreshGridView lList;
+	private GridView lList;
 	private JHDSSaveImagesAdapter lAdapter;
 	private List<String> mlList = new ArrayList<String>();
 	
@@ -33,7 +32,7 @@ public class JHDSSavedImagesGridView implements OnItemClickListener {
 	{
 		super();
 		this.mAct = (JHDSSavedImagesActivity)act;
-		mView = View.inflate(mAct, R.layout.view_copy, null);
+		mView = View.inflate(mAct, R.layout.view_saved, null);
 		appPath = mAct.getApplicationContext().getFilesDir().getAbsolutePath();
 		initView();
 	}
@@ -63,12 +62,12 @@ public class JHDSSavedImagesGridView implements OnItemClickListener {
 				File file[] = f.listFiles();
 				for (int i=0; i < file.length; i++)
 				{
-					mlList.add(file[i].getAbsolutePath());
+					mlList.add(0,file[i].getAbsolutePath());
 				}
-				lList = (PullToRefreshGridView) mView.findViewById(R.id.copy_gridView);
+				lList = (GridView) mView.findViewById(R.id.gv_save);
 				
 				lAdapter = new JHDSSaveImagesAdapter(mAct, mlList);
-				lList.setMode(Mode.DISABLED);
+				
 				lList.setAdapter(lAdapter);
 				
 			

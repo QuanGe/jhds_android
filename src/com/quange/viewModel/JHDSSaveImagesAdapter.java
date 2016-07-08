@@ -1,5 +1,6 @@
 package com.quange.viewModel;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -12,12 +13,16 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.GradientDrawable;
+import android.os.AsyncTask;
 import android.os.Build;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.ImageView.ScaleType;
+import android.widget.RelativeLayout.LayoutParams;
 
 public class JHDSSaveImagesAdapter extends BaseAdapter {
 	private Activity mAct;
@@ -41,6 +46,23 @@ public class JHDSSaveImagesAdapter extends BaseAdapter {
 		return position;
 	}
 
+	public class ImageGetter extends AsyncTask<String, Void, Bitmap> {
+	    private ImageView iv;
+	    public ImageGetter(ImageView v) {
+	        iv = v;
+	    }
+	    @Override
+	    protected Bitmap doInBackground(String... params) {
+	        return AppCommon.getInstance().getLoacalBitmap(params[0], 150, 225);
+	    }
+	    @Override
+	    protected void onPostExecute(Bitmap result) {
+	        super.onPostExecute(result);
+	        iv.setImageBitmap(result);
+	    }
+		
+	}
+	
 	@SuppressLint("NewApi") @Override
 	public View getView(int position, View cv, ViewGroup parent) {
 		String Url = getItem(position);
@@ -56,30 +78,21 @@ public class JHDSSaveImagesAdapter extends BaseAdapter {
 		} else {
 			hv = (HoldView) cv.getTag();
 		}		
+		
 		hv.contentIv.setScaleType(ScaleType.CENTER_CROP);
-		Bitmap bitmap = getLoacalBitmap(Url); //从本地取图片(在cdcard中获取)  //
-		hv.contentIv.setImageBitmap(bitmap); //设置Bitmap
+		
+		if(hv.contentIv.getTag() != null) {
+		    ((ImageGetter) hv.contentIv.getTag()).cancel(true);
+		}
+		ImageGetter task = new ImageGetter(hv.contentIv) ;
+		task.execute(Url);
+		hv.contentIv.setTag(task);
+//		Bitmap bitmap =AppCommon.getInstance().getLoacalBitmap(Url, 150, 225); //从本地取图片(在cdcard中获取)  //
+//		hv.contentIv.setImageBitmap(bitmap); //设置Bitmap
 		
 		
 		return cv;
 	}
-
-	 /**
-	    * 加载本地图片
-	    * @param url
-	    * @return
-	    */
-	    public static Bitmap getLoacalBitmap(String url) {
-	         try {
-	              FileInputStream fis = new FileInputStream(url);
-	              return BitmapFactory.decodeStream(fis);  ///把流转化为Bitmap图片        
-
-	           } catch (FileNotFoundException e) {
-	              e.printStackTrace();
-	              return null;
-	         }
-	    }
-
 
 	private class HoldView {
 	

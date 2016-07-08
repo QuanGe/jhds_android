@@ -62,7 +62,7 @@ public class WebActivity extends Activity{
 	
 	private void share()
 	{
-		ShareCollectUtils.shareContent(this, shareTitle, url, null);
+		ShareCollectUtils.shareContent(this, shareTitle, url, null,0);
 	}
 
 	@Override

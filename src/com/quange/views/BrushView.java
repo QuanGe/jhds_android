@@ -15,9 +15,11 @@ import com.google.gson.JsonElement;
 import com.google.gson.reflect.TypeToken;
 import com.quange.jhds.AppCommon;
 import com.quange.jhds.AppSetManager;
+import com.quange.jhds.DrawActivity;
 import com.quange.model.JHDSBrushModel;
 import com.quange.model.JHDSBrushModel.JHDSBrushLineModel;
 import com.quange.model.JHDSCopyModel;
+import com.quange.jhds.*;
 import com.umeng.analytics.MobclickAgent;
 
 
@@ -170,7 +172,14 @@ public class BrushView extends View {
 					pathList.remove(pathList.size()-1);
 					brushList.remove(brushList.size()-1);
 					mDrawing.remove(mDrawing.size()-1);
+					if(mDrawing.size()>0)
+					{
+						DrawActivity at = (DrawActivity) this.getContext();
+						JHDSBrushModel bbb = mDrawing.get(mDrawing.size()-1);
+						at.updateBrushWidthAndColor(bbb.brushwidth, bbb.brushColor);
+					}
 				}
+				
 				if(mDrawing.size()==0)
 					clearAll();
 				postInvalidate();
@@ -248,15 +257,15 @@ public class BrushView extends View {
 	public void updateBrushWidth(boolean up)
 	{
 		
-		brushwidth = brushwidth +(up?1:-1)*2;
-		if(brushwidth<2)
+		brushwidth = brushwidth +(up?1:-1);
+		if(brushwidth<1)
 		{
-			brushwidth =2;
+			brushwidth =1;
 			return;
 		}
-		else if(brushwidth>16)
+		else if(brushwidth>20)
 		{
-			brushwidth = 16;
+			brushwidth = 20;
 			return;
 		}
 		Path path = new Path();
@@ -274,7 +283,7 @@ public class BrushView extends View {
 		DisplayMetrics dm = new DisplayMetrics();  
 		dm = getContext().getApplicationContext().getResources().getDisplayMetrics();  
 		
-		brush.setStrokeWidth(brushwidth*dm.density);
+		brush.setStrokeWidth((float) (brushwidth*dm.density*0.8));
 		
 		brushList.add(brush);
 		

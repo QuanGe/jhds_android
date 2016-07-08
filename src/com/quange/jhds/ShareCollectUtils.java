@@ -31,8 +31,18 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 
 public class ShareCollectUtils {
 
+	static String[] shareMessage = {"叮咚，新鲜的简画出炉了，看我画的还凑合吧？#简画大师#",
+            "快来瞧，看来看，我刚创作了一番，看看我的水平是啥等级的#简画大师#",
+            "哎呀，妈呀，累死我了，终于画完了#简画大师#",
+            "小手一抖，简画在手#简画大师#",
+            "啥？我画的不好看？你来试试#简画大师#",
+            "you can you up，no can no BB？#简画大师#",
+            "快得了吧，这是我画的最好的了，😄？#简画大师#",
+            "简画，就是简单，想画就画，我骄傲😄？#简画大师#",
+            "一句话：不服来画给我看。#简画大师#"};
+	//0 text 1localimg 2bitmap
 	public static void shareContent(final Activity activity,
-			final String title, final String shareUrl,final Bitmap bitmap) {
+			final String title, final String shareUrl,final Bitmap bitmap,final int type) {
 
 		LayoutInflater inflater = LayoutInflater.from(activity);
 		final View vPopWindow = inflater.inflate(R.layout.layout_share, null);
@@ -52,7 +62,7 @@ public class ShareCollectUtils {
 		Button btn_qq_1 = (Button) vPopWindow.findViewById(R.id.btn_qq_1);
 		Button btn_qq_2 = (Button) vPopWindow.findViewById(R.id.btn_qq_2);
 		
-		if(bitmap != null)
+		if(type != 0)
 			vPopWindow.findViewById(R.id.zoneBtn).setVisibility(View.GONE);
 		else
 			vPopWindow.findViewById(R.id.zoneBtn).setVisibility(View.VISIBLE);
@@ -71,19 +81,24 @@ public class ShareCollectUtils {
 					mWeiboShareAPI.registerApp();
 				}
 				
-				if(bitmap != null)
+				if(type ==1 ||type ==2)
 				{
 					/*图片对象*/  
 				    ImageObject imageobj = new ImageObject();  
 				  
-				    if (bitmap != null) {  
+				    if (type ==2) {  
 				        imageobj.setImageObject(bitmap);  
-				    }  
+				    } 
+				    else
+				    {
+				    	imageobj.setImageObject(AppCommon.getInstance().getLoacalBitmap(shareUrl, AppCommon.getInstance().screenWidth, AppCommon.getInstance().screenHeight));
+				    }
 				  
 				    /*微博数据的message对象*/  
 				    WeiboMultiMessage multmess = new WeiboMultiMessage();  
 				    TextObject textobj = new TextObject();  
-				    textobj.text = "我用#简画大师#创作了一副简画，快来围观吧";  
+				    String sm = shareMessage[(int) (Math.random() * 9)];
+				    textobj.text = sm;  
 				  
 				    multmess.textObject = textobj;  
 				    multmess.imageObject = imageobj;  
@@ -97,7 +112,7 @@ public class ShareCollectUtils {
 					mWeiboShareAPI.sendRequest(request);
 				
 				}
-				else
+				else if(type == 0)
 				{
 					WeiboMultiMessage weiboMessage = new WeiboMultiMessage();
 					TextObject textObject = new TextObject();
@@ -125,10 +140,13 @@ public class ShareCollectUtils {
 			@Override
 			public void onClick(View v) {
 				MobclickAgent.onEvent(v.getContext(), "canvas_share_wx");
-				if(bitmap != null)
+				if(type ==1 ||type ==2)
 				{
-					
-					WXImageObject imgObj = new WXImageObject(bitmap);  
+					WXImageObject imgObj = null;
+					if(type ==1)
+						imgObj = new WXImageObject(AppCommon.getInstance().getLoacalBitmap(shareUrl, AppCommon.getInstance().screenWidth, AppCommon.getInstance().screenHeight));  
+					else
+						imgObj = new WXImageObject(bitmap); 
 					WXMediaMessage msg = new WXMediaMessage();
 					msg.mediaObject = imgObj;
 					Bitmap thumbBitmap =  Bitmap.createScaledBitmap(bitmap, 150, 150*(AppCommon.getInstance().screenHeight/AppCommon.getInstance().screenWidth), true);  
@@ -141,7 +159,7 @@ public class ShareCollectUtils {
 					AppCommon.getInstance().api.sendReq(req);
 					
 				}
-				else
+				else if(type == 0)
 				{
 				
 					WXWebpageObject webpage = new WXWebpageObject();
@@ -165,9 +183,13 @@ public class ShareCollectUtils {
 			@Override
 			public void onClick(View v) {
 				MobclickAgent.onEvent(v.getContext(), "canvas_share_pyq");
-				if(bitmap != null)
+				if(type ==1 ||type ==2)
 				{
-					WXImageObject imgObj = new WXImageObject(bitmap);  
+					WXImageObject imgObj = null;
+					if(type ==1)
+						imgObj = new WXImageObject(AppCommon.getInstance().getLoacalBitmap(shareUrl, AppCommon.getInstance().screenWidth, AppCommon.getInstance().screenHeight));  
+					else
+						imgObj = new WXImageObject(bitmap); 
 					WXMediaMessage msg = new WXMediaMessage();
 					msg.mediaObject = imgObj;
 					Bitmap thumbBitmap =  Bitmap.createScaledBitmap(bitmap, 150, 150*(AppCommon.getInstance().screenHeight/AppCommon.getInstance().screenWidth), true);  
@@ -179,7 +201,7 @@ public class ShareCollectUtils {
 					req.scene = SendMessageToWX.Req.WXSceneTimeline;
 					AppCommon.getInstance().api.sendReq(req);
 				}
-				else
+				else if(type == 0)
 				{
 					WXWebpageObject webpage = new WXWebpageObject();
 					webpage.webpageUrl = shareUrl;
@@ -200,10 +222,11 @@ public class ShareCollectUtils {
 			public void onClick(View v) {
 				MobclickAgent.onEvent(v.getContext(), "canvas_share_qq");
 				
-				if(bitmap != null)
+				if(type ==1 ||type ==2)
 				{
 					try {
-						AppCommon.getInstance().saveBitmapToFile(bitmap, shareUrl, false);
+						if(type == 2)
+							AppCommon.getInstance().saveBitmapToFile(bitmap, shareUrl, false);
 						QQQZoneShare.addQQQZonePlatform(activity,
 								QQQZoneShare.SHARE_QQ);
 						QQQZoneShare.setShareImg (shareUrl);
@@ -214,7 +237,7 @@ public class ShareCollectUtils {
 						ex.printStackTrace();
 					}
 				}
-				else
+				else if(type == 0)
 				{
 					try {
 						QQQZoneShare.addQQQZonePlatform(activity,

@@ -338,13 +338,45 @@ public class AppCommon extends Application {
 		return false;
 	}
 	
+	public static int calculateInSampleSize(
+            BitmapFactory.Options options, int reqWidth, int reqHeight) {
+	    // Raw height and width of image
+	    final int height = options.outHeight;
+	    final int width = options.outWidth;
+	    int inSampleSize = 1;
+	
+	    if (height > reqHeight || width > reqWidth) {
+	
+	        final int halfHeight = height / 2;
+	        final int halfWidth = width / 2;
+	
+	        // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+	        // height and width larger than the requested height and width.
+	        while ((halfHeight / inSampleSize) > reqHeight
+	                && (halfWidth / inSampleSize) > reqWidth) {
+	            inSampleSize *= 2;
+	        }
+	    }
+	
+	    return inSampleSize;
+	}
+	
 	/**
     * 加载本地图片
     * @param url
     * @return
     */
-    public  Bitmap getLoacalBitmap(String url) {
+    public  Bitmap getLoacalBitmap(String url,int reqWidth,int reqHeight) {
          try {
+        	 BitmapFactory.Options opt = new BitmapFactory.Options();
+        	 opt.inPreferredConfig = Bitmap.Config.RGB_565; 
+        	 opt.inPurgeable = true;
+        	 opt.inInputShareable = true;
+        	  
+        	 DisplayMetrics dm = AppCommon.getInstance().metrics; 
+        	 BitmapFactory.decodeFile(url, opt);
+        	 
+        	 opt.inSampleSize = calculateInSampleSize(opt,  (int)(reqWidth*dm.density),(int)(reqHeight*dm.density)); 
               FileInputStream fis = new FileInputStream(url);
               return BitmapFactory.decodeStream(fis);  ///把流转化为Bitmap图片        
 

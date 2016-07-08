@@ -296,8 +296,8 @@ import android.widget.TextView;
 	
 	private void share(String localImgUrl,Bitmap bitmap) {
 		
-		final String content = "测试";
-		ShareCollectUtils.shareContent(this, content, localImgUrl, bitmap);
+		final String content = "简画大师";
+		ShareCollectUtils.shareContent(this, content, localImgUrl, bitmap,2);
 	}
 	
 	public Bitmap screenShot(View view) {
@@ -495,4 +495,14 @@ import android.widget.TextView;
 		}
     }
  
+    public void updateBrushWidthAndColor(int brushWidth,int color)
+    {
+    	DisplayMetrics dm = new DisplayMetrics();  
+    	dm = this.getApplicationContext().getResources().getDisplayMetrics(); 
+    	brushFrame.width = (int) (brushWidth*dm.density);
+        brushFrame.height = (int) (brushWidth*dm.density);
+        brushColor.setCornerRadius(brushWidth*dm.density/2); 
+        selectBtn.updateViewLayout(brushIcon, brushFrame);
+        brushColor.setColor(color);
+    }
 }

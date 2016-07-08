@@ -194,7 +194,7 @@ public class MineFragment extends Fragment {
 			if(!AppSetManager.getNewAppVersion().equals(""))
 			{
 				
-				if(Float.valueOf(info.versionName).floatValue() != Float.valueOf(AppSetManager.getNewAppVersion()).floatValue())
+				if(Float.valueOf(info.versionName).floatValue() < Float.valueOf(AppSetManager.getNewAppVersion()).floatValue())
 				{
 					tv_appVersionRedTip.setVisibility(View.VISIBLE);
 					version = version+"  点击更新到最新版本:"+AppSetManager.getNewAppVersion();

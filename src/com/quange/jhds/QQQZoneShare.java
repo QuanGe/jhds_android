@@ -21,6 +21,16 @@ import com.umeng.socialize.sso.UMQQSsoHandler;
 
 public class QQQZoneShare {
 	
+	static String[] shareMessage = {"叮咚，新鲜的简画出炉了，看我画的还凑合吧？#简画大师#",
+        "快来瞧，看来看，我刚创作了一番，看看我的水平是啥等级的#简画大师#",
+        "哎呀，妈呀，累死我了，终于画完了#简画大师#",
+        "小手一抖，简画在手#简画大师#",
+        "啥？我画的不好看？你来试试#简画大师#",
+        "you can you up，no can no BB？#简画大师#",
+        "快得了吧，这是我画的最好的了，😄？#简画大师#",
+        "简画，就是简单，想画就画，我骄傲😄？#简画大师#",
+        "一句话：不服来画给我看。#简画大师#"};
+	
 	public final static UMSocialService mController = UMServiceFactory
             .getUMSocialService(QQQZoneShare.DESCRIPTOR);
 	
@@ -148,8 +158,8 @@ public class QQQZoneShare {
 			UMImage localImage = new UMImage(JHDSAPIManager.getInstance(null).getContextVar(), file);
 			
 			QQShareContent qqShareContent = new QQShareContent();
-		
-			qqShareContent.setTitle("呵呵");
+			String sm = shareMessage[(int) (Math.random() * 9)];
+			qqShareContent.setTitle(sm);
 			
 			qqShareContent.setShareImage(localImage);
 			mController.setShareMedia(qqShareContent);
