@@ -41,13 +41,10 @@ public class LearnListView implements OnItemClickListener{
 	private PullToRefreshListView lList;
 	private JHDSLearnAdapter lAdapter;
 	private ArrayList<JHDSLearnModel> mLSList = new ArrayList<JHDSLearnModel>();
-	private ArrayList<String> mListIds = new ArrayList<String>();
-	private RelativeLayout rlW;
-	private TextView tvCW;
-	private String appPath;
+	
 	private int learnType;
 	private int mCurPage = 1;
-	private PagerSlidingTabStrip doubanTabs;
+
 
 	public LearnListView(Activity act, int type) {
 		super();
@@ -55,7 +52,7 @@ public class LearnListView implements OnItemClickListener{
 		this.learnType = type;
 		
 		mView = View.inflate(mAct, R.layout.learn_view, null);
-		appPath = mAct.getApplicationContext().getFilesDir().getAbsolutePath();
+		
 		initView();
 	}
 

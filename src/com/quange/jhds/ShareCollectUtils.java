@@ -40,10 +40,16 @@ public class ShareCollectUtils {
             "快得了吧，这是我画的最好的了，😄？#简画大师#",
             "简画，就是简单，想画就画，我骄傲😄？#简画大师#",
             "一句话：不服来画给我看。#简画大师#"};
+	/** 微博微博分享接口实例 */
+    private static IWeiboShareAPI  mWeiboShareAPI = null;
 	//0 text 1localimg 2bitmap
 	public static void shareContent(final Activity activity,
 			final String title, final String shareUrl,final Bitmap bitmap,final int type) {
 
+		mWeiboShareAPI = WeiboShareSDK.createWeiboAPI(
+				activity, "3129504298");
+		
+		mWeiboShareAPI.registerApp();
 		LayoutInflater inflater = LayoutInflater.from(activity);
 		final View vPopWindow = inflater.inflate(R.layout.layout_share, null);
 		final PopupWindow popupWindow = new PopupWindow(vPopWindow,
@@ -73,13 +79,8 @@ public class ShareCollectUtils {
 			public void onClick(View v) {
 				
 				MobclickAgent.onEvent(v.getContext(), "canvas_share_sina");
-				IWeiboShareAPI mWeiboShareAPI = WeiboShareSDK.createWeiboAPI(
-						activity, "3129504298");
-				if (mWeiboShareAPI.checkEnvironment(true)) {
-					// 注册第三方应用 到微博客户端中，注册成功后该应用将显示在微博的应用列表中。
-					// 但该附件栏集成分享权限需要合作申请，详情请查看 Demo 提示
-					mWeiboShareAPI.registerApp();
-				}
+				
+				
 				
 				if(type ==1 ||type ==2)
 				{
@@ -109,7 +110,7 @@ public class ShareCollectUtils {
 				    request.transaction = String.valueOf(System.currentTimeMillis());  
 				   
 				    
-					mWeiboShareAPI.sendRequest(request);
+					mWeiboShareAPI.sendRequest(activity,request);
 				
 				}
 				else if(type == 0)
@@ -131,6 +132,7 @@ public class ShareCollectUtils {
 					SendMultiMessageToWeiboRequest request = new SendMultiMessageToWeiboRequest();
 					request.transaction = String.valueOf(System.currentTimeMillis());
 					request.multiMessage = weiboMessage;
+					mWeiboShareAPI.sendRequest(activity,request);
 				}
 				popupWindow.dismiss();
 			}
@@ -142,15 +144,19 @@ public class ShareCollectUtils {
 				MobclickAgent.onEvent(v.getContext(), "canvas_share_wx");
 				if(type ==1 ||type ==2)
 				{
-					WXImageObject imgObj = null;
-					if(type ==1)
-						imgObj = new WXImageObject(AppCommon.getInstance().getLoacalBitmap(shareUrl, AppCommon.getInstance().screenWidth, AppCommon.getInstance().screenHeight));  
+					
+					Bitmap tmpBitmap = null;
+					if(type == 1)
+						tmpBitmap = AppCommon.getInstance().getLoacalBitmap(shareUrl, AppCommon.getInstance().screenWidth, AppCommon.getInstance().screenHeight);
 					else
-						imgObj = new WXImageObject(bitmap); 
+						tmpBitmap = bitmap;
+					WXImageObject imgObj = new WXImageObject(tmpBitmap);
+					
 					WXMediaMessage msg = new WXMediaMessage();
 					msg.mediaObject = imgObj;
-					Bitmap thumbBitmap =  Bitmap.createScaledBitmap(bitmap, 150, 150*(AppCommon.getInstance().screenHeight/AppCommon.getInstance().screenWidth), true);  
-			        bitmap.recycle();  
+					Bitmap thumbBitmap =  Bitmap.createScaledBitmap(tmpBitmap, 150, 150*(AppCommon.getInstance().screenHeight/AppCommon.getInstance().screenWidth), true);  
+					if(type == 2)
+						bitmap.recycle();  
 			        msg.thumbData = AppCommon.getInstance().Bitmap2Bytes(thumbBitmap);  //设置缩略图 
 					SendMessageToWX.Req req = new SendMessageToWX.Req();
 					req.transaction = String.valueOf(System.currentTimeMillis());
@@ -185,15 +191,17 @@ public class ShareCollectUtils {
 				MobclickAgent.onEvent(v.getContext(), "canvas_share_pyq");
 				if(type ==1 ||type ==2)
 				{
-					WXImageObject imgObj = null;
-					if(type ==1)
-						imgObj = new WXImageObject(AppCommon.getInstance().getLoacalBitmap(shareUrl, AppCommon.getInstance().screenWidth, AppCommon.getInstance().screenHeight));  
+					Bitmap tmpBitmap = null;
+					if(type == 1)
+						tmpBitmap = AppCommon.getInstance().getLoacalBitmap(shareUrl, AppCommon.getInstance().screenWidth, AppCommon.getInstance().screenHeight);
 					else
-						imgObj = new WXImageObject(bitmap); 
+						tmpBitmap = bitmap;
+					WXImageObject imgObj = new WXImageObject(tmpBitmap);
 					WXMediaMessage msg = new WXMediaMessage();
 					msg.mediaObject = imgObj;
-					Bitmap thumbBitmap =  Bitmap.createScaledBitmap(bitmap, 150, 150*(AppCommon.getInstance().screenHeight/AppCommon.getInstance().screenWidth), true);  
-			        bitmap.recycle();  
+					Bitmap thumbBitmap =  Bitmap.createScaledBitmap(tmpBitmap, 150, 150*(AppCommon.getInstance().screenHeight/AppCommon.getInstance().screenWidth), true);  
+					if(type == 2)
+						bitmap.recycle();  
 			        msg.thumbData = AppCommon.getInstance().Bitmap2Bytes(thumbBitmap);  //设置缩略图 
 					SendMessageToWX.Req req = new SendMessageToWX.Req();
 					req.transaction = String.valueOf(System.currentTimeMillis());

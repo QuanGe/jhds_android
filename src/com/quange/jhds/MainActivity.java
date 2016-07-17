@@ -12,6 +12,7 @@ import com.quange.viewModel.JHDSAPIManager;
 import com.quange.views.CopyFragment;
 import com.quange.views.LearnFragment;
 import com.quange.views.MineFragment;
+import com.quange.views.ShareFragment;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.message.*;
 
@@ -29,7 +30,9 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTabHost;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -50,11 +53,11 @@ import android.widget.TabHost.OnTabChangeListener;
 @SuppressLint("NewApi") public class MainActivity extends FragmentActivity {
 	private Button drawbtn;
 	public static FragmentTabHost mTabHost;
-	private Class<?> fragmentArray[] = {CopyFragment.class,LearnFragment.class,MineFragment.class};
-	private int titleArray[] = {R.string.copy,R.string.learn,R.string.mine};
+	private Class<?> fragmentArray[] = {CopyFragment.class,LearnFragment.class,ShareFragment.class,MineFragment.class};
+	private int titleArray[] = {R.string.copy,R.string.learn,R.string.homeshare,R.string.mine};
 	private Resources re;
-	private TextView tv[] = { null, null,null };
-	private int iconArray[] = {R.drawable.btn_copy_drawable,R.drawable.btn_learn_drawable,R.drawable.btn_mine_drawable};
+	private TextView tv[] = { null, null,null ,null};
+	private int iconArray[] = {R.drawable.btn_copy_drawable,R.drawable.btn_learn_drawable,R.drawable.btn_share_drawable,R.drawable.btn_mine_drawable};
 	protected static boolean isQuit = false;
 	private View theView;
 	private PushAgent mPushAgent;
@@ -311,4 +314,24 @@ import android.widget.TabHost.OnTabChangeListener;
     	super.onPause();
     	MobclickAgent.onPause(this);
     	}
+    	
+
+	public Fragment getVisibleFragment(){
+	    FragmentManager fragmentManager = MainActivity.this.getSupportFragmentManager();
+	    List<Fragment> fragments = fragmentManager.getFragments();
+	    for(Fragment fragment : fragments){
+	        if(fragment != null && fragment.isVisible())
+	            return fragment;
+	    }
+	    return null;
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		Fragment f = getVisibleFragment();
+		if(f.getClass() == ShareFragment.class)
+		{
+			((ShareFragment)f).onActivityResult(requestCode, resultCode, data);
+		}
+	}
 }

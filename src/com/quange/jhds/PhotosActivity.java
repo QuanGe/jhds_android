@@ -2,6 +2,8 @@ package com.quange.jhds;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+
+import com.quange.viewModel.JHDSAPIManager;
 import com.umeng.analytics.MobclickAgent;
 
 import uk.co.senab.photoview.PhotoView;
@@ -60,8 +62,18 @@ public class PhotosActivity extends Activity {
 				
 	            // Now just add PhotoView to ViewPager and return it
 	            ((ViewPager) container).addView(photoView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
-	            Bitmap bitmap = AppCommon.getInstance().getLoacalBitmap(allUrls[position],AppCommon.getInstance().screenWidth,AppCommon.getInstance().screenHeight); //从本地取图片(在cdcard中获取)  //
-	            photoView.setImageBitmap(bitmap);
+	            String subStr = allUrls[position].substring(0, 4);
+	            if(subStr.equals("http"))
+	            {
+	            	AppCommon.getInstance().imageLoader.displayImage(allUrls[position], photoView, AppCommon.getInstance().options);
+	            	
+		            ((ViewPager) container).addView(photoView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+	            }
+	            else
+	            {
+		            Bitmap bitmap = AppCommon.getInstance().getLoacalBitmap(allUrls[position],AppCommon.getInstance().screenWidth,AppCommon.getInstance().screenHeight); //从本地取图片(在cdcard中获取)  //
+		            photoView.setImageBitmap(bitmap);
+	            }
 	            return photoView;
 			}
 
@@ -85,6 +97,11 @@ public class PhotosActivity extends Activity {
 			allUrls = all.split("\\*");
 			
 		}
+		String subStr = curUrl.substring(0, 4);
+        if(subStr.equals("http"))
+        {
+        	shareBtn.setVisibility(View.INVISIBLE);
+        }
 		MobclickAgent.onEvent(this, "girls_detail");
 		
 		shareBtn.setOnClickListener(new OnClickListener() {

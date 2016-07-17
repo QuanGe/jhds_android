@@ -27,6 +27,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
+
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
@@ -51,6 +52,7 @@ public class AppCommon extends Application {
 	public static int screenWidth;
 	public static ImageLoader imageLoader = ImageLoader.getInstance();
 	public static DisplayImageOptions options;
+	public static DisplayImageOptions userIconOptions;
 	// IWXAPI 是第三方app和微信通信的openapi接口
 	public static IWXAPI api;
 	// 单例模式中获取唯一的MyApplication实例
@@ -102,6 +104,11 @@ public class AppCommon extends Application {
 		options = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.n)
 				.showImageForEmptyUri(R.drawable.n).showImageOnFail(R.drawable.n)
 				.cacheInMemory(true).cacheOnDisc(true).displayer(new RoundedBitmapDisplayer(5))
+				.bitmapConfig(Bitmap.Config.RGB_565).build();
+		userIconOptions = new DisplayImageOptions.Builder().showImageOnLoading(R.drawable.home_share)
+				.showImageForEmptyUri(R.drawable.home_share).showImageOnFail(R.drawable.home_share)
+				.cacheInMemory(true).cacheOnDisc(true)
+				// .displayer(new RoundedBitmapDisplayer(20))
 				.bitmapConfig(Bitmap.Config.RGB_565).build();
 	}
 	

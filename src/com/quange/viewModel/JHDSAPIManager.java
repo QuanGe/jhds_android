@@ -39,6 +39,7 @@ import com.quange.model.JHDSCopyModel;
 import com.quange.model.JHDSLearnModel;
 import com.quange.model.JHDSMessageModel;
 import com.quange.model.JHDSShopModel;
+import com.quange.model.JHDSShareModel;
 import com.umeng.analytics.MobclickAgent;
 
 public class JHDSAPIManager {
@@ -253,6 +254,33 @@ public class JHDSAPIManager {
 		addToRequestQueue(request);
     	
     }
+    
+    public void fetchWeiboPageNum(final Listener<String> listener, ErrorListener errorListener)
+    {
+    	StringRequest request = new StringRequest("http://quangelab.com/images/jhds/weibo/weibo_num.txt", new Listener<String>() {
+			public void onResponse(String body) {
+				listener.onResponse(body);
+			}
+		},errorListener);
+		addToRequestQueue(request);
+    	
+    }
+    
+    public void fetchWeiboList(int pageNum,final Listener<List<JHDSShareModel>> listener, ErrorListener errorListener)
+    {
+    	StringRequest request = new StringRequest("http://quangelab.com/images/jhds/weibo/weibo_"+pageNum+".txt", new Listener<String>() {
+			public void onResponse(String body) {
+				
+				List<JHDSShareModel> result = new Gson().fromJson(body,
+						new TypeToken<List<JHDSShareModel>>() {
+						}.getType());
+				listener.onResponse(result);
+			}
+		},errorListener);
+		addToRequestQueue(request);
+    	
+    }
+    
     
     public void fetchMessageTag( final Listener<String> listener, ErrorListener errorListener)
     {
