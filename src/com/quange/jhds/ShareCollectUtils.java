@@ -18,6 +18,7 @@ import com.sina.weibo.sdk.api.ImageObject;
 import com.sina.weibo.sdk.api.TextObject;
 import com.sina.weibo.sdk.api.WebpageObject;
 import com.sina.weibo.sdk.api.WeiboMultiMessage;
+import com.sina.weibo.sdk.api.share.IWeiboHandler.Response;
 import com.sina.weibo.sdk.api.share.IWeiboShareAPI;
 import com.sina.weibo.sdk.api.share.SendMultiMessageToWeiboRequest;
 import com.sina.weibo.sdk.api.share.WeiboShareSDK;
@@ -41,7 +42,7 @@ public class ShareCollectUtils {
             "简画，就是简单，想画就画，我骄傲😄？#简画大师#",
             "一句话：不服来画给我看。#简画大师#"};
 	/** 微博微博分享接口实例 */
-    private static IWeiboShareAPI  mWeiboShareAPI = null;
+    public static IWeiboShareAPI  mWeiboShareAPI = null;
 	//0 text 1localimg 2bitmap
 	public static void shareContent(final Activity activity,
 			final String title, final String shareUrl,final Bitmap bitmap,final int type) {
@@ -50,6 +51,7 @@ public class ShareCollectUtils {
 				activity, "3129504298");
 		
 		mWeiboShareAPI.registerApp();
+		mWeiboShareAPI.handleWeiboResponse(activity.getIntent(), (Response) activity);
 		LayoutInflater inflater = LayoutInflater.from(activity);
 		final View vPopWindow = inflater.inflate(R.layout.layout_share, null);
 		final PopupWindow popupWindow = new PopupWindow(vPopWindow,

@@ -17,6 +17,11 @@ import com.larswerkman.holocolorpicker.ColorPicker.OnColorChangedListener;
 import com.quange.views.JHDSBackSelectDialog;
 import com.quange.views.SelectBrushView;
 import com.quange.views.BrushView;
+import com.sina.weibo.sdk.api.share.BaseResponse;
+import com.sina.weibo.sdk.api.share.IWeiboHandler;
+import com.sina.weibo.sdk.api.share.IWeiboShareAPI;
+import com.sina.weibo.sdk.constant.WBConstants;
+
 import com.umeng.analytics.MobclickAgent;
 
 import android.annotation.SuppressLint;
@@ -64,7 +69,7 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 
-@SuppressLint("NewApi") public class DrawActivity extends Activity implements OnColorChangedListener, SensorEventListener{
+@SuppressLint("NewApi") public class DrawActivity extends Activity implements OnColorChangedListener, SensorEventListener, IWeiboHandler.Response{
 	protected BrushView brushView;
 	protected RelativeLayout selectBtn;
 	protected RelativeLayout backBtn;
@@ -504,5 +509,44 @@ import android.widget.TextView;
         brushColor.setCornerRadius(brushWidth*dm.density/2); 
         selectBtn.updateViewLayout(brushIcon, brushFrame);
         brushColor.setColor(color);
+    }
+    
+    /**
+     * @see {@link Activity#onNewIntent}
+     */	
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        
+        // 从当前应用唤起微博并进行分享后，返回到当前应用时，需要在此处调用该函数
+        // 来接收微博客户端返回的数据；执行成功，返回 true，并调用
+        // {@link IWeiboHandler.Response#onResponse}；失败返回 false，不调用上述回调
+        ShareCollectUtils.mWeiboShareAPI.handleWeiboResponse(intent, this);
+    }
+
+    /**
+     * 接收微客户端博请求的数据。
+     * 当微博客户端唤起当前应用并进行分享时，该方法被调用。
+     * 
+     * @param baseRequest 微博请求数据对象
+     * @see {@link IWeiboShareAPI#handleWeiboRequest}
+     */
+    @Override
+    public void onResponse(BaseResponse baseResp) {
+        if(baseResp!= null){
+            switch (baseResp.errCode) {
+            case WBConstants.ErrorCode.ERR_OK:
+                Toast.makeText(this, R.string.weibosdk_demo_toast_share_success, Toast.LENGTH_LONG).show();
+                break;
+            case WBConstants.ErrorCode.ERR_CANCEL:
+                Toast.makeText(this, R.string.weibosdk_demo_toast_share_canceled, Toast.LENGTH_LONG).show();
+                break;
+            case WBConstants.ErrorCode.ERR_FAIL:
+                Toast.makeText(this, 
+                        getString(R.string.weibosdk_demo_toast_share_failed) + "Error Message: " + baseResp.errMsg, 
+                        Toast.LENGTH_LONG).show();
+                break;
+            }
+        }
     }
 }

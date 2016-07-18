@@ -58,7 +58,13 @@
         <activity
             android:name=".DrawActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar" />
+            
+            android:theme="@android:style/Theme.NoTitleBar" >
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".JHDSCopyDetailActivity"
             android:screenOrientation="portrait"
@@ -74,7 +80,12 @@
          <activity
             android:name=".PhotosActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar" />
+            android:theme="@android:style/Theme.NoTitleBar" >
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+         </activity>
          <activity
             android:name=".JHDSLastDrawActivity"
             android:screenOrientation="portrait"
@@ -94,7 +105,12 @@
          <activity
              android:name=".WebActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar" />
+            android:theme="@android:style/Theme.NoTitleBar" >
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+          </activity>
          <!-- ###################注册SDK使用的Activity###################### -->
         <!-- 分享编辑页 -->
         <activity
