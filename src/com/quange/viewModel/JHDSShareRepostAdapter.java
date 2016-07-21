@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.quange.jhds.AppCommon;
+import com.quange.jhds.DateConverter;
+import com.quange.jhds.DateWeiboUtils;
 import com.quange.jhds.PhotosActivity;
 import com.quange.jhds.R;
 import com.quange.views.RoundImageView;
@@ -78,7 +80,7 @@ public class JHDSShareRepostAdapter extends BaseAdapter {
 		hv.userNickName.setText(ls.user.screen_name);
 		hv.tv_content.setText(ls.text);
 		AppCommon.getInstance().imageLoader.displayImage(ls.user.avatar_large, hv.userIcon, AppCommon.getInstance().userIconOptions);
-		hv.createTime.setText(ls.created_at );
+		hv.createTime.setText(DateWeiboUtils.parseTime(ls.created_at) );
 		hv.shareImgBox3.setVisibility(View.GONE);
 		hv.shareImgBox2.setVisibility(View.GONE);
 		hv.shareImgBox1.setVisibility(View.GONE);

@@ -81,7 +81,10 @@ public class DateUtils {
          * @return 
          */  
         public static String convertTimeToFormat(long timeStamp) {  
-                long curTime =System.currentTimeMillis() / (long) 1000 ;  
+        	java.util.Date date =DateConverter.TimestampToDate(timeStamp);
+        	
+            return DateConverter.displayTime(date);
+                /*long curTime =System.currentTimeMillis() / (long) 1000 ;  
                 long time = curTime - timeStamp;  
   
                 if (time < 60 && time >= 0) {  
@@ -98,7 +101,7 @@ public class DateUtils {
                         return time / 3600 / 24 / 30 / 12 + "年前";  
                 } else {  
                         return "刚刚";  
-                }  
+                }  */
         }  
           
         /** 
