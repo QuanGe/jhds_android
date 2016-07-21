@@ -32,6 +32,7 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class JHDSShareDetailActivity extends Activity {
@@ -72,6 +73,8 @@ public class JHDSShareDetailActivity extends Activity {
 	private WrapContentHeightViewPager BottomViewPaper;
 	private StatusesAPI weiboStatusesAPI;
 	private CommentsAPI weiboCommentsAPIAPI;
+	private JHDSShareRepostView sr;
+	private JHDSShareCommentListView cr;
 	public class weiboDetailAdapter extends PagerAdapter {
 
 		private View mCurrentView;
@@ -101,7 +104,7 @@ public class JHDSShareDetailActivity extends Activity {
 			
 			if(position==0)
 			{
-				JHDSShareRepostView sr = new JHDSShareRepostView((Activity)container.getContext(),weibo_idstr);
+				 sr = new JHDSShareRepostView((Activity)container.getContext(),weibo_idstr);
 				sr.firstLoadData();
 	            ((ViewPager) container).addView(sr.getView(), LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 	           
@@ -109,11 +112,11 @@ public class JHDSShareDetailActivity extends Activity {
 			}
 			else
 			{
-				JHDSShareCommentListView sr = new JHDSShareCommentListView((Activity)container.getContext(),weibo_idstr);
-				sr.firstLoadData();
-				((ViewPager) container).addView(sr.getView(), LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+				 cr = new JHDSShareCommentListView((Activity)container.getContext(),weibo_idstr);
+				cr.firstLoadData();
+				((ViewPager) container).addView(cr.getView(), LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
            
-				return sr.getView();
+				return cr.getView();
 			}
 		}
 
@@ -203,7 +206,7 @@ public class JHDSShareDetailActivity extends Activity {
 	
 	@OnClick(R.id.bottombar_retweet)
 	public void OnRepostClick(View view) {
-		
+		weiboStatusesAPI.repost(Long.parseLong(weibo_idstr), "转发微博", 0, mweiboRepostListener);
 		//转发
 		
 	}
@@ -280,4 +283,52 @@ public class JHDSShareDetailActivity extends Activity {
 //			}
 		}
 	}; 
+	
+	/**
+	 * 微博 OpenAPI 回调接口。
+	 */
+	private RequestListener mweiboRepostListener = new RequestListener() {
+		
+		@Override
+		public void onWeiboException(WeiboException arg0) {
+			// TODO Auto-generated method stub
+			errorRepostTip();
+		}
+		
+		@Override
+		public void onComplete(String arg0) {
+			// TODO Auto-generated method stub
+			
+			
+			Status w = Status.parse(arg0);
+			if(w != null)
+			{
+				sr.messageBox.setVisibility(View.GONE);
+				successRepostTip();
+				sr.mLSList.add(w);
+				sr.lAdapter.notifyDataSetChanged();
+				String text = (String) repostNumBtn.getText();
+				String[] subt = text.split(" ");
+				if(subt.length == 1)
+				{
+					repostNumBtn.setText("转发 "+1);
+				}
+				else
+				{
+					repostNumBtn.setText("转发 "+(Integer.parseInt(subt[1]) +1));
+				}
+			}
+		
+		}
+	}; 
+	
+	public void successRepostTip()
+	{
+		Toast.makeText(this, "转发成功", Toast.LENGTH_SHORT).show();
+	}
+	public void errorRepostTip()
+	{
+		Toast.makeText(this, "转发失败", Toast.LENGTH_SHORT).show();
+	}
+	
 }

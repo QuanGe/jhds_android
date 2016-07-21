@@ -23,12 +23,12 @@ public class JHDSShareRepostView {
 	private View mView;
 	private Activity mAct;
 	private NestedListView lList;
-	private JHDSShareRepostAdapter lAdapter;
-	private ArrayList<Status> mLSList = new ArrayList<Status>();
+	public JHDSShareRepostAdapter lAdapter;
+	public ArrayList<Status> mLSList = new ArrayList<Status>();
 	private String mWeiboID;
 	private int mCurPage = 1;
 	private StatusesAPI weiboStatusesAPI;
-	private RelativeLayout messageBox;
+	public RelativeLayout messageBox;
 	
 	private Button bottomBtn;
 	private TextView tv_message;
