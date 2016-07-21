@@ -589,6 +589,20 @@ public class StatusesAPI extends AbsOpenAPI {
         params.put("is_comment", commentType);
         requestAsync(SERVER_URL_PRIX + "/repost.json", params, HTTPMETHOD_POST, listener);
     }
+    
+    /**
+     * 赞一条微博。
+     * 
+     * @param id            要转发的微博ID
+     
+     * @param listener      异步请求回调接口
+     */
+    public void attitude(long id, RequestListener listener) {
+        WeiboParameters params = new WeiboParameters(mAppKey);
+        params.put("id", id);
+        params.put("attitude", "simle");
+        requestAsync(API_SERVER+"/attitudes" + "/create.json", params, HTTPMETHOD_POST, listener);
+    }
 
     /**
      * 根据微博ID删除指定微博。

@@ -30,8 +30,13 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.animation.Animation.AnimationListener;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -133,6 +138,9 @@ public class JHDSShareDetailActivity extends Activity {
         weiboStatusesAPI = new StatusesAPI(this,SinaConstants.APP_KEY,AccessTokenKeeper.readAccessToken(this));
         weiboCommentsAPIAPI = new CommentsAPI(this,SinaConstants.APP_KEY,AccessTokenKeeper.readAccessToken(this));
         
+        
+       
+        
         shareImg[0] = (ImageView)findViewById(R.id.shareImg0);
 		shareImg[1] = (ImageView) findViewById(R.id.shareImg1);
 		shareImg[2] = (ImageView) findViewById(R.id.shareImg2);
@@ -225,11 +233,12 @@ public class JHDSShareDetailActivity extends Activity {
 	@OnClick(R.id.bottombar_comment)
 	public void OnCommentClick(View view) {
 		
+		
 		//评论
 	}
 	@OnClick(R.id.bottombar_attitude)
 	public void OnAttitudeClick(View view) {
-		
+		weiboStatusesAPI.attitude(Long.parseLong(weibo_idstr), mweiboAttributeListener);
 		//点赞
 	}
 	
@@ -304,7 +313,8 @@ public class JHDSShareDetailActivity extends Activity {
 		@Override
 		public void onWeiboException(WeiboException arg0) {
 			// TODO Auto-generated method stub
-			errorRepostTip();
+			
+			errorRepostTip(arg0.getLocalizedMessage());
 		}
 		
 		@Override
@@ -316,7 +326,7 @@ public class JHDSShareDetailActivity extends Activity {
 			if(w != null)
 			{
 				sr.messageBox.setVisibility(View.GONE);
-				successRepostTip();
+				successRepostTip("赞成功");
 				sr.mLSList.add(w);
 				sr.lAdapter.notifyDataSetChanged();
 				String text = (String) repostNumBtn.getText();
@@ -334,13 +344,52 @@ public class JHDSShareDetailActivity extends Activity {
 		}
 	}; 
 	
-	public void successRepostTip()
+	/**
+	 * 微博 OpenAPI 回调接口。
+	 */
+	private RequestListener mweiboAttributeListener = new RequestListener() {
+		
+		@Override
+		public void onWeiboException(WeiboException arg0) {
+			// TODO Auto-generated method stub
+			
+			errorRepostTip(arg0.getLocalizedMessage());
+		}
+		
+		@Override
+		public void onComplete(String arg0) {
+			// TODO Auto-generated method stub
+			
+			
+			Status w = Status.parse(arg0);
+			if(w != null)
+			{
+				sr.messageBox.setVisibility(View.GONE);
+				successRepostTip("转发成功");
+				sr.mLSList.add(w);
+				sr.lAdapter.notifyDataSetChanged();
+				String text = (String) repostNumBtn.getText();
+				String[] subt = text.split(" ");
+				if(subt.length == 1)
+				{
+					repostNumBtn.setText("转发 "+1);
+				}
+				else
+				{
+					repostNumBtn.setText("转发 "+(Integer.parseInt(subt[1]) +1));
+				}
+			}
+		
+		}
+	}; 
+	
+	public void successRepostTip(String message)
 	{
-		Toast.makeText(this, "转发成功", Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
 	}
-	public void errorRepostTip()
+	public void errorRepostTip(String error)
 	{
-		Toast.makeText(this, "转发失败", Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, error, Toast.LENGTH_SHORT).show();
 	}
 	
 }
