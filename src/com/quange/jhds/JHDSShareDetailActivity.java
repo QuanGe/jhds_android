@@ -16,11 +16,13 @@ import com.sina.weibo.sdk.exception.WeiboException;
 import com.sina.weibo.sdk.net.RequestListener;
 import com.sina.weibo.sdk.openapi.CommentsAPI;
 import com.sina.weibo.sdk.openapi.legacy.StatusesAPI;
+import com.sina.weibo.sdk.openapi.models.Comment;
 import com.sina.weibo.sdk.openapi.models.RepostsList;
 import com.sina.weibo.sdk.openapi.models.Status;
 import com.umeng.analytics.MobclickAgent;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
@@ -33,6 +35,7 @@ import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.Animation.AnimationListener;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -77,6 +80,14 @@ public class JHDSShareDetailActivity extends Activity {
 	
 	@ViewInject(R.id.BottomViewPaper)
 	private WrapContentHeightViewPager BottomViewPaper;
+	
+	@ViewInject(R.id.inputBox)
+	private LinearLayout inputBox;
+	
+	@ViewInject(R.id.et_content)
+	private EditText et_content;
+	
+	private Animation mInAnim, mOutAnim;
 	private StatusesAPI weiboStatusesAPI;
 	private CommentsAPI weiboCommentsAPIAPI;
 	private JHDSShareRepostView sr;
@@ -138,7 +149,24 @@ public class JHDSShareDetailActivity extends Activity {
         weiboStatusesAPI = new StatusesAPI(this,SinaConstants.APP_KEY,AccessTokenKeeper.readAccessToken(this));
         weiboCommentsAPIAPI = new CommentsAPI(this,SinaConstants.APP_KEY,AccessTokenKeeper.readAccessToken(this));
         
-        
+        mInAnim = AnimationUtils.loadAnimation(this,R.anim.dialog_in);
+        mInAnim.setFillAfter(true);
+        mOutAnim = AnimationUtils.loadAnimation(this,R.anim.dialog_out);
+        mOutAnim.setFillAfter(true);
+        mOutAnim.setAnimationListener(new AnimationListener() {
+			public void onAnimationStart(Animation animation) {
+			}
+
+			public void onAnimationRepeat(Animation animation) {
+			}
+
+			public void onAnimationEnd(Animation animation) {
+				
+				RelativeLayout.LayoutParams l = (RelativeLayout.LayoutParams) inputBox.getLayoutParams();
+				l.leftMargin = 10000;
+				inputBox.setLayoutParams(l);
+			}
+		});
        
         
         shareImg[0] = (ImageView)findViewById(R.id.shareImg0);
@@ -233,8 +261,37 @@ public class JHDSShareDetailActivity extends Activity {
 	@OnClick(R.id.bottombar_comment)
 	public void OnCommentClick(View view) {
 		
-		
+		RelativeLayout.LayoutParams l = (RelativeLayout.LayoutParams) inputBox.getLayoutParams();
+		l.leftMargin = 0;
+		inputBox.setLayoutParams(l);
+		inputBox.startAnimation(mInAnim);
+		et_content.setFocusable(true);
+		et_content.setFocusableInTouchMode(true);
+		et_content.requestFocus();
+		InputMethodManager inputManager =
+				(InputMethodManager)et_content.getContext().
+				getSystemService(Context.INPUT_METHOD_SERVICE);
+
+				inputManager.showSoftInput(et_content, 0); 
 		//评论
+	}
+	
+	@OnClick(R.id.cancelBtn)
+	public void OnCancelClick(View view) {
+		RelativeLayout.LayoutParams l = (RelativeLayout.LayoutParams) inputBox.getLayoutParams();
+		if(l.leftMargin == 0)
+		{
+			inputBox.startAnimation(mOutAnim);
+			InputMethodManager inputManager =
+					(InputMethodManager)et_content.getContext().
+					getSystemService(Context.INPUT_METHOD_SERVICE);
+			inputManager.hideSoftInputFromWindow(et_content.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
+		}
+		
+	}
+	@OnClick(R.id.sendBtn)
+	public void OnSendClick(View view) {
+		weiboCommentsAPIAPI.create(et_content.getText().toString(), Long.parseLong(weibo_idstr), true, mweiboCommentListener);
 	}
 	@OnClick(R.id.bottombar_attitude)
 	public void OnAttitudeClick(View view) {
@@ -314,7 +371,7 @@ public class JHDSShareDetailActivity extends Activity {
 		public void onWeiboException(WeiboException arg0) {
 			// TODO Auto-generated method stub
 			
-			errorRepostTip(arg0.getLocalizedMessage());
+			errorRepostTip("转发失败");
 		}
 		
 		@Override
@@ -326,8 +383,8 @@ public class JHDSShareDetailActivity extends Activity {
 			if(w != null)
 			{
 				sr.messageBox.setVisibility(View.GONE);
-				successRepostTip("赞成功");
-				sr.mLSList.add(w);
+				successRepostTip("转发成功");
+				sr.mLSList.add(0, w);
 				sr.lAdapter.notifyDataSetChanged();
 				String text = (String) repostNumBtn.getText();
 				String[] subt = text.split(" ");
@@ -347,13 +404,62 @@ public class JHDSShareDetailActivity extends Activity {
 	/**
 	 * 微博 OpenAPI 回调接口。
 	 */
+	private RequestListener mweiboCommentListener = new RequestListener() {
+		
+		@Override
+		public void onWeiboException(WeiboException arg0) {
+			// TODO Auto-generated method stub
+			
+			errorRepostTip("评论失败");
+		}
+		
+		@Override
+		public void onComplete(String arg0) {
+			// TODO Auto-generated method stub
+			try {
+				JSONObject comment = new JSONObject(arg0);;
+				if(comment != null)
+				{
+					Comment c = Comment.parse(comment);
+					if(c != null)
+					{
+						cr.messageBox.setVisibility(View.GONE);
+						successRepostTip("评论成功");
+						cr.mLSList.add(0, c);
+						sr.lAdapter.notifyDataSetChanged();
+						String text = (String) repostNumBtn.getText();
+						String[] subt = text.split(" ");
+						if(subt.length == 1)
+						{
+							repostNumBtn.setText("评论 "+1);
+						}
+						else
+						{
+							repostNumBtn.setText("评论 "+(Integer.parseInt(subt[1]) +1));
+						}
+					}
+				}
+				
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+		
+		}
+	}; 
+	
+	/**
+	 * 微博 OpenAPI 回调接口。
+	 */
 	private RequestListener mweiboAttributeListener = new RequestListener() {
 		
 		@Override
 		public void onWeiboException(WeiboException arg0) {
 			// TODO Auto-generated method stub
 			
-			errorRepostTip(arg0.getLocalizedMessage());
+			errorRepostTip("点赞失败");
 		}
 		
 		@Override
@@ -365,18 +471,18 @@ public class JHDSShareDetailActivity extends Activity {
 			if(w != null)
 			{
 				sr.messageBox.setVisibility(View.GONE);
-				successRepostTip("转发成功");
+				successRepostTip("点赞成功");
 				sr.mLSList.add(w);
 				sr.lAdapter.notifyDataSetChanged();
 				String text = (String) repostNumBtn.getText();
 				String[] subt = text.split(" ");
 				if(subt.length == 1)
 				{
-					repostNumBtn.setText("转发 "+1);
+					repostNumBtn.setText("点赞 "+1);
 				}
 				else
 				{
-					repostNumBtn.setText("转发 "+(Integer.parseInt(subt[1]) +1));
+					repostNumBtn.setText("点赞 "+(Integer.parseInt(subt[1]) +1));
 				}
 			}
 		
