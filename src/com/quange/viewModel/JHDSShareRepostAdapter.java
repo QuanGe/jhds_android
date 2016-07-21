@@ -79,38 +79,9 @@ public class JHDSShareRepostAdapter extends BaseAdapter {
 		hv.tv_content.setText(ls.text);
 		AppCommon.getInstance().imageLoader.displayImage(ls.user.avatar_large, hv.userIcon, AppCommon.getInstance().userIconOptions);
 		hv.createTime.setText(ls.created_at );
-		if(ls.pic_urls.size()<7)
-			hv.shareImgBox3.setVisibility(View.GONE);
-		if(ls.pic_urls.size()<4)
-			hv.shareImgBox2.setVisibility(View.GONE);
-		if(ls.pic_urls.size() ==0)
-			hv.shareImgBox1.setVisibility(View.GONE);
-		String url= "";
-		String[] urlsubs = ls.original_pic.split("/");
-		for(int j = 0;j<urlsubs.length-2;j++)
-		{
-			url = url+urlsubs[j]+"/";
-		}
-		
-		for(int j = 0;j<9;j++)
-		{
-			hv.shareImg[j].setVisibility(View.INVISIBLE);
-		}
-		for(int i = 0;i<ls.pic_urls.size();++i)
-		{
-			hv.shareImg[i].setVisibility(View.VISIBLE);
-			hv.shareImg[i].setTag(i+"");
-		
-			AppCommon.getInstance().imageLoader.displayImage(ls.pic_urls.get(i), hv.shareImg[i], AppCommon.getInstance().options);
-			hv.shareImg[i].setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					
-						gotoBigImage(position, Integer.valueOf(((ImageView)v).getTag().toString()).intValue());
-					
-				}
-			});
-		}
+		hv.shareImgBox3.setVisibility(View.GONE);
+		hv.shareImgBox2.setVisibility(View.GONE);
+		hv.shareImgBox1.setVisibility(View.GONE);
 		
 		return cv;
 	}
