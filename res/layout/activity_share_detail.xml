@@ -217,7 +217,7 @@
 				        android:textSize="14sp"
 				        android:gravity="center"
 				        android:text="转发"
-				        android:textColor="#FFA500"/>
+				        android:textColor="#333333"/>
 			    <TextView
 				        android:id="@+id/commentNumBtn"
 				        android:layout_width="wrap_content"
@@ -227,8 +227,8 @@
 				       android:layout_marginLeft="30dp"
 				     	android:gravity="center"
 				        android:textSize="14sp"
-				        android:text="回复"
-				        android:textColor="#FFA500"/>
+				        android:text="评论"
+				        android:textColor="#333333"/>
 			    <TextView
 				        android:id="@+id/goodNumBtn"
 				        android:layout_width="wrap_content"
@@ -237,9 +237,9 @@
 				        android:layout_alignParentRight="true"
 				     	android:layout_marginRight="10dip"
 				        android:textSize="14sp"
-				        android:text="评论"
+				        android:text="赞"
 				        android:gravity="center"
-				        android:textColor="#FFA500"/>
+				        android:textColor="#333333"/>
 			    <View 
 			        android:layout_width="match_parent"
 			        android:layout_height="1dp"

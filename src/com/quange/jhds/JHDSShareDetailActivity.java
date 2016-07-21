@@ -26,6 +26,7 @@ import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.LayoutParams;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
@@ -190,16 +191,27 @@ public class JHDSShareDetailActivity extends Activity {
 		}
         
 		BottomViewPaper.setAdapter(new weiboDetailAdapter());
+		repostNumBtn.setTextColor(0xffffa500);
+		repostNumBtn.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15f);
 		repostNumBtn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				BottomViewPaper.setCurrentItem(0);
+				repostNumBtn.setTextColor(0xffffa500);
+				repostNumBtn.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15f);
+				commentNumBtn.setTextColor(0xff333333);
+				commentNumBtn.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14f);
+				
 			}
 		});
 		commentNumBtn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				BottomViewPaper.setCurrentItem(1);
+				commentNumBtn.setTextColor(0xffffa500);
+				commentNumBtn.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15f);
+				repostNumBtn.setTextColor(0xff333333);
+				repostNumBtn.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14f);
 			}
 		});
 	}
