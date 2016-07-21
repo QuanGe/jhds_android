@@ -16,7 +16,9 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
 import com.quange.jhds.AccessTokenKeeper;
+import com.quange.jhds.AppSetManager;
 import com.quange.jhds.JHDSLearnDetailActivity;
+import com.quange.jhds.JHDSShareDetailActivity;
 import com.quange.jhds.R;
 import com.quange.jhds.SinaConstants;
 import com.quange.model.JHDSLearnModel;
@@ -83,7 +85,10 @@ public class ShareFragment extends Fragment implements OnItemClickListener {
 			mSinaLoginBtn.setWeiboAuthInfo(mAuthInfo, mLoginListener);
 			mSinaLoginBtn.setStyle(LoginButton.LOGIN_INCON_STYLE_3);
 		}
-		headerTitle.setText("未登录");
+		if(AppSetManager.getSinaNickName().endsWith("") )
+			headerTitle.setText("未登录 👉");
+		else
+			headerTitle.setText(AppSetManager.getSinaNickName());
 		lList.setMode(Mode.BOTH);
 		lList.setAdapter(lAdapter);
 		lList.setOnRefreshListener(orfListener2());
@@ -209,27 +214,33 @@ public class ShareFragment extends Fragment implements OnItemClickListener {
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		try {
-//			Bundle bundle = new Bundle();
-//			String url= "";
-//			String[] urlsubs = mLSList.get(position-1).original_pic.split("/");
-//			for(int j = 0;j<urlsubs.length-1;j++)
-//			{
-//				url = url+urlsubs[j]+"/";
-//			}
-//			
-//			String allUrl = "";
-//			for (int i = 0;i<mLSList.get(position-1).pic_ids.length;i++)
-//			{
-//				if(i==mLSList.get(position-1).pic_ids.length-1)
-//					allUrl = allUrl+url+mLSList.get(position-1).pic_ids[i]+".jpg";
-//				else 
-//					allUrl = allUrl +url+ mLSList.get(position-1).pic_ids[i]+".jpg"+"*";
-//			}
-//			bundle.putString("allUrl", allUrl);
-//			bundle.putString("curUrl", url+mLSList.get(position).pic_ids[0]+".jpg");
-//			Intent intent = new Intent(getActivity(), JHDSLearnDetailActivity.class);
-//			intent.putExtras(bundle);
-//			getActivity().startActivity(intent);
+			Bundle bundle = new Bundle();
+			JHDSShareModel sm = mLSList.get(position-1);
+			String url= "";
+			String[] urlsubs = sm.original_pic.split("/");
+			for(int j = 0;j<urlsubs.length-1;j++)
+			{
+				url = url+urlsubs[j]+"/";
+			}
+			
+			String allUrl = "";
+			for (int i = 0;i<sm.pic_ids.length;i++)
+			{
+				if(i==sm.pic_ids.length-1)
+					allUrl = allUrl+url+sm.pic_ids[i]+".jpg";
+				else 
+					allUrl = allUrl +url+ sm.pic_ids[i]+".jpg"+"*";
+			}
+			bundle.putString("allUrl", allUrl);
+			bundle.putString("idstr", sm.idstr);
+			bundle.putString("text", sm.text);
+			bundle.putString("nickName", sm.nickName);
+			bundle.putString("userId", sm.userId);
+			bundle.putString("userIcon", sm.userIcon);
+			bundle.putString("created_timestamp", sm.created_timestamp);
+			Intent intent = new Intent(getActivity(), JHDSShareDetailActivity.class);
+			intent.putExtras(bundle);
+			getActivity().startActivity(intent);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
@@ -328,6 +339,8 @@ public class ShareFragment extends Fragment implements OnItemClickListener {
 			User user = User.parse(arg0);
 			if (user != null) {
 				headerTitle.setText(user.screen_name);
+				AppSetManager.setSinaUserIcon(user.avatar_large);
+				AppSetManager.setSinaNickName(user.screen_name);
 			}else{
 			}
 		}

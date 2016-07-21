@@ -33,7 +33,7 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 public class ShareCollectUtils {
 
 	static String[] shareMessage = {"叮咚，新鲜的简画出炉了，看我画的还凑合吧？#简画大师#",
-            "快来瞧，看来看，我刚创作了一番，看看我的水平是啥等级的#简画大师#",
+            "快来瞧，快来看，我刚创作了一番，看看我的水平是啥等级的#简画大师#",
             "哎呀，妈呀，累死我了，终于画完了#简画大师#",
             "小手一抖，简画在手#简画大师#",
             "啥？我画的不好看？你来试试#简画大师#",

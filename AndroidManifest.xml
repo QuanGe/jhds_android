@@ -102,6 +102,10 @@
             android:name=".JHDSBabyAcibity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar" />
+          <activity
+            android:name=".JHDSShareDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar" />
          <activity
              android:name=".WebActivity"
             android:screenOrientation="portrait"

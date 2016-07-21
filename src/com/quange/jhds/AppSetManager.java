@@ -137,4 +137,22 @@ public class AppSetManager {
 	{
 		setPref.edit().putString("oldProtectBabyTag", omt).commit();
 	}
+	public static String getSinaNickName()
+	{
+		return setPref.getString("sinaNickName", "");
+	}
+	
+	public static void setSinaNickName(String omt)
+	{
+		setPref.edit().putString("sinaNickName", omt).commit();
+	}
+	public static String getSinaUserIcon()
+	{
+		return setPref.getString("sinaUserIcon", "");
+	}
+	
+	public static void setSinaUserIcon(String omt)
+	{
+		setPref.edit().putString("sinaUserIcon", omt).commit();
+	}
 }
