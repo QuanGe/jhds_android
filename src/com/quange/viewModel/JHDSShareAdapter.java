@@ -3,6 +3,7 @@ package com.quange.viewModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.quange.jhds.AccessTokenKeeper;
 import com.quange.jhds.AppCommon;
 import com.quange.jhds.AppSetManager;
 import com.quange.jhds.DateUtils;
@@ -95,7 +96,7 @@ public class JHDSShareAdapter extends BaseAdapter {
 		{
 			hv.bottombar_layout.setVisibility(View.GONE);
 		}
-		else
+		else if((System.currentTimeMillis() - AccessTokenKeeper.readAccessToken(mAct).getExpiresTime())<0)
 		{
 			hv.bottombar_layout.setVisibility(View.VISIBLE);
 			
@@ -106,6 +107,8 @@ public class JHDSShareAdapter extends BaseAdapter {
 			task.execute("");
 			hv.bottombar_layout.setTag(task);
 		}
+		else
+			hv.bottombar_layout.setVisibility(View.GONE);
 		
 		AppCommon.getInstance().imageLoader.displayImage(ls.userIcon, hv.userIcon, AppCommon.getInstance().userIconOptions);
 		hv.createTime.setText(DateUtils.convertTimeToFormat( Long.parseLong(ls.created_timestamp)) );

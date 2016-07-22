@@ -85,10 +85,23 @@ public class ShareFragment extends Fragment implements OnItemClickListener {
 			mSinaLoginBtn.setWeiboAuthInfo(mAuthInfo, mLoginListener);
 			mSinaLoginBtn.setStyle(LoginButton.LOGIN_INCON_STYLE_3);
 		}
+		
 		if(AppSetManager.getSinaNickName().equals("") )
+		{
 			headerTitle.setText("未登录 👉");
-		else
-			headerTitle.setText(AppSetManager.getSinaNickName());
+		}
+		else 
+		{
+			if((System.currentTimeMillis() - AccessTokenKeeper.readAccessToken(getActivity()).getExpiresTime())<0)
+			{
+				headerTitle.setText(AppSetManager.getSinaNickName());
+			}
+			else
+			{
+				headerTitle.setText("已过期请重新登录 👉");
+			}
+		}
+		
 		lList.setMode(Mode.BOTH);
 		lList.setAdapter(lAdapter);
 		lList.setOnRefreshListener(orfListener2());

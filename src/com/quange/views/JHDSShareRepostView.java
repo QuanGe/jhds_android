@@ -81,7 +81,7 @@ public class JHDSShareRepostView {
 	{
 		if(AppSetManager.getSinaNickName().equals("") )
 			tv_message.setText("还没登录，快去登录吧");
-		else
+		else  if((System.currentTimeMillis() - AccessTokenKeeper.readAccessToken(mAct).getExpiresTime())<0)
 		{
 			if(mLSList.size()==0)
 			{
@@ -91,6 +91,10 @@ public class JHDSShareRepostView {
 				      }
 				 });
 			}
+		}
+		else 
+		{
+			tv_message.setText("登录信息已经过期，快去重新登录吧");
 		}
 	}
 
@@ -109,8 +113,10 @@ public class JHDSShareRepostView {
 				// TODO Auto-generated method stub
 				if(AppSetManager.getSinaNickName().equals("") )
 					tv_message.setText("还没登录，快去登录吧");
-				else
+				else  if((System.currentTimeMillis() - AccessTokenKeeper.readAccessToken(mAct).getExpiresTime())<0)
 					tv_message.setText("数据获取失败");
+				else
+					tv_message.setText("登录已经过期,请重新登录");
 			}
 			
 			@Override

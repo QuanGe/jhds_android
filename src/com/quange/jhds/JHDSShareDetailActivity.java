@@ -229,10 +229,12 @@ public class JHDSShareDetailActivity extends Activity {
 			
 			if(AppSetManager.getSinaNickName().equals("") )
 				Toast.makeText(this, "您还没登录，不能评论和转发，快去登录吧", Toast.LENGTH_SHORT).show();
-			else
+			else if((System.currentTimeMillis() - AccessTokenKeeper.readAccessToken(this).getExpiresTime())<0)
 			{
 				weiboStatusesAPI.count(ids, mweiboDetailListener);
 			}
+			else
+				Toast.makeText(this, "登录已过期，不能评论和转发，快去登录吧", Toast.LENGTH_SHORT).show();
 			
 			String selectIndex = bundle.getString("selectIndex");
 			Timer timer = new Timer(); // 实例化Timer定时器对象
@@ -298,10 +300,12 @@ public class JHDSShareDetailActivity extends Activity {
 	public void OnRepostClick(View view) {
 		if(AppSetManager.getSinaNickName().equals("") )
 			Toast.makeText(this, "您还没登录，不能评论和转发，快去登录吧", Toast.LENGTH_SHORT).show();
-		else
+		else if((System.currentTimeMillis() - AccessTokenKeeper.readAccessToken(this).getExpiresTime())<0)
 		{
 		weiboStatusesAPI.repost(Long.parseLong(weibo_idstr), "转发微博", 0, mweiboRepostListener);
 		}
+		else
+			Toast.makeText(this, "登录已过期，不能评论和转发，快去登录吧", Toast.LENGTH_SHORT).show();
 		//转发
 		
 	}
@@ -309,7 +313,7 @@ public class JHDSShareDetailActivity extends Activity {
 	public void OnCommentClick(View view) {
 		if(AppSetManager.getSinaNickName().equals("") )
 			Toast.makeText(this, "您还没登录，不能评论和转发，快去登录吧", Toast.LENGTH_SHORT).show();
-		else
+		else if((System.currentTimeMillis() - AccessTokenKeeper.readAccessToken(this).getExpiresTime())<0)
 		{
 			RelativeLayout.LayoutParams l = (RelativeLayout.LayoutParams) inputBox.getLayoutParams();
 			l.leftMargin = 0;
@@ -324,6 +328,8 @@ public class JHDSShareDetailActivity extends Activity {
 	
 					inputManager.showSoftInput(et_content, 0); 
 		}
+		else
+			Toast.makeText(this, "登录已过期，不能评论和转发，快去登录吧", Toast.LENGTH_SHORT).show();
 		//评论
 	}
 	
@@ -423,7 +429,7 @@ public class JHDSShareDetailActivity extends Activity {
 			// TODO Auto-generated method stub
 			if(AppSetManager.getSinaNickName().equals("") )
 				errorRepostTip("还没登录，不能转发,快去登录吧");
-			else
+			else 
 				errorRepostTip("转发失败");
 		}
 		
