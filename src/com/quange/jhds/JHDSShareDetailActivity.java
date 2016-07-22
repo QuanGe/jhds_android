@@ -1,5 +1,8 @@
 package com.quange.jhds;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -224,6 +227,39 @@ public class JHDSShareDetailActivity extends Activity {
 			}
 			String []ids = weibo_idstr.split(",");
 			weiboStatusesAPI.count(ids, mweiboDetailListener);
+			
+			String selectIndex = bundle.getString("selectIndex");
+			Timer timer = new Timer(); // 实例化Timer定时器对象
+        	
+				
+			if(selectIndex.equals("0"))
+			{
+				timer.schedule(new TimerTask() { // schedule方法(安排,计划)需要接收一个TimerTask对象和一个代表毫秒的int值作为参数
+					@Override
+					public void run() {
+						BottomViewPaper.setCurrentItem(0);
+						repostNumBtn.setTextColor(0xffffa500);
+						repostNumBtn.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15f);
+						commentNumBtn.setTextColor(0xff333333);
+						commentNumBtn.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14f);
+					}
+				}, 500);
+				
+			}
+			else
+			{
+				timer.schedule(new TimerTask() { // schedule方法(安排,计划)需要接收一个TimerTask对象和一个代表毫秒的int值作为参数
+					@Override
+					public void run() {
+						BottomViewPaper.setCurrentItem(1);
+						commentNumBtn.setTextColor(0xffffa500);
+						commentNumBtn.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15f);
+						repostNumBtn.setTextColor(0xff333333);
+						repostNumBtn.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 14f);
+					}
+				}, 500);
+				
+			}
 		}
         
 		BottomViewPaper.setAdapter(new weiboDetailAdapter());

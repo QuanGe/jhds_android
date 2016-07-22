@@ -85,7 +85,7 @@ public class ShareFragment extends Fragment implements OnItemClickListener {
 			mSinaLoginBtn.setWeiboAuthInfo(mAuthInfo, mLoginListener);
 			mSinaLoginBtn.setStyle(LoginButton.LOGIN_INCON_STYLE_3);
 		}
-		if(AppSetManager.getSinaNickName().endsWith("") )
+		if(AppSetManager.getSinaNickName().equals("") )
 			headerTitle.setText("未登录 👉");
 		else
 			headerTitle.setText(AppSetManager.getSinaNickName());

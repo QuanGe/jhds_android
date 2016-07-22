@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.quange.jhds.AppCommon;
+import com.quange.jhds.AppSetManager;
 import com.quange.jhds.DateUtils;
 import com.quange.jhds.JHDSLearnDetailActivity;
+import com.quange.jhds.JHDSShareDetailActivity;
 import com.quange.jhds.PhotosActivity;
 import com.quange.jhds.R;
 import com.quange.model.JHDSShareModel;
+import com.quange.viewModel.JHDSSaveImagesAdapter.ImageGetter;
 import com.quange.views.RoundImageView;
 
 import android.app.Activity;
@@ -73,7 +76,13 @@ public class JHDSShareAdapter extends BaseAdapter {
 			hv.shareImg[6] = (ImageView) cv.findViewById(R.id.shareImg6);
 			hv.shareImg[7] = (ImageView) cv.findViewById(R.id.shareImg7);
 			hv.shareImg[8] = (ImageView) cv.findViewById(R.id.shareImg8);
+			hv.bottombar_layout = (LinearLayout) cv.findViewById(R.id.bottombar_layout);
+			hv.bottombar_retweet = (LinearLayout) cv.findViewById(R.id.bottombar_retweet);
+			hv.bottombar_comment = (LinearLayout) cv.findViewById(R.id.bottombar_comment);
 			
+			hv.redirect = (TextView) cv.findViewById(R.id.redirect);
+			hv.comment = (TextView) cv.findViewById(R.id.comment);
+			hv.feedlike = (TextView) cv.findViewById(R.id.feedlike);
 			cv.setTag(hv);
 		} else {
 			hv = (HoldView) cv.getTag();
@@ -81,6 +90,23 @@ public class JHDSShareAdapter extends BaseAdapter {
 		
 		hv.userNickName.setText(ls.nickName);
 		hv.tv_content.setText(ls.text);
+		
+		if(AppSetManager.getSinaNickName().equals("") )
+		{
+			hv.bottombar_layout.setVisibility(View.GONE);
+		}
+		else
+		{
+			hv.bottombar_layout.setVisibility(View.VISIBLE);
+			
+			if(hv.bottombar_layout.getTag() != null) {
+			    ((JHDSWeiboNumAsyncTask) hv.bottombar_layout.getTag()).cancel(true);
+			}
+			JHDSWeiboNumAsyncTask task = new JHDSWeiboNumAsyncTask(mAct,hv.redirect,hv.comment,hv.feedlike,ls.idstr) ;
+			task.execute("");
+			hv.bottombar_layout.setTag(task);
+		}
+		
 		AppCommon.getInstance().imageLoader.displayImage(ls.userIcon, hv.userIcon, AppCommon.getInstance().userIconOptions);
 		hv.createTime.setText(DateUtils.convertTimeToFormat( Long.parseLong(ls.created_timestamp)) );
 		if(ls.pic_ids.length<7)
@@ -116,6 +142,81 @@ public class JHDSShareAdapter extends BaseAdapter {
 			});
 		}
 		
+		hv.bottombar_retweet.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				try {
+					Bundle bundle = new Bundle();
+					JHDSShareModel sm = getItem(position);
+					String url= "";
+					String[] urlsubs = sm.original_pic.split("/");
+					for(int j = 0;j<urlsubs.length-1;j++)
+					{
+						url = url+urlsubs[j]+"/";
+					}
+					
+					String allUrl = "";
+					for (int i = 0;i<sm.pic_ids.length;i++)
+					{
+						if(i==sm.pic_ids.length-1)
+							allUrl = allUrl+url+sm.pic_ids[i]+".jpg";
+						else 
+							allUrl = allUrl +url+ sm.pic_ids[i]+".jpg"+"*";
+					}
+					bundle.putString("allUrl", allUrl);
+					bundle.putString("idstr", sm.idstr);
+					bundle.putString("text", sm.text);
+					bundle.putString("nickName", sm.nickName);
+					bundle.putString("userId", sm.userId);
+					bundle.putString("userIcon", sm.userIcon);
+					bundle.putString("created_timestamp", sm.created_timestamp);
+					bundle.putString("selectIndex", "0");
+					Intent intent = new Intent(mAct, JHDSShareDetailActivity.class);
+					intent.putExtras(bundle);
+					mAct.startActivity(intent);
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}
+		});
+		
+		hv.bottombar_comment.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				try {
+					Bundle bundle = new Bundle();
+					JHDSShareModel sm = getItem(position);
+					String url= "";
+					String[] urlsubs = sm.original_pic.split("/");
+					for(int j = 0;j<urlsubs.length-1;j++)
+					{
+						url = url+urlsubs[j]+"/";
+					}
+					
+					String allUrl = "";
+					for (int i = 0;i<sm.pic_ids.length;i++)
+					{
+						if(i==sm.pic_ids.length-1)
+							allUrl = allUrl+url+sm.pic_ids[i]+".jpg";
+						else 
+							allUrl = allUrl +url+ sm.pic_ids[i]+".jpg"+"*";
+					}
+					bundle.putString("allUrl", allUrl);
+					bundle.putString("idstr", sm.idstr);
+					bundle.putString("text", sm.text);
+					bundle.putString("nickName", sm.nickName);
+					bundle.putString("userId", sm.userId);
+					bundle.putString("userIcon", sm.userIcon);
+					bundle.putString("selectIndex", "1");
+					bundle.putString("created_timestamp", sm.created_timestamp);
+					Intent intent = new Intent(mAct, JHDSShareDetailActivity.class);
+					intent.putExtras(bundle);
+					mAct.startActivity(intent);
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}
+		});
 		
 		
 		return cv;
@@ -143,7 +244,12 @@ public class JHDSShareAdapter extends BaseAdapter {
 		private LinearLayout shareImgBox2; 
 		private LinearLayout shareImgBox3; 
 		private ImageView shareImg[] = new ImageView[9];
-		
+		private LinearLayout bottombar_layout;
+		private LinearLayout bottombar_retweet;
+		private LinearLayout bottombar_comment;
+		private TextView redirect;
+		private TextView comment;
+		private TextView feedlike;
 		
 	}
 	
