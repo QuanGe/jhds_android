@@ -226,7 +226,13 @@ public class JHDSShareDetailActivity extends Activity {
 				});
 			}
 			String []ids = weibo_idstr.split(",");
-			weiboStatusesAPI.count(ids, mweiboDetailListener);
+			
+			if(AppSetManager.getSinaNickName().equals("") )
+				Toast.makeText(this, "您还没登录，不能评论和转发，快去登录吧", Toast.LENGTH_SHORT).show();
+			else
+			{
+				weiboStatusesAPI.count(ids, mweiboDetailListener);
+			}
 			
 			String selectIndex = bundle.getString("selectIndex");
 			Timer timer = new Timer(); // 实例化Timer定时器对象
@@ -290,25 +296,34 @@ public class JHDSShareDetailActivity extends Activity {
 	
 	@OnClick(R.id.bottombar_retweet)
 	public void OnRepostClick(View view) {
+		if(AppSetManager.getSinaNickName().equals("") )
+			Toast.makeText(this, "您还没登录，不能评论和转发，快去登录吧", Toast.LENGTH_SHORT).show();
+		else
+		{
 		weiboStatusesAPI.repost(Long.parseLong(weibo_idstr), "转发微博", 0, mweiboRepostListener);
+		}
 		//转发
 		
 	}
 	@OnClick(R.id.bottombar_comment)
 	public void OnCommentClick(View view) {
-		
-		RelativeLayout.LayoutParams l = (RelativeLayout.LayoutParams) inputBox.getLayoutParams();
-		l.leftMargin = 0;
-		inputBox.setLayoutParams(l);
-		inputBox.startAnimation(mInAnim);
-		et_content.setFocusable(true);
-		et_content.setFocusableInTouchMode(true);
-		et_content.requestFocus();
-		InputMethodManager inputManager =
-				(InputMethodManager)et_content.getContext().
-				getSystemService(Context.INPUT_METHOD_SERVICE);
-
-				inputManager.showSoftInput(et_content, 0); 
+		if(AppSetManager.getSinaNickName().equals("") )
+			Toast.makeText(this, "您还没登录，不能评论和转发，快去登录吧", Toast.LENGTH_SHORT).show();
+		else
+		{
+			RelativeLayout.LayoutParams l = (RelativeLayout.LayoutParams) inputBox.getLayoutParams();
+			l.leftMargin = 0;
+			inputBox.setLayoutParams(l);
+			inputBox.startAnimation(mInAnim);
+			et_content.setFocusable(true);
+			et_content.setFocusableInTouchMode(true);
+			et_content.requestFocus();
+			InputMethodManager inputManager =
+					(InputMethodManager)et_content.getContext().
+					getSystemService(Context.INPUT_METHOD_SERVICE);
+	
+					inputManager.showSoftInput(et_content, 0); 
+		}
 		//评论
 	}
 	
@@ -406,8 +421,10 @@ public class JHDSShareDetailActivity extends Activity {
 		@Override
 		public void onWeiboException(WeiboException arg0) {
 			// TODO Auto-generated method stub
-			
-			errorRepostTip("转发失败");
+			if(AppSetManager.getSinaNickName().equals("") )
+				errorRepostTip("还没登录，不能转发,快去登录吧");
+			else
+				errorRepostTip("转发失败");
 		}
 		
 		@Override
@@ -445,8 +462,10 @@ public class JHDSShareDetailActivity extends Activity {
 		@Override
 		public void onWeiboException(WeiboException arg0) {
 			// TODO Auto-generated method stub
-			
-			errorRepostTip("评论失败");
+			if(AppSetManager.getSinaNickName().equals("") )
+				errorRepostTip("还没登录，不能评论,快去登录吧");
+			else
+				errorRepostTip("评论失败");
 		}
 		
 		@Override

@@ -8,6 +8,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.quange.jhds.AccessTokenKeeper;
+import com.quange.jhds.AppSetManager;
 import com.quange.jhds.R;
 import com.quange.jhds.SinaConstants;
 import com.quange.viewModel.JHDSShareRepostAdapter;
@@ -78,13 +79,18 @@ public class JHDSShareRepostView {
 	
 	public void firstLoadData()
 	{
-		if(mLSList.size()==0)
+		if(AppSetManager.getSinaNickName().equals("") )
+			tv_message.setText("还没登录，快去登录吧");
+		else
 		{
-			lList.post(new Runnable() {
-			      @Override public void run() {
-			    	  refresh(true);
-			      }
-			 });
+			if(mLSList.size()==0)
+			{
+				lList.post(new Runnable() {
+				      @Override public void run() {
+				    	  refresh(true);
+				      }
+				 });
+			}
 		}
 	}
 
@@ -101,7 +107,10 @@ public class JHDSShareRepostView {
 			@Override
 			public void onWeiboException(WeiboException arg0) {
 				// TODO Auto-generated method stub
-				
+				if(AppSetManager.getSinaNickName().equals("") )
+					tv_message.setText("还没登录，快去登录吧");
+				else
+					tv_message.setText("数据获取失败");
 			}
 			
 			@Override

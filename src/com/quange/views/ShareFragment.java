@@ -237,6 +237,7 @@ public class ShareFragment extends Fragment implements OnItemClickListener {
 			bundle.putString("nickName", sm.nickName);
 			bundle.putString("userId", sm.userId);
 			bundle.putString("userIcon", sm.userIcon);
+			bundle.putString("selectIndex", "0");
 			bundle.putString("created_timestamp", sm.created_timestamp);
 			Intent intent = new Intent(getActivity(), JHDSShareDetailActivity.class);
 			intent.putExtras(bundle);
@@ -341,6 +342,7 @@ public class ShareFragment extends Fragment implements OnItemClickListener {
 				headerTitle.setText(user.screen_name);
 				AppSetManager.setSinaUserIcon(user.avatar_large);
 				AppSetManager.setSinaNickName(user.screen_name);
+				lAdapter.notifyDataSetChanged();
 			}else{
 			}
 		}
