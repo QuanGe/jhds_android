@@ -113,7 +113,9 @@ public class JHDSShopActivity extends Activity implements OnItemClickListener {
 		 JHDSAPIManager.getInstance(this).fetchShopPageNum( 0, new Listener<String>(){
 				@Override
 				public void onResponse(String response) {
-					int num = Integer.parseInt(response);
+					int num  =0 ;
+					if(response.length()<20)
+						num = Integer.parseInt(response);
 					mCurPage = isRefresh ? 1 : ++mCurPage ;
 					if(num>=mCurPage)
 					JHDSAPIManager.getInstance(null).fetchShopList(num-mCurPage, 0, new Listener<List<JHDSShopModel>>(){

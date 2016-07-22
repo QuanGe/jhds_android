@@ -134,7 +134,10 @@ public class CopyGridView implements OnItemClickListener {
 		JHDSAPIManager.getInstance(mAct).fetchCopyPageNum( doubanType, new Listener<String>(){
 			@Override
 			public void onResponse(String response) {
-				int num = Integer.parseInt(response);
+				
+				int num  =0 ;
+				if(response.length()<20)
+					num = Integer.parseInt(response);
 				mCurPage = isRefresh ? 1 : ++mCurPage ;
 				if(isRefresh)
 		    		MobclickAgent.onEvent(mAct, "copy_"+doubanType+"_refresh");
