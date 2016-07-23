@@ -13,6 +13,7 @@ import com.quange.jhds.PhotosActivity;
 import com.quange.jhds.R;
 import com.quange.model.JHDSShareModel;
 import com.quange.viewModel.JHDSSaveImagesAdapter.ImageGetter;
+import com.quange.views.EmojiTextView;
 import com.quange.views.RoundImageView;
 
 import android.app.Activity;
@@ -64,7 +65,7 @@ public class JHDSShareAdapter extends BaseAdapter {
 			hv.userNickName = (TextView) cv.findViewById(R.id.userNickName);
 			hv.userIcon = (RoundImageView) cv.findViewById(R.id.userIcon);
 			hv.createTime = (TextView) cv.findViewById(R.id.createTime);
-			hv.tv_content = (TextView) cv.findViewById(R.id.tv_content);
+			hv.tv_content = (EmojiTextView) cv.findViewById(R.id.tv_content);
 			hv.shareImgBox1 = (LinearLayout) cv.findViewById(R.id.shareImgBox1);
 			hv.shareImgBox2 = (LinearLayout) cv.findViewById(R.id.shareImgBox2);
 			hv.shareImgBox3 = (LinearLayout) cv.findViewById(R.id.shareImgBox3);
@@ -90,7 +91,7 @@ public class JHDSShareAdapter extends BaseAdapter {
 		}
 		
 		hv.userNickName.setText(ls.nickName);
-		hv.tv_content.setText(ls.text);
+		hv.tv_content.setEmojiText(ls.text);
 		
 		if(AppSetManager.getSinaNickName().equals("") )
 		{
@@ -242,7 +243,7 @@ public class JHDSShareAdapter extends BaseAdapter {
 		private TextView userNickName; 
 		private RoundImageView userIcon;
 		private TextView createTime; 
-		private TextView tv_content; 
+		private EmojiTextView tv_content; 
 		private LinearLayout shareImgBox1; 
 		private LinearLayout shareImgBox2; 
 		private LinearLayout shareImgBox3; 

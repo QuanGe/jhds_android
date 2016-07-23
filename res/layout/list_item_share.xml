@@ -40,7 +40,7 @@
         android:textColor="#c3c3c3"/>
         
     </RelativeLayout>
-    <TextView
+    <com.quange.views.EmojiTextView
         android:id="@+id/tv_content"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
