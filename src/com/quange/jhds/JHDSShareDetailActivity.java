@@ -151,7 +151,7 @@ public class JHDSShareDetailActivity extends Activity {
         
         weiboStatusesAPI = new StatusesAPI(this,SinaConstants.APP_KEY,AccessTokenKeeper.readAccessToken(this));
         weiboCommentsAPIAPI = new CommentsAPI(this,SinaConstants.APP_KEY,AccessTokenKeeper.readAccessToken(this));
-        
+        //weiboStatusesAPI.emotions("face", "cnname", mweiboEmojiListener);
         mInAnim = AnimationUtils.loadAnimation(this,R.anim.dialog_in);
         mInAnim.setFillAfter(true);
         mOutAnim = AnimationUtils.loadAnimation(this,R.anim.dialog_out);
@@ -561,6 +561,28 @@ public class JHDSShareDetailActivity extends Activity {
 					repostNumBtn.setText("点赞 "+(Integer.parseInt(subt[1]) +1));
 				}
 			}
+		
+		}
+	}; 
+	
+	/**
+	 * 微博 OpenAPI 回调接口。
+	 */
+	private RequestListener mweiboEmojiListener = new RequestListener() {
+		
+		@Override
+		public void onWeiboException(WeiboException arg0) {
+			// TODO Auto-generated method stub
+			
+			//errorRepostTip("获取表情");
+		}
+		
+		@Override
+		public void onComplete(String arg0) {
+			// TODO Auto-generated method stub
+			
+			
+			System.out.println(arg0);
 		
 		}
 	}; 

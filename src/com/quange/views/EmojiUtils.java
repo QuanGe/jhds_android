@@ -5,6 +5,7 @@ public class EmojiUtils {
 	public static String convertTag(String str){
 		return str
 		//.replaceAll("<","&lt;")
+		.replaceAll("\\[开心\\]","<img src=\"d_smile\"/>")
 		.replaceAll("\\[爱你\\]","<img src=\"d_aini\"/>")
         .replaceAll("\\[奥特曼\\]","<img src=\"d_aoteman\"/>")
         .replaceAll("\\[拜拜\\]","<img src=\"d_baibai\"/>")
