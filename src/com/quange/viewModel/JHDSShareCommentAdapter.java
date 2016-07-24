@@ -8,6 +8,7 @@ import com.quange.jhds.DateWeiboUtils;
 
 import com.quange.jhds.R;
 
+import com.quange.views.EmojiTextView;
 import com.quange.views.RoundImageView;
 import com.sina.weibo.sdk.openapi.models.Comment;
 
@@ -56,7 +57,7 @@ public class JHDSShareCommentAdapter extends BaseAdapter {
 			hv.userNickName = (TextView) cv.findViewById(R.id.commentUserNickName);
 			hv.userIcon = (RoundImageView) cv.findViewById(R.id.userIcon);
 			hv.createTime = (TextView) cv.findViewById(R.id.createTime);
-			hv.tv_content = (TextView) cv.findViewById(R.id.tv_content);
+			hv.tv_content = (EmojiTextView) cv.findViewById(R.id.tv_content);
 			hv.shareImgBox1 = (LinearLayout) cv.findViewById(R.id.shareImgBox1);
 			hv.shareImgBox2 = (LinearLayout) cv.findViewById(R.id.shareImgBox2);
 			hv.shareImgBox3 = (LinearLayout) cv.findViewById(R.id.shareImgBox3);
@@ -77,7 +78,7 @@ public class JHDSShareCommentAdapter extends BaseAdapter {
 		if(hv != null)
 		{
 			hv.userNickName.setText(ls.user.screen_name);
-			hv.tv_content.setText(ls.text);
+			hv.tv_content.setEmojiText(ls.text);
 			AppCommon.getInstance().imageLoader.displayImage(ls.user.avatar_large, hv.userIcon, AppCommon.getInstance().userIconOptions);
 			hv.createTime.setText(DateWeiboUtils.parseTime(ls.created_at) );
 			hv.shareImgBox3.setVisibility(View.GONE);
@@ -93,7 +94,7 @@ public class JHDSShareCommentAdapter extends BaseAdapter {
 		private TextView userNickName; 
 		private RoundImageView userIcon;
 		private TextView createTime; 
-		private TextView tv_content; 
+		private EmojiTextView tv_content; 
 		private LinearLayout shareImgBox1; 
 		private LinearLayout shareImgBox2; 
 		private LinearLayout shareImgBox3; 

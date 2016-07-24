@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
+import com.quange.views.EmojiTextView;
 import com.quange.views.JHDSGuideView;
 import com.quange.views.JHDSShareCommentListView;
 import com.quange.views.JHDSShareRepostView;
@@ -64,7 +65,7 @@ public class JHDSShareDetailActivity extends Activity {
 	@ViewInject(R.id.createTime)
 	private TextView createTime;
 	@ViewInject(R.id.tv_content)
-	private TextView tv_content;
+	private EmojiTextView tv_content;
 	@ViewInject(R.id.shareImgBox1)
 	private LinearLayout shareImgBox1;
 	@ViewInject(R.id.shareImgBox2)
@@ -194,7 +195,7 @@ public class JHDSShareDetailActivity extends Activity {
 			weibo_pic_urls = all.split("\\*");
 			
 			userNickName.setText(weibo_nickName);
-			tv_content.setText(weibo_text);
+			tv_content.setEmojiText(weibo_text);
 			AppCommon.getInstance().imageLoader.displayImage(weibo_userIconUrl, userIcon, AppCommon.getInstance().userIconOptions);
 		    if(weibo_created_timestamp.equals("0"))
 		    	createTime.setText("刚刚");
@@ -202,10 +203,16 @@ public class JHDSShareDetailActivity extends Activity {
 		    	createTime.setText(DateUtils.convertTimeToFormat( Long.parseLong(weibo_created_timestamp)) );
 			if(weibo_pic_urls.length<7)
 				shareImgBox3.setVisibility(View.GONE);
+			else
+				shareImgBox3.setVisibility(View.VISIBLE);
 			if(weibo_pic_urls.length<4)
 				shareImgBox2.setVisibility(View.GONE);
+			else
+				shareImgBox2.setVisibility(View.VISIBLE);
 			if(weibo_pic_urls.length ==0)
 				shareImgBox1.setVisibility(View.GONE);
+			else
+				shareImgBox1.setVisibility(View.VISIBLE);
 			
 			
 			
