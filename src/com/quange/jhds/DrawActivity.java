@@ -232,8 +232,8 @@ import android.widget.TextView;
         int[] colors = {0xffDF0526,0xffEC0B5F,0xff9D25A9,0xff6438A0,0xff4052AE,
         		0xff5A78F4,0xff00AAF0,0xff00BED2,0xff009687,0xff119B39,
         		0xff87C35B,0xffCADC57,0xffFFEB5F,0xffFFBF3E,0xffFF512F,
-        		0xff73554B,0xff9E9E00,0xff5F7D8A,0xffeeeeee,0xffcccccc,
-        		0xff888888,0xff555555,0xff333333,0xff111111,0xff000000};
+        		0xff73554B,0xff9E9E00,0xff5F7D8A,0xffffffff,0xffeeeeee,
+        		0xffcccccc,0xff888888,0xff555555,0xff333333,0xff000000};
         //all brush
         for(int  i = 0;i<colors.length;i++)
         {
@@ -242,6 +242,7 @@ import android.widget.TextView;
 	        brushBackground.setCornerRadius(25*dm.density);
 	        final int theColor =  colors[i];
 	        brushBackground.setColor(colors[i]);
+	        brushBackground.setStroke(2, 0xff777777);
 	        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
 	        	brush.setBackground(brushBackground);
 	        else
