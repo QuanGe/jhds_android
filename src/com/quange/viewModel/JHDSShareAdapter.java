@@ -89,8 +89,10 @@ public class JHDSShareAdapter extends BaseAdapter {
 		} else {
 			hv = (HoldView) cv.getTag();
 		}
+		String id = AppSetManager.getTopWeiboId();
 		
 		hv.userNickName.setText(ls.nickName);
+		
 		hv.tv_content.setEmojiText(ls.text);
 		
 		if(AppSetManager.getSinaNickName().equals("") )
@@ -111,41 +113,62 @@ public class JHDSShareAdapter extends BaseAdapter {
 		else
 			hv.bottombar_layout.setVisibility(View.GONE);
 		
+		
 		AppCommon.getInstance().imageLoader.displayImage(ls.userIcon, hv.userIcon, AppCommon.getInstance().userIconOptions);
-		hv.createTime.setText(DateUtils.convertTimeToFormat( Long.parseLong(ls.created_timestamp)) );
+		if(!id.equals("") && position == 0)
+		{
+			hv.createTime.setText("刚刚");
+			
+		}
+		else
+			hv.createTime.setText(DateUtils.convertTimeToFormat( Long.parseLong(ls.created_timestamp)) );
 		if(ls.pic_ids.length<7)
 			hv.shareImgBox3.setVisibility(View.GONE);
+		else
+			hv.shareImgBox3.setVisibility(View.VISIBLE);
 		if(ls.pic_ids.length<4)
 			hv.shareImgBox2.setVisibility(View.GONE);
+		else
+			hv.shareImgBox2.setVisibility(View.VISIBLE);
 		if(ls.pic_ids.length ==0)
 			hv.shareImgBox1.setVisibility(View.GONE);
-		String url= "";
-		String[] urlsubs = ls.original_pic.split("/");
-		for(int j = 0;j<urlsubs.length-2;j++)
-		{
-			url = url+urlsubs[j]+"/";
-		}
-		
+		else
+			hv.shareImgBox1.setVisibility(View.VISIBLE);
 		for(int j = 0;j<9;j++)
 		{
 			hv.shareImg[j].setVisibility(View.INVISIBLE);
 		}
-		for(int i = 0;i<ls.pic_ids.length;++i)
-		{
-			hv.shareImg[i].setVisibility(View.VISIBLE);
-			hv.shareImg[i].setTag(i+"");
-			String shareImgUrl = url+"thumbnail/"+ls.pic_ids[i]+".jpg";
-			AppCommon.getInstance().imageLoader.displayImage(shareImgUrl, hv.shareImg[i], AppCommon.getInstance().options);
-			hv.shareImg[i].setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					
-						gotoBigImage(position, Integer.valueOf(((ImageView)v).getTag().toString()).intValue());
-					
-				}
-			});
-		}
 		
+		if(ls.original_pic != null)
+		{
+			String url= "";
+			String[] urlsubs = ls.original_pic.split("/");
+			for(int j = 0;j<urlsubs.length-2;j++)
+			{
+				url = url+urlsubs[j]+"/";
+			}
+			
+			
+			for(int i = 0;i<ls.pic_ids.length;++i)
+			{
+				hv.shareImg[i].setVisibility(View.VISIBLE);
+				hv.shareImg[i].setTag(i+"");
+				String shareImgUrl = url+"thumbnail/"+ls.pic_ids[i]+".jpg";
+				AppCommon.getInstance().imageLoader.displayImage(shareImgUrl, hv.shareImg[i], AppCommon.getInstance().options);
+				hv.shareImg[i].setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						
+							gotoBigImage(position, Integer.valueOf(((ImageView)v).getTag().toString()).intValue());
+						
+					}
+				});
+			}
+		}
+		else
+		{
+			
+		}
 		hv.bottombar_retweet.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -173,7 +196,11 @@ public class JHDSShareAdapter extends BaseAdapter {
 					bundle.putString("nickName", sm.nickName);
 					bundle.putString("userId", sm.userId);
 					bundle.putString("userIcon", sm.userIcon);
-					bundle.putString("created_timestamp", sm.created_timestamp);
+					String id = AppSetManager.getTopWeiboId();
+					if(!id.equals("")&&position == 0)
+						bundle.putString("created_timestamp", "0");
+					else
+						bundle.putString("created_timestamp", sm.created_timestamp);
 					bundle.putString("selectIndex", "0");
 					Intent intent = new Intent(mAct, JHDSShareDetailActivity.class);
 					intent.putExtras(bundle);
@@ -212,7 +239,11 @@ public class JHDSShareAdapter extends BaseAdapter {
 					bundle.putString("userId", sm.userId);
 					bundle.putString("userIcon", sm.userIcon);
 					bundle.putString("selectIndex", "1");
-					bundle.putString("created_timestamp", sm.created_timestamp);
+					String id = AppSetManager.getTopWeiboId();
+					if(!id.equals("") && position == 0)
+						bundle.putString("created_timestamp", "0");
+					else
+						bundle.putString("created_timestamp", sm.created_timestamp);
 					Intent intent = new Intent(mAct, JHDSShareDetailActivity.class);
 					intent.putExtras(bundle);
 					mAct.startActivity(intent);

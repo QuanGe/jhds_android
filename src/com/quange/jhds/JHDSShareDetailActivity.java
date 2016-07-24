@@ -196,7 +196,10 @@ public class JHDSShareDetailActivity extends Activity {
 			userNickName.setText(weibo_nickName);
 			tv_content.setText(weibo_text);
 			AppCommon.getInstance().imageLoader.displayImage(weibo_userIconUrl, userIcon, AppCommon.getInstance().userIconOptions);
-		    createTime.setText(DateUtils.convertTimeToFormat( Long.parseLong(weibo_created_timestamp)) );
+		    if(weibo_created_timestamp.equals("0"))
+		    	createTime.setText("刚刚");
+		    else
+		    	createTime.setText(DateUtils.convertTimeToFormat( Long.parseLong(weibo_created_timestamp)) );
 			if(weibo_pic_urls.length<7)
 				shareImgBox3.setVisibility(View.GONE);
 			if(weibo_pic_urls.length<4)

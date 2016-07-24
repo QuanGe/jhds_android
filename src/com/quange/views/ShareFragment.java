@@ -169,7 +169,25 @@ public class ShareFragment extends Fragment implements OnItemClickListener {
 					@Override
 					public void onResponse(List<JHDSShareModel> response) {
 						if(isRefresh)
+						{
 							mLSList.clear();
+							String id = AppSetManager.getTopWeiboId();
+							if(!id.equals(""))
+							{
+								JHDSShareModel sm = new JHDSShareModel();
+								sm.idstr = id;
+								sm.text = AppSetManager.getTopWeiboText();
+								if(AppSetManager.getTopWeiboPics().equals(""))
+									sm.pic_ids = new String[0];
+								else
+									sm.pic_ids = AppSetManager.getTopWeiboPics().split(",");
+								sm.userIcon = AppSetManager.getTopWeiboUserIcon();
+								sm.userId = AppSetManager.getTopWeiboUserId();
+								sm.nickName = AppSetManager.getTopWeiboUserNickName();
+								sm.original_pic = AppSetManager.getTopWeiboOrgPic();
+								mLSList.add(0, sm);
+							}
+						}
 						mLSList.addAll(response);
 						lAdapter.notifyDataSetChanged();
 						
@@ -253,7 +271,11 @@ public class ShareFragment extends Fragment implements OnItemClickListener {
 			bundle.putString("userId", sm.userId);
 			bundle.putString("userIcon", sm.userIcon);
 			bundle.putString("selectIndex", "0");
-			bundle.putString("created_timestamp", sm.created_timestamp);
+			String weiboid = AppSetManager.getTopWeiboId();
+			if(!weiboid.equals("") && position ==1)
+				bundle.putString("created_timestamp", "0");
+			else
+				bundle.putString("created_timestamp", sm.created_timestamp);
 			Intent intent = new Intent(getActivity(), JHDSShareDetailActivity.class);
 			intent.putExtras(bundle);
 			getActivity().startActivity(intent);

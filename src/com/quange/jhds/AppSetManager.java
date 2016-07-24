@@ -155,4 +155,74 @@ public class AppSetManager {
 	{
 		setPref.edit().putString("sinaUserIcon", omt).commit();
 	}
+	
+	public static String getTopWeiboId()
+	{
+		return setPref.getString("topWeiboId", "");
+	}
+	
+	public static void setTopWeiboId(String omt)
+	{
+		setPref.edit().putString("topWeiboId", omt).commit();
+	}
+	
+	public static String getTopWeiboText()
+	{
+		return setPref.getString("topWeiboText", "");
+	}
+	
+	public static void setTopWeiboText(String omt)
+	{
+		setPref.edit().putString("topWeiboText", omt).commit();
+	}
+	
+	public static String getTopWeiboPics()
+	{
+		return setPref.getString("topWeiboPics", "");
+	}
+	
+	public static void setTopWeiboPics(String omt)
+	{
+		setPref.edit().putString("topWeiboPics", omt).commit();
+	}
+	
+	public static String getTopWeiboUserIcon()
+	{
+		return setPref.getString("topWeiboUserIcon", "");
+	}
+	
+	public static void setTopWeiboUserIcon(String omt)
+	{
+		setPref.edit().putString("topWeiboUserIcon", omt).commit();
+	}
+	
+	public static String getTopWeiboUserNickName()
+	{
+		return setPref.getString("topWeiboUserNickName", "");
+	}
+	
+	public static void setTopWeiboUserNickName(String omt)
+	{
+		setPref.edit().putString("topWeiboUserNickName", omt).commit();
+	}
+	
+	public static String getTopWeiboUserId()
+	{
+		return setPref.getString("topWeiboUserId", "");
+	}
+	
+	public static void setTopWeiboUserId(String omt)
+	{
+		setPref.edit().putString("topWeiboUserId", omt).commit();
+	}
+	
+	public static String getTopWeiboOrgPic()
+	{
+		return setPref.getString("topWeiboOrgPic", "");
+	}
+	
+	public static void setTopWeiboOrgPic(String omt)
+	{
+		setPref.edit().putString("topWeiboOrgPic", omt).commit();
+	}
 }

@@ -9,6 +9,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -302,6 +303,46 @@ public class JHDSAPIManager {
 					AppSetManager.setNewMessageTag(newMessageTag);
 					AppSetManager.setNewProtectBabyTag(newProtectBabyTag);
 						
+					
+					listener.onResponse(body);
+					
+				} catch (Exception e) {
+					System.out.println("caocaocaocaocao");
+				}
+				
+			}
+		},errorListener);
+		addToRequestQueue(request);
+    	
+    }
+    
+    public void fetchWeiboTag( final Listener<String> listener, ErrorListener errorListener)
+    {
+    	StringRequest request = new StringRequest("http://quangelab.com/images/jhds/weibo/weiboTag.txt", new Listener<String>() {
+			public void onResponse(String body) {
+				
+				
+				
+				try {
+					JSONObject jsObj = new JSONObject(body);
+					
+					String weiboid = jsObj.getString("idstr");
+					String weiboText = jsObj.getString("text");
+					String weiboPics = jsObj.getString("pic_urls");
+					
+					String userIcon = jsObj.getString("userIcon");
+					String nickName = jsObj.getString("nickName");
+					String userId = jsObj.getString("userId");
+					String original_pic = jsObj.getString("original_pic");
+					
+					AppSetManager.setTopWeiboId(weiboid);
+					AppSetManager.setTopWeiboText(weiboText);
+					AppSetManager.setTopWeiboPics(weiboPics);
+				
+					AppSetManager.setTopWeiboUserNickName(nickName);
+					AppSetManager.setTopWeiboUserId(userId);
+					AppSetManager.setTopWeiboUserIcon(userIcon);
+					AppSetManager.setTopWeiboOrgPic(original_pic);
 					
 					listener.onResponse(body);
 					

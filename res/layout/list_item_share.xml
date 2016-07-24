@@ -171,12 +171,25 @@
         android:layout_weight="1"
         />
     </LinearLayout>
+	 <LinearLayout 
+	   android:id="@+id/bv"
+	   android:layout_width="match_parent"
+	   android:layout_height="10dp"
+	   android:background="@color/white"
+	  
+	   android:orientation="vertical">
+	         <ImageView
+	       android:layout_width="match_parent"
+	       android:layout_height="match_parent"
+	       android:background="#ffffff" />
+	 </LinearLayout>
+           
 	<LinearLayout 
 	    android:id="@+id/bottombar_layout"
 	    android:layout_width="match_parent"
 	    android:layout_height="45dp"
 	    android:background="@color/white"
-	    android:layout_alignParentBottom="true"
+	   
 	    android:orientation="vertical">
 
 	    <ImageView

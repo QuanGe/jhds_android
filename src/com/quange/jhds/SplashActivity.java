@@ -3,9 +3,11 @@ package com.quange.jhds;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.android.volley.Response.Listener;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
+import com.quange.viewModel.JHDSAPIManager;
 import com.quange.views.CircularProgressButton;
 import com.quange.views.JHDSGuideView;
 import com.quange.views.JHDSTextGuideView;
@@ -105,6 +107,13 @@ public class SplashActivity extends Activity implements OnClickListener{
 			setContentView(R.layout.activity_splash);
 			ViewUtils.inject(this); // 注入view和事件
 			MobclickAgent.onEvent(this, "splash");
+			
+			JHDSAPIManager.getInstance(this).fetchWeiboTag(new Listener<String>(){
+				@Override
+				public void onResponse(String response) {
+					
+				}
+			}, null);
 			
 			//splash
 			{
