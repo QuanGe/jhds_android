@@ -61,6 +61,7 @@ import android.widget.TabHost.OnTabChangeListener;
 	protected static boolean isQuit = false;
 	private View theView;
 	private PushAgent mPushAgent;
+	private int selectedIndex =2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -202,6 +203,7 @@ import android.widget.TabHost.OnTabChangeListener;
 			mTabHost.addTab(tabSpec, fragmentArray[i], null);
 		}
 
+		
 		updateRedTip();
 		
 		mTabHost.setOnTabChangedListener(new OnTabChangeListener() {
@@ -223,6 +225,8 @@ import android.widget.TabHost.OnTabChangeListener;
 				setTvTextColor(tabId);
 			}
 		});
+		
+		mTabHost.setCurrentTab(selectedIndex);
     }
     
  // 底部导航的文本颜色
@@ -247,7 +251,7 @@ import android.widget.TabHost.OnTabChangeListener;
 			TextView textView = (TextView) view.findViewById(R.id.tv_icon);
 			tv[index] = textView;
 			textView.setText(re.getString(titleArray[index]));
-			if (index == 0) {
+			if (index == selectedIndex) {
 				textView.setTextColor(re.getColor(R.color.color_two));
 			} else {
 				textView.setTextColor(re.getColor(R.color.black_deep));

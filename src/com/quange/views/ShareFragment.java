@@ -368,7 +368,7 @@ public class ShareFragment extends Fragment implements OnItemClickListener {
 		@Override
 		public void onWeiboException(WeiboException arg0) {
 			// TODO Auto-generated method stub
-			
+			Toast.makeText(getActivity(), "用户信息获取失败", Toast.LENGTH_SHORT).show();
 		}
 		
 		@Override
