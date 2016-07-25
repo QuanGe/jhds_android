@@ -516,7 +516,7 @@ public class JHDSShareDetailActivity extends Activity {
 						successRepostTip("评论成功");
 						cr.mLSList.add(0, c);
 						cr.lAdapter.notifyDataSetChanged();
-						String text = (String) repostNumBtn.getText();
+						String text = (String) commentNumBtn.getText();
 						String[] subt = text.split(" ");
 						if(subt.length == 1)
 						{
