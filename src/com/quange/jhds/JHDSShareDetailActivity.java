@@ -515,16 +515,16 @@ public class JHDSShareDetailActivity extends Activity {
 						cr.messageBox.setVisibility(View.GONE);
 						successRepostTip("评论成功");
 						cr.mLSList.add(0, c);
-						sr.lAdapter.notifyDataSetChanged();
+						cr.lAdapter.notifyDataSetChanged();
 						String text = (String) repostNumBtn.getText();
 						String[] subt = text.split(" ");
 						if(subt.length == 1)
 						{
-							repostNumBtn.setText("评论 "+1);
+							commentNumBtn.setText("评论 "+1);
 						}
 						else
 						{
-							repostNumBtn.setText("评论 "+(Integer.parseInt(subt[1]) +1));
+							commentNumBtn.setText("评论 "+(Integer.parseInt(subt[1]) +1));
 						}
 						
 						RelativeLayout.LayoutParams l = (RelativeLayout.LayoutParams) inputBox.getLayoutParams();
