@@ -154,6 +154,7 @@ import android.widget.TextView;
         	brushColor =  new GradientDrawable();
         	brushColor.setCornerRadius( brushView.getBrushWidth()*dm.density/2);
         	brushColor.setColor(brushView.getBrushColor());
+        	brushColor.setStroke(1, 0xff333333);
         	if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
         	brushIcon.setBackground(brushColor);
         	else
@@ -337,6 +338,7 @@ import android.widget.TextView;
             brushFrame.width = (int) (brushView.getBrushWidth()*dm.density);
             brushFrame.height = (int) (brushView.getBrushWidth()*dm.density);
             brushColor.setCornerRadius(brushView.getBrushWidth()*dm.density/2); 
+            brushColor.setStroke(1, 0xff333333);
             selectBtn.updateViewLayout(brushIcon, brushFrame);
          
             return true;
@@ -350,6 +352,7 @@ import android.widget.TextView;
         	brushFrame.width = (int) (brushView.getBrushWidth()*dm.density);
             brushFrame.height = (int) (brushView.getBrushWidth()*dm.density);
             brushColor.setCornerRadius(brushView.getBrushWidth()*dm.density/2); 
+            brushColor.setStroke(1, 0xff333333);
             selectBtn.updateViewLayout(brushIcon, brushFrame);
             return true;
         } else if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -510,6 +513,7 @@ import android.widget.TextView;
     	brushFrame.width = (int) (brushWidth*dm.density);
         brushFrame.height = (int) (brushWidth*dm.density);
         brushColor.setCornerRadius(brushWidth*dm.density/2); 
+        brushColor.setStroke(1, 0xff333333);
         selectBtn.updateViewLayout(brushIcon, brushFrame);
         brushColor.setColor(color);
     }

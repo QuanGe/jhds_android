@@ -274,9 +274,9 @@ public class BrushView extends View {
 			brushwidth =1;
 			return;
 		}
-		else if(brushwidth>20)
+		else if(brushwidth>50)
 		{
-			brushwidth = 20;
+			brushwidth = 50;
 			return;
 		}
 		Path path = new Path();

@@ -79,7 +79,7 @@ public class JHDSShareRepostAdapter extends BaseAdapter {
 			hv = new HoldView();
 			cv = View.inflate(mAct, R.layout.list_item_share_comment, null);
 
-			hv.userNickName = (TextView) cv.findViewById(R.id.commentUserNickName);
+			hv.userNickName = (TextView) cv.findViewById(R.id.userNickName);
 			hv.userIcon = (RoundImageView) cv.findViewById(R.id.userIcon);
 			hv.createTime = (TextView) cv.findViewById(R.id.createTime);
 			hv.tv_content = (EmojiTextView) cv.findViewById(R.id.tv_content);

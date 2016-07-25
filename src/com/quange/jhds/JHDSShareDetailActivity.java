@@ -192,7 +192,10 @@ public class JHDSShareDetailActivity extends Activity {
 			weibo_created_timestamp = bundle.getString("created_timestamp");
 			
 			String all = bundle.getString("allUrl");
-			weibo_pic_urls = all.split("\\*");
+			if(all.equals(""))
+				weibo_pic_urls = new String[0];
+			else
+				weibo_pic_urls = all.split("\\*");
 			
 			userNickName.setText(weibo_nickName);
 			tv_content.setEmojiText(weibo_text);

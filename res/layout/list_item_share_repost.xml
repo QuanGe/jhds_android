@@ -7,36 +7,36 @@
     <RelativeLayout 
         android:id="@+id/rl_userInfo"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="50dp"
         >
         
         <com.quange.views.RoundImageView
             android:id="@+id/userIcon"
-            android:layout_width="50dip"
-            android:layout_height="50dip"
+            android:layout_width="40dip"
+            android:layout_height="40dip"
             
             android:layout_marginLeft="12dip"
-            android:layout_marginTop="10dip" >
+            android:layout_marginTop="5dip" >
              
         </com.quange.views.RoundImageView>
          <TextView
         android:id="@+id/userNickName"
         android:layout_width="wrap_content"
-        android:layout_height="30dip"
+        android:layout_height="20dip"
        
-        android:layout_marginTop="10dip"
-     	android:layout_marginLeft="70dip"
-        android:textSize="18sp"
+        android:layout_marginTop="5dip"
+     	android:layout_marginLeft="60dip"
+        android:textSize="14sp"
         android:textColor="#FFA500"/>
          
           <TextView
         android:id="@+id/createTime"
         android:layout_width="wrap_content"
-        android:layout_height="30dip"
+        android:layout_height="25dip"
      
-        android:layout_marginTop="40dip"
-        android:layout_marginLeft="70dip"
-        android:textSize="14sp"
+        android:layout_marginTop="25dip"
+        android:layout_marginLeft="60dip"
+        android:textSize="12sp"
         android:textColor="#c3c3c3"/>
         
     </RelativeLayout>
