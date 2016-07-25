@@ -75,6 +75,32 @@ public class JHDSShareCommentAdapter extends BaseAdapter {
 		} else {
 			hv = (HoldView) cv.getTag();
 		}
+		
+		if(hv == null)
+		{
+			hv = new HoldView();
+			cv = View.inflate(mAct, R.layout.list_item_share_comment, null);
+
+			hv.userNickName = (TextView) cv.findViewById(R.id.commentUserNickName);
+			hv.userIcon = (RoundImageView) cv.findViewById(R.id.userIcon);
+			hv.createTime = (TextView) cv.findViewById(R.id.createTime);
+			hv.tv_content = (EmojiTextView) cv.findViewById(R.id.tv_content);
+			hv.shareImgBox1 = (LinearLayout) cv.findViewById(R.id.shareImgBox1);
+			hv.shareImgBox2 = (LinearLayout) cv.findViewById(R.id.shareImgBox2);
+			hv.shareImgBox3 = (LinearLayout) cv.findViewById(R.id.shareImgBox3);
+			hv.shareImg[0] = (ImageView) cv.findViewById(R.id.shareImg0);
+			hv.shareImg[1] = (ImageView) cv.findViewById(R.id.shareImg1);
+			hv.shareImg[2] = (ImageView) cv.findViewById(R.id.shareImg2);
+			hv.shareImg[3] = (ImageView) cv.findViewById(R.id.shareImg3);
+			hv.shareImg[4] = (ImageView) cv.findViewById(R.id.shareImg4);
+			hv.shareImg[5] = (ImageView) cv.findViewById(R.id.shareImg5);
+			hv.shareImg[6] = (ImageView) cv.findViewById(R.id.shareImg6);
+			hv.shareImg[7] = (ImageView) cv.findViewById(R.id.shareImg7);
+			hv.shareImg[8] = (ImageView) cv.findViewById(R.id.shareImg8);
+			
+			cv.setTag(hv);
+		}
+		
 		if(hv != null)
 		{
 			hv.userNickName.setText(ls.user.screen_name);

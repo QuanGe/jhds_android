@@ -523,6 +523,16 @@ public class JHDSShareDetailActivity extends Activity {
 						{
 							repostNumBtn.setText("评论 "+(Integer.parseInt(subt[1]) +1));
 						}
+						
+						RelativeLayout.LayoutParams l = (RelativeLayout.LayoutParams) inputBox.getLayoutParams();
+						if(l.leftMargin == 0)
+						{
+							inputBox.startAnimation(mOutAnim);
+							InputMethodManager inputManager =
+									(InputMethodManager)et_content.getContext().
+									getSystemService(Context.INPUT_METHOD_SERVICE);
+							inputManager.hideSoftInputFromWindow(et_content.getWindowToken(), InputMethodManager.RESULT_UNCHANGED_SHOWN);
+						}
 					}
 				}
 				

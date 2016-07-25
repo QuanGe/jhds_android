@@ -4,20 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.quange.jhds.AppCommon;
-import com.quange.jhds.DateConverter;
 import com.quange.jhds.DateWeiboUtils;
-import com.quange.jhds.PhotosActivity;
 import com.quange.jhds.R;
+
 import com.quange.views.EmojiTextView;
 import com.quange.views.RoundImageView;
 import com.sina.weibo.sdk.openapi.models.Status;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -78,13 +74,41 @@ public class JHDSShareRepostAdapter extends BaseAdapter {
 			hv = (HoldView) cv.getTag();
 		}
 		
-		hv.userNickName.setText(ls.user.screen_name);
-		hv.tv_content.setEmojiText(ls.text);
-		AppCommon.getInstance().imageLoader.displayImage(ls.user.avatar_large, hv.userIcon, AppCommon.getInstance().userIconOptions);
-		hv.createTime.setText(DateWeiboUtils.parseTime(ls.created_at) );
-		hv.shareImgBox3.setVisibility(View.GONE);
-		hv.shareImgBox2.setVisibility(View.GONE);
-		hv.shareImgBox1.setVisibility(View.GONE);
+		if(hv == null)
+		{
+			hv = new HoldView();
+			cv = View.inflate(mAct, R.layout.list_item_share_comment, null);
+
+			hv.userNickName = (TextView) cv.findViewById(R.id.commentUserNickName);
+			hv.userIcon = (RoundImageView) cv.findViewById(R.id.userIcon);
+			hv.createTime = (TextView) cv.findViewById(R.id.createTime);
+			hv.tv_content = (EmojiTextView) cv.findViewById(R.id.tv_content);
+			hv.shareImgBox1 = (LinearLayout) cv.findViewById(R.id.shareImgBox1);
+			hv.shareImgBox2 = (LinearLayout) cv.findViewById(R.id.shareImgBox2);
+			hv.shareImgBox3 = (LinearLayout) cv.findViewById(R.id.shareImgBox3);
+			hv.shareImg[0] = (ImageView) cv.findViewById(R.id.shareImg0);
+			hv.shareImg[1] = (ImageView) cv.findViewById(R.id.shareImg1);
+			hv.shareImg[2] = (ImageView) cv.findViewById(R.id.shareImg2);
+			hv.shareImg[3] = (ImageView) cv.findViewById(R.id.shareImg3);
+			hv.shareImg[4] = (ImageView) cv.findViewById(R.id.shareImg4);
+			hv.shareImg[5] = (ImageView) cv.findViewById(R.id.shareImg5);
+			hv.shareImg[6] = (ImageView) cv.findViewById(R.id.shareImg6);
+			hv.shareImg[7] = (ImageView) cv.findViewById(R.id.shareImg7);
+			hv.shareImg[8] = (ImageView) cv.findViewById(R.id.shareImg8);
+			
+			cv.setTag(hv);
+		}
+		
+		if(hv != null)
+		{
+			hv.userNickName.setText(ls.user.screen_name);
+			hv.tv_content.setEmojiText(ls.text);
+			AppCommon.getInstance().imageLoader.displayImage(ls.user.avatar_large, hv.userIcon, AppCommon.getInstance().userIconOptions);
+			hv.createTime.setText(DateWeiboUtils.parseTime(ls.created_at) );
+			hv.shareImgBox3.setVisibility(View.GONE);
+			hv.shareImgBox2.setVisibility(View.GONE);
+			hv.shareImgBox1.setVisibility(View.GONE);
+		}
 		
 		return cv;
 	}
@@ -102,23 +126,5 @@ public class JHDSShareRepostAdapter extends BaseAdapter {
 		
 		
 	}
-	
-	private void gotoBigImage(int pos,int imgIndex)
-	{
-		Bundle bundle = new Bundle();
-		String allUrl = "";
-		for (int i = 0;i<mlList.get(pos).pic_urls.size();i++)
-		{
-			if(i==mlList.get(pos).pic_urls.size()-1)
-				allUrl = allUrl+mlList.get(pos).pic_urls.get(i);
-			else 
-				allUrl = allUrl +mlList.get(pos).pic_urls.get(i)+"*";
-		}
-		bundle.putString("allUrl", allUrl);
-		String cururl = allUrl+mlList.get(pos).pic_urls.get(imgIndex);
-		bundle.putString("curUrl",cururl );
-		Intent intent = new Intent(mAct, PhotosActivity.class);
-		intent.putExtras(bundle);
-		mAct.startActivity(intent);
-	}
+
 }
