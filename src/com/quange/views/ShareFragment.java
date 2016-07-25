@@ -163,6 +163,10 @@ public class ShareFragment extends Fragment implements OnItemClickListener {
 					num = Integer.parseInt(response);
 				mCurPage = isRefresh ? 1 : ++mCurPage ;
 				
+				if(isRefresh)
+		    		MobclickAgent.onEvent(getActivity(), "weibo_refresh");
+		    	else
+		    		MobclickAgent.onEvent(getActivity(), "weibo_more");
 				
 				if(num>=mCurPage)
 				JHDSAPIManager.getInstance(getActivity()).fetchWeiboList(num-mCurPage, new Listener<List<JHDSShareModel>>(){

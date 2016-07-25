@@ -149,7 +149,7 @@ public class JHDSShareDetailActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_share_detail);
         ViewUtils.inject(this); // 注入view和事件
-        
+        MobclickAgent.onEvent(this, "weibo_detail");
         weiboStatusesAPI = new StatusesAPI(this,SinaConstants.APP_KEY,AccessTokenKeeper.readAccessToken(this));
         weiboCommentsAPIAPI = new CommentsAPI(this,SinaConstants.APP_KEY,AccessTokenKeeper.readAccessToken(this));
         //weiboStatusesAPI.emotions("face", "cnname", mweiboEmojiListener);
@@ -326,6 +326,7 @@ public class JHDSShareDetailActivity extends Activity {
 	
 	@OnClick(R.id.bottombar_retweet)
 	public void OnRepostClick(View view) {
+		MobclickAgent.onEvent(this, "weibo_repost");
 		if(AppSetManager.getSinaNickName().equals("") )
 			Toast.makeText(this, "您还没登录，不能评论和转发，快去登录吧", Toast.LENGTH_SHORT).show();
 		else if((System.currentTimeMillis() - AccessTokenKeeper.readAccessToken(this).getExpiresTime())<0)
@@ -339,6 +340,7 @@ public class JHDSShareDetailActivity extends Activity {
 	}
 	@OnClick(R.id.bottombar_comment)
 	public void OnCommentClick(View view) {
+		MobclickAgent.onEvent(this, "weibo_comment");
 		if(AppSetManager.getSinaNickName().equals("") )
 			Toast.makeText(this, "您还没登录，不能评论和转发，快去登录吧", Toast.LENGTH_SHORT).show();
 		else if((System.currentTimeMillis() - AccessTokenKeeper.readAccessToken(this).getExpiresTime())<0)
@@ -512,8 +514,10 @@ public class JHDSShareDetailActivity extends Activity {
 					Comment c = Comment.parse(comment);
 					if(c != null)
 					{
+						
 						cr.messageBox.setVisibility(View.GONE);
 						successRepostTip("评论成功");
+						et_content.setText("");
 						cr.mLSList.add(0, c);
 						cr.lAdapter.notifyDataSetChanged();
 						String text = (String) commentNumBtn.getText();
