@@ -11,6 +11,7 @@ import com.sina.weibo.sdk.constant.WBConstants;
 import com.umeng.analytics.MobclickAgent;
 
 import uk.co.senab.photoview.PhotoView;
+import uk.co.senab.photoview.PhotoViewAttacher.OnViewTapListener;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -64,7 +65,7 @@ public class PhotosActivity extends Activity implements IWeiboHandler.Response{
 			public Object instantiateItem(View container, int position) {
 				//indexTV.setText((((ViewPager) container).getCurrentItem()+1)+"/"+allUrls.length);
 				PhotoView photoView = new PhotoView(container.getContext());
-	            
+				photoView.setOnViewTapListener(tl);
 				
 	            // Now just add PhotoView to ViewPager and return it
 	            ((ViewPager) container).addView(photoView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
@@ -197,5 +198,14 @@ public class PhotosActivity extends Activity implements IWeiboHandler.Response{
             }
         }
     }
+    
+    private OnViewTapListener tl = new OnViewTapListener()
+    {
+    	@Override
+    	public void onViewTap(View view, float x, float y)
+    	{
+    		finish();
+    	}
+    };
 	
 }

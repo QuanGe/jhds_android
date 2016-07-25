@@ -63,16 +63,27 @@ public class BrushView extends View {
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case 1:
+				
 				postInvalidate();
+				closeLoading();
 				break;
 			case 2:
 				Toast.makeText(getContext(), "您还没有画过画呦，开始您的创作之旅吧", Toast.LENGTH_SHORT).show();
+				closeLoading();
 				break;
 			}
 		}
 	};
+	
+	public void closeLoading()
+	{
+		DrawActivity at = (DrawActivity) this.getContext();
+		at.loadingView.setVisibility(View.GONE);
+	}
 	public void loadSaveDataAndDraw()
 	{
+		DrawActivity at = (DrawActivity) this.getContext();
+		at.loadingView.setVisibility(View.VISIBLE);
 		new Thread() {
 			public void run() {
 				String str = AppCommon.getInstance().readLineData();

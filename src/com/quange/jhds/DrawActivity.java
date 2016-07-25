@@ -75,6 +75,7 @@ import android.widget.TextView;
 	protected RelativeLayout backBtn;
 	protected RelativeLayout topView;
 	protected RelativeLayout screenShotView;
+	public RelativeLayout loadingView;
 	private RelativeLayout selectBrushView;
 	private Animation mInAnim, mOutAnim;
 	private GradientDrawable brushColor;
@@ -91,6 +92,7 @@ import android.widget.TextView;
         screenShotView = (RelativeLayout)findViewById(R.id.screenShotView);
         brushView = (BrushView)findViewById(R.id.brushView);
         backBtn = (RelativeLayout)findViewById(R.id.backBtn);
+        loadingView = (RelativeLayout)findViewById(R.id.loadingView);
         selectBtn = (RelativeLayout)findViewById(R.id.selectBtn);
         selectBtn.setOnClickListener(new OnClickListener() {
 
