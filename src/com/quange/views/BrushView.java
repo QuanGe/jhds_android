@@ -125,7 +125,7 @@ public class BrushView extends View {
 								}
 								bm.lines.add(lm);
 							}
-							mDrawing.add(bm);
+							
 							
 						}
 						System.out.println("");
@@ -160,48 +160,82 @@ public class BrushView extends View {
 	public void backToFront()
 	{
 		MobclickAgent.onEvent(getContext(), "canvas_last");
+		if(pathList.size() != mDrawing.size())
+		{
+			Toast.makeText(this.getContext(), "程序已凌乱", Toast.LENGTH_SHORT).show();
+		}
 		if(pathList.size()>0)
 		{
 			
 		 	pathList.get(pathList.size()-1).reset();
-			JHDSBrushModel bm = mDrawing.get(mDrawing.size()-1);
-			
-			if(bm.lines.size()>0)
-			{
-				bm.lines.remove(bm.lines.size() -1);
-				for(int i = 0;i<bm.lines.size();i++)
+		 	if(mDrawing.size()>0)
+		 	{
+				JHDSBrushModel bm = mDrawing.get(mDrawing.size()-1);
+				
+				if(bm.lines.size()>0)
 				{
-					JHDSBrushLineModel line = bm.lines.get(i);
-					pathList.get(pathList.size()-1).moveTo(line.points.get(0).x,line.points.get(0).y);
-					for(int j =1;j<line.points.size();j++)
+					bm.lines.remove(bm.lines.size() -1);
+					for(int i = 0;i<bm.lines.size();i++)
 					{
-						pathList.get(pathList.size()-1).lineTo(line.points.get(j).x,line.points.get(j).y);
+						JHDSBrushLineModel line = bm.lines.get(i);
+						pathList.get(pathList.size()-1).moveTo(line.points.get(0).x,line.points.get(0).y);
+						for(int j =1;j<line.points.size();j++)
+						{
+							pathList.get(pathList.size()-1).lineTo(line.points.get(j).x,line.points.get(j).y);
+						}
 					}
-				}
-				if(bm.lines.size() ==0)
-				{
-					pathList.remove(pathList.size()-1);
-					brushList.remove(brushList.size()-1);
-					mDrawing.remove(mDrawing.size()-1);
-					if(mDrawing.size()>0)
+					if(bm.lines.size() ==0)
 					{
-						DrawActivity at = (DrawActivity) this.getContext();
-						JHDSBrushModel bbb = mDrawing.get(mDrawing.size()-1);
-						at.updateBrushWidthAndColor(bbb.brushwidth, bbb.brushColor);
+						pathList.remove(pathList.size()-1);
+						brushList.remove(brushList.size()-1);
+						mDrawing.remove(mDrawing.size()-1);
+						if(mDrawing.size()>0)
+						{
+							DrawActivity at = (DrawActivity) this.getContext();
+							JHDSBrushModel bbb = mDrawing.get(mDrawing.size()-1);
+							at.updateBrushWidthAndColor(bbb.brushwidth, bbb.brushColor);
+							AppSetManager.saveBrushWidth(bbb.brushwidth);
+							AppSetManager.saveBrushColor(bbb.brushColor);
+							brushColor = bbb.brushColor;
+							brushwidth = bbb.brushwidth;
+						}
+					}
+					
+					if(mDrawing.size()==0)
+						clearAll();
+					postInvalidate();
+					
+					Toast.makeText(this.getContext(), "已经后退至上一次落笔处", Toast.LENGTH_SHORT).show();
+				}
+				else
+				{
+					if(pathList.size() == 1)
+						Toast.makeText(this.getContext(), "您还没有开始画，现在开始动笔吧", Toast.LENGTH_SHORT).show();
+					else
+					{
+						pathList.remove(pathList.size()-1);
+						brushList.remove(brushList.size()-1);
+						mDrawing.remove(mDrawing.size()-1);
+						if(mDrawing.size()>0)
+						{
+							DrawActivity at = (DrawActivity) this.getContext();
+							JHDSBrushModel bbb = mDrawing.get(mDrawing.size()-1);
+							at.updateBrushWidthAndColor(bbb.brushwidth, bbb.brushColor);
+							AppSetManager.saveBrushWidth(bbb.brushwidth);
+							AppSetManager.saveBrushColor(bbb.brushColor);
+							brushColor = bbb.brushColor;
+							brushwidth = bbb.brushwidth;
+						}
+						else
+						{
+							clearAll();
+						}
+						Toast.makeText(this.getContext(), "已经后退至上一次落笔处", Toast.LENGTH_SHORT).show();Toast.makeText(this.getContext(), "已经后退至上一次落笔处", Toast.LENGTH_SHORT).show();
 					}
 				}
 				
-				if(mDrawing.size()==0)
-					clearAll();
-				postInvalidate();
 				
-				Toast.makeText(this.getContext(), "已经后退至上一次落笔处", Toast.LENGTH_SHORT).show();
-			}
-			else
-				Toast.makeText(this.getContext(), "您还没有开始画，现在开始动笔吧", Toast.LENGTH_SHORT).show();
-			
-			
-			
+		 	}
 		}
 		else
 		{
@@ -267,17 +301,26 @@ public class BrushView extends View {
 	
 	public void updateBrushWidth(boolean up)
 	{
-		
+		if(mDrawing.size()>0)
+		{
+			JHDSBrushModel bm = mDrawing.get(mDrawing.size()-1);
+			if(bm.lines.size()==0)
+			{
+				pathList.remove(pathList.size()-1);
+				brushList.remove(brushList.size()-1);
+				mDrawing.remove(mDrawing.size()-1);
+			}
+		}
 		brushwidth = brushwidth +(up?1:-1);
 		if(brushwidth<1)
 		{
 			brushwidth =1;
-			return;
+			//return;
 		}
 		else if(brushwidth>50)
 		{
 			brushwidth = 50;
-			return;
+			//return;
 		}
 		Path path = new Path();
 		pathList.add(path);
@@ -303,6 +346,16 @@ public class BrushView extends View {
 	
 	public void updateBrushInfor(int width,int color) 
 	{
+		if(mDrawing.size()>0)
+		{
+			JHDSBrushModel bm = mDrawing.get(mDrawing.size()-1);
+			if(bm.lines.size()==0)
+			{
+				pathList.remove(pathList.size()-1);
+				brushList.remove(brushList.size()-1);
+				mDrawing.remove(mDrawing.size()-1);
+			}
+		}
 		Path path = new Path();
 		pathList.add(path);
 		JHDSBrushModel bm = new JHDSBrushModel();
@@ -328,6 +381,16 @@ public class BrushView extends View {
 	
 	public void updateBrushColor(int color)
 	{
+		if(mDrawing.size()>0)
+		{
+			JHDSBrushModel bm = mDrawing.get(mDrawing.size()-1);
+			if(bm.lines.size()==0)
+			{
+				pathList.remove(pathList.size()-1);
+				brushList.remove(brushList.size()-1);
+				mDrawing.remove(mDrawing.size()-1);
+			}
+		}
 		brushColor = color;
 		Path path = new Path();
 		pathList.add(path);
@@ -391,11 +454,14 @@ public class BrushView extends View {
 			{
 				lastx = pointX;
 				lasty = pointY;
-				JHDSBrushModel bm  =  mDrawing.get(mDrawing.size()-1);
-				if(bm.lines.size()>0)
-					bm.lines.get(bm.lines.size()-1).points.add(new PointF(pointX,pointY));
-				if(pathList.size()>0)
-					pathList.get(pathList.size()-1).lineTo(pointX, pointY);
+				if(mDrawing.size()>0)
+				{
+					JHDSBrushModel bm  =  mDrawing.get(mDrawing.size()-1);
+					if(bm.lines.size()>0)
+						bm.lines.get(bm.lines.size()-1).points.add(new PointF(pointX,pointY));
+					if(pathList.size()>0)
+						pathList.get(pathList.size()-1).lineTo(pointX, pointY);
+				}
 			}
 			break;
 		case MotionEvent.ACTION_UP:
@@ -442,7 +508,39 @@ public class BrushView extends View {
 			
 			break;
 		case MotionEvent.ACTION_CANCEL:
-			System.out.println("取消");
+			if(lastx==pointX &&lasty == pointY &&enable)
+			{
+				if(mDrawing.size()>0)
+				{
+					JHDSBrushModel bm  =  mDrawing.get(mDrawing.size()-1);
+					if(bm.lines.size()>0)
+					{
+						bm.lines.get(bm.lines.size()-1).points.add(new PointF(pointX,pointY));
+						bm.lines.get(bm.lines.size()-1).points.add(new PointF(pointX+1, pointY));
+						bm.lines.get(bm.lines.size()-1).points.add(new PointF(pointX+1, pointY+1));
+						bm.lines.get(bm.lines.size()-1).points.add(new PointF(pointX, pointY+1));
+						bm.lines.get(bm.lines.size()-1).points.add(new PointF(pointX, pointY));
+						bm.lines.get(bm.lines.size()-1).points.add(new PointF(pointX+1, pointY));
+					}
+					if(pathList.size()>0)
+					{
+						pathList.get(pathList.size()-1).lineTo(pointX+1, pointY);
+						pathList.get(pathList.size()-1).lineTo(pointX+1, pointY+1);
+						pathList.get(pathList.size()-1).lineTo(pointX, pointY+1);
+						pathList.get(pathList.size()-1).lineTo(pointX, pointY);
+						pathList.get(pathList.size()-1).lineTo(pointX+1, pointY);
+					}
+				}
+			}
+			
+			timer = new Timer();
+			timer.schedule(new TimerTask() { // schedule方法(安排,计划)需要接收一个TimerTask对象和一个代表毫秒的int值作为参数
+				@Override
+				public void run() {
+					AppCommon.getInstance().saveLineData(convertLineToString());
+				}
+			}, 1000);
+			MobclickAgent.onEvent(getContext(), "canvas_draw");
 			break;
 			
 		default:
