@@ -7,6 +7,8 @@ import com.android.volley.Response.Listener;
 import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
+import com.qq.e.ads.splash.SplashAD;
+import com.qq.e.ads.splash.SplashADListener;
 import com.quange.viewModel.JHDSAPIManager;
 import com.quange.views.CircularProgressButton;
 import com.quange.views.JHDSGuideView;
@@ -27,6 +29,8 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.LayoutParams;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -36,19 +40,24 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 
-public class SplashActivity extends Activity implements OnClickListener{
-	 @ViewInject(R.id.guidePages)
+public class SplashActivity extends Activity implements OnClickListener,SplashADListener{
+	
+	 private SplashAD splashAD;
+	 private ViewGroup container;
+	  
+	
 	 private ViewPager guidePages;
-	 @ViewInject(R.id.guidePagesBox)
+	
 	 private RelativeLayout guidePagesBox;
-	 @ViewInject(R.id.btn_skip_splashimage)
+	
 	 private CircularProgressButton skipBtn;
-	 @ViewInject(R.id.iv_splash)
+	 
 	 private ImageView splashImg;
 	// 底部小点的图片
 	 private ImageView[] points;
 	// 记录当前选中位置
 	 private int currentIndex;
+	 
 	 private String[] allInfo = {"给你一块画板\n画出你的天空","海量简画教程\n持续不断更新","临摹优秀作品\n提升自己笔格","手机摇一摇\n重新来画","音量键"};
 	 private int iconArray[] = { R.drawable.splash0, R.drawable.splash1,
 				R.drawable.splash2, R.drawable.splash3 };
@@ -107,7 +116,18 @@ public class SplashActivity extends Activity implements OnClickListener{
 			setContentView(R.layout.activity_splash);
 			ViewUtils.inject(this); // 注入view和事件
 			MobclickAgent.onEvent(this, "splash");
+			guidePages=  (ViewPager) this.findViewById(R.id.guidePages);
+			guidePagesBox=  (RelativeLayout) this.findViewById(R.id.guidePagesBox);
+			skipBtn=  (CircularProgressButton) this.findViewById(R.id.btn_skip_splashimage);
+			splashImg=  (ImageView) this.findViewById(R.id.iv_splash);
 			
+			
+			container = (ViewGroup) this.findViewById(R.id.splash_container);
+		    splashAD = new SplashAD(this, container, "1105326131", "1030412318282848", this);
+		    if(AppSetManager.getSplashType()==0)
+		    	container.setVisibility(View.VISIBLE);
+		    else
+		    	container.setVisibility(View.GONE);
 			JHDSAPIManager.getInstance(this).fetchWeiboTag(new Listener<String>(){
 				@Override
 				public void onResponse(String response) {
@@ -282,4 +302,37 @@ public class SplashActivity extends Activity implements OnClickListener{
 	    	timer.cancel();
 	    	startMainActivity();
 	    }
+	    
+	    
+
+	    @Override
+	    public void onADPresent() {
+	      Log.i("AD_DEMO", "SplashADPresent");
+	    }
+
+	    @Override
+	    public void onADClicked() {
+	      Log.i("AD_DEMO", "SplashADClicked");
+	    }
+
+	    @Override
+	    public void onADDismissed() {
+	      Log.i("AD_DEMO", "SplashADDismissed");
+	      //startMainActivity();
+	    }
+
+	    @Override
+	    public void onNoAD(int errorCode) {
+	      Log.i("AD_DEMO", "LoadSplashADFail, eCode=" + errorCode);
+	      /** 如果加载广告失败，则直接跳转 */
+	      
+	    }
+	    
+	    public boolean onKeyDown(int keyCode, KeyEvent event) {
+	        //阻止用户在展示过程中点击手机返回键，推荐开发者使用
+	            if (keyCode == KeyEvent.KEYCODE_BACK) {
+	                return true;
+	            }
+	            return super.onKeyDown(keyCode, event);
+	        }
 }

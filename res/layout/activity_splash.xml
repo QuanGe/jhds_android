@@ -21,7 +21,14 @@
 			        android:contentDescription="@string/app_name"
 			        android:scaleType="centerCrop"
 			         />
+			    
 		</RelativeLayout>
+		 <!-- 开屏广告容器，不得小于400dp -->
+	    <FrameLayout
+	        android:id="@+id/splash_container"
+	        android:layout_above="@id/logobox"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"/>
 	    <com.quange.views.CircularProgressButton
 	        android:id="@+id/btn_skip_splashimage"
 	        android:layout_width="40dp"

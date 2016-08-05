@@ -14,6 +14,11 @@ import java.util.TimerTask;
 
 
 import com.larswerkman.holocolorpicker.ColorPicker.OnColorChangedListener;
+
+import com.qq.e.ads.banner.ADSize;
+import com.qq.e.ads.banner.AbstractBannerADListener;
+import com.qq.e.ads.banner.BannerView;
+
 import com.quange.views.JHDSBackSelectDialog;
 import com.quange.views.SelectBrushView;
 import com.quange.views.BrushView;
@@ -83,7 +88,8 @@ import android.widget.TextView;
 	private View brushIcon;
 	private SensorManager sensorManager = null;  
 	private Vibrator vibrator = null;  
-	
+	private ViewGroup bannerContainer;
+	private BannerView bv;
 	protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_draw);
@@ -125,6 +131,10 @@ import android.widget.TextView;
 		});
         
         selectBrushView = (RelativeLayout)findViewById(R.id.selectBrushView);
+        
+        bannerContainer = (ViewGroup) this.findViewById(R.id.bannerContainer);
+        bannerContainer.setVisibility(View.GONE);
+        
         GradientDrawable selectBrushViewColor = new GradientDrawable();
         selectBrushViewColor.setColor(0x88000000);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
@@ -168,6 +178,21 @@ import android.widget.TextView;
         vibrator = (Vibrator) getSystemService(Service.VIBRATOR_SERVICE); 
         
         mInAnim = AnimationUtils.loadAnimation(this,R.anim.dialog_in);
+        mInAnim.setAnimationListener(new AnimationListener() {
+			public void onAnimationStart(Animation animation) {
+			}
+
+			public void onAnimationRepeat(Animation animation) {
+			}
+
+			public void onAnimationEnd(Animation animation) {
+				
+				if(AppSetManager.getSplashType()==5||AppSetManager.getSplashType()==0)
+		        	bannerContainer.setVisibility(View.VISIBLE);
+			    else
+			    	bannerContainer.setVisibility(View.GONE);
+			}
+		});
         mInAnim.setFillAfter(true);
         mOutAnim = AnimationUtils.loadAnimation(this,R.anim.dialog_out);
         mOutAnim.setFillAfter(true);
@@ -183,6 +208,8 @@ import android.widget.TextView;
 				RelativeLayout.LayoutParams l = (LayoutParams) selectBrushView.getLayoutParams();
 				l.leftMargin = 10000;
 				selectBrushView.setLayoutParams(l);
+				
+				bannerContainer.setVisibility(View.GONE);
 			}
 		});
         
@@ -198,7 +225,28 @@ import android.widget.TextView;
         		backBtn.setBackgroundDrawable(backColor);
         	
         }
+        
+        this.initBanner();
+        this.bv.loadAD();
     }
+	
+	private void initBanner() {
+	    this.bv = new BannerView(this, ADSize.BANNER, "1105326131", "3090611308288897");
+	    bv.setRefresh(30);
+	    bv.setADListener(new AbstractBannerADListener() {
+
+	      @Override
+	      public void onNoAD(int arg0) {
+	        Log.i("AD_DEMO", "BannerNoAD，eCode=" + arg0);
+	      }
+
+	      @Override
+	      public void onADReceiv() {
+	        Log.i("AD_DEMO", "ONBannerReceive");
+	      }
+	    });
+	    bannerContainer.addView(bv);
+	  }
 	
 	private void buildSelectBrushView()
 	{
