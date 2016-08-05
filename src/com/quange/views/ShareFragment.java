@@ -63,7 +63,7 @@ public class ShareFragment extends Fragment implements OnItemClickListener {
 	private PullToRefreshListView lList;
 	private ArrayList<JHDSShareModel> mLSList = new ArrayList<JHDSShareModel>();
 	private LoginButton mSinaLoginBtn;
-	private TextView headerTitle;
+	private EmojiTextView headerTitle;
 	/** 登陆认证对应的listener */
     private AuthListener mLoginListener = new AuthListener();
     /** 用户信息接口 */
@@ -79,7 +79,7 @@ public class ShareFragment extends Fragment implements OnItemClickListener {
 			lList = (PullToRefreshListView) fgmView.findViewById(R.id.share_list);
 			lAdapter = new JHDSShareAdapter(getActivity(), mLSList);
 			mSinaLoginBtn = (LoginButton) fgmView.findViewById(R.id.sinaLoginBtn);
-			headerTitle = (TextView)fgmView.findViewById(R.id.headerTitle);
+			headerTitle = (EmojiTextView)fgmView.findViewById(R.id.headerTitle);
 			// 创建授权认证信息
 	        mAuthInfo = new AuthInfo(getActivity(), SinaConstants.APP_KEY, SinaConstants.REDIRECT_URL, SinaConstants.SCOPE);
 			mSinaLoginBtn.setWeiboAuthInfo(mAuthInfo, mLoginListener);
@@ -88,17 +88,17 @@ public class ShareFragment extends Fragment implements OnItemClickListener {
 		
 		if(AppSetManager.getSinaNickName().equals("") )
 		{
-			headerTitle.setText("未登录 👉");
+			headerTitle.setEmojiText("未登录 [向右]");
 		}
 		else 
 		{
 			if((System.currentTimeMillis() - AccessTokenKeeper.readAccessToken(getActivity()).getExpiresTime())<0)
 			{
-				headerTitle.setText(AppSetManager.getSinaNickName());
+				headerTitle.setEmojiText(AppSetManager.getSinaNickName());
 			}
 			else
 			{
-				headerTitle.setText("已过期请重新登录 👉");
+				headerTitle.setEmojiText("已过期请重新登录 [向右]");
 			}
 		}
 		
@@ -319,19 +319,19 @@ public class ShareFragment extends Fragment implements OnItemClickListener {
             else
             {
             	String code = values.getString("code", "");
-            	headerTitle.setText("登录失败"+code);
+            	headerTitle.setEmojiText("登录失败"+code);
             }
         }
 
         @Override
         public void onWeiboException(WeiboException e) {
             Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
-            headerTitle.setText("登录失败");
+            headerTitle.setEmojiText("登录失败 [向右]");
         }
 
         @Override
         public void onCancel() {
-        	headerTitle.setText("取消登录");
+        	headerTitle.setEmojiText("取消登录 [向右]");
             Toast.makeText(getActivity(), 
                     R.string.weibosdk_demo_toast_auth_canceled, Toast.LENGTH_SHORT).show();
         }
@@ -380,7 +380,7 @@ public class ShareFragment extends Fragment implements OnItemClickListener {
 			// TODO Auto-generated method stub
 			User user = User.parse(arg0);
 			if (user != null) {
-				headerTitle.setText(user.screen_name);
+				headerTitle.setEmojiText(user.screen_name);
 				AppSetManager.setSinaUserIcon(user.avatar_large);
 				AppSetManager.setSinaNickName(user.screen_name);
 				lAdapter.notifyDataSetChanged();

@@ -379,8 +379,10 @@ public class BrushView extends View {
 				lasty = pointY;
 				JHDSBrushLineModel line = new JHDSBrushLineModel();
 				line.points.add(new PointF(pointX,pointY));
-				mDrawing.get(mDrawing.size()-1).lines.add(line);
-				pathList.get(pathList.size()-1).moveTo(pointX, pointY);
+				if(mDrawing.size()>0)
+					mDrawing.get(mDrawing.size()-1).lines.add(line);
+				if(pathList.size()>0)
+					pathList.get(pathList.size()-1).moveTo(pointX, pointY);
 				actCanBack = false;
 			}
 			break;
@@ -390,27 +392,36 @@ public class BrushView extends View {
 				lastx = pointX;
 				lasty = pointY;
 				JHDSBrushModel bm  =  mDrawing.get(mDrawing.size()-1);
-				bm.lines.get(bm.lines.size()-1).points.add(new PointF(pointX,pointY));
-				pathList.get(pathList.size()-1).lineTo(pointX, pointY);
+				if(bm.lines.size()>0)
+					bm.lines.get(bm.lines.size()-1).points.add(new PointF(pointX,pointY));
+				if(pathList.size()>0)
+					pathList.get(pathList.size()-1).lineTo(pointX, pointY);
 			}
 			break;
 		case MotionEvent.ACTION_UP:
 			if(lastx==pointX &&lasty == pointY &&enable)
 			{
-				JHDSBrushModel bm  =  mDrawing.get(mDrawing.size()-1);
-				bm.lines.get(bm.lines.size()-1).points.add(new PointF(pointX,pointY));
-				bm.lines.get(bm.lines.size()-1).points.add(new PointF(pointX+1, pointY));
-				bm.lines.get(bm.lines.size()-1).points.add(new PointF(pointX+1, pointY+1));
-				bm.lines.get(bm.lines.size()-1).points.add(new PointF(pointX, pointY+1));
-				bm.lines.get(bm.lines.size()-1).points.add(new PointF(pointX, pointY));
-				bm.lines.get(bm.lines.size()-1).points.add(new PointF(pointX+1, pointY));
-			
-				
-				pathList.get(pathList.size()-1).lineTo(pointX+1, pointY);
-				pathList.get(pathList.size()-1).lineTo(pointX+1, pointY+1);
-				pathList.get(pathList.size()-1).lineTo(pointX, pointY+1);
-				pathList.get(pathList.size()-1).lineTo(pointX, pointY);
-				pathList.get(pathList.size()-1).lineTo(pointX+1, pointY);
+				if(mDrawing.size()>0)
+				{
+					JHDSBrushModel bm  =  mDrawing.get(mDrawing.size()-1);
+					if(bm.lines.size()>0)
+					{
+						bm.lines.get(bm.lines.size()-1).points.add(new PointF(pointX,pointY));
+						bm.lines.get(bm.lines.size()-1).points.add(new PointF(pointX+1, pointY));
+						bm.lines.get(bm.lines.size()-1).points.add(new PointF(pointX+1, pointY+1));
+						bm.lines.get(bm.lines.size()-1).points.add(new PointF(pointX, pointY+1));
+						bm.lines.get(bm.lines.size()-1).points.add(new PointF(pointX, pointY));
+						bm.lines.get(bm.lines.size()-1).points.add(new PointF(pointX+1, pointY));
+					}
+					if(pathList.size()>0)
+					{
+						pathList.get(pathList.size()-1).lineTo(pointX+1, pointY);
+						pathList.get(pathList.size()-1).lineTo(pointX+1, pointY+1);
+						pathList.get(pathList.size()-1).lineTo(pointX, pointY+1);
+						pathList.get(pathList.size()-1).lineTo(pointX, pointY);
+						pathList.get(pathList.size()-1).lineTo(pointX+1, pointY);
+					}
+				}
 			}
 			
 			timer = new Timer();

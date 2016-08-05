@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.quange.jhds"
-    android:versionCode="3"
-    android:versionName="1.2" >
+    android:versionCode="4"
+    android:versionName="1.3" >
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -115,6 +115,11 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
           </activity>
+          <activity android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
+               android:configChanges="keyboardHidden|orientation" 
+               android:windowSoftInputMode="adjustResize" 
+               android:exported="false" >
+		 </activity>
          <!-- ###################注册SDK使用的Activity###################### -->
         <!-- 分享编辑页 -->
         <activity

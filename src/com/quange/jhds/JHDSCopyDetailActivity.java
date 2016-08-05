@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import com.umeng.analytics.MobclickAgent;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -38,7 +39,10 @@ public class JHDSCopyDetailActivity  extends DrawActivity{
 		
 		ImageView imge = new ImageView(this);
 		Drawable arrowD = getResources().getDrawable(R.drawable.img_border);
-		topView.setBackground(arrowD);
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
+			topView.setBackground(arrowD);
+        else
+        	topView.setBackgroundDrawable(arrowD);
 		RelativeLayout.LayoutParams imgelp = new RelativeLayout.LayoutParams(
 				AppCommon.getInstance().screenWidth-(int) (4*AppCommon.getInstance().metrics.density),
 				AppCommon.getInstance().screenHeight-(int) (4*AppCommon.getInstance().metrics.density));

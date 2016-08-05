@@ -58,7 +58,7 @@ public class JHDSSaveImagesAdapter extends BaseAdapter {
 	    @Override
 	    protected void onPostExecute(Bitmap result) {
 	        super.onPostExecute(result);
-	        iv.setImageBitmap(result);
+	        iv.setImageBitmap(result);  
 	    }
 		
 	}

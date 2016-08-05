@@ -37,9 +37,9 @@ public class ShareCollectUtils {
             "哎呀，妈呀，累死我了，终于画完了#简画大师#",
             "小手一抖，简画在手#简画大师#",
             "啥？我画的不好看？你来试试#简画大师#",
-            "you can you up，no can no BB？#简画大师#",
-            "快得了吧，这是我画的最好的了，😄？#简画大师#",
-            "简画，就是简单，想画就画，我骄傲😄？#简画大师#",
+            "you can you up，no can no BB#简画大师#",
+            "快得了吧，这是我画的最好的了，😄#简画大师#",
+            "简画，就是简单，想画就画，我骄傲😄#简画大师#",
             "一句话：不服来画给我看。#简画大师#"};
 	/** 微博微博分享接口实例 */
     public static IWeiboShareAPI  mWeiboShareAPI = null;

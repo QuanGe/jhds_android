@@ -333,9 +333,12 @@ import android.widget.TabHost.OnTabChangeListener;
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		Fragment f = getVisibleFragment();
-		if(f.getClass() == ShareFragment.class)
+		if(f != null)
 		{
-			((ShareFragment)f).onActivityResult(requestCode, resultCode, data);
+			if(f.getClass() == ShareFragment.class)
+			{
+				((ShareFragment)f).onActivityResult(requestCode, resultCode, data);
+			}
 		}
 	}
 }

@@ -311,7 +311,7 @@ import android.widget.TextView;
 	
 	public Bitmap screenShot(View view) {
 	    Bitmap bitmap = Bitmap.createBitmap(view.getWidth(),
-	            view.getHeight(), Config.ARGB_8888);
+	            view.getHeight(), Config.RGB_565);
 	    Canvas canvas = new Canvas(bitmap);
 	    view.draw(canvas);
 	    return bitmap;

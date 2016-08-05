@@ -444,7 +444,7 @@
                 android:id="@+id/et_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                
+                android:maxLength= "139"
                 android:background="#ffffffff"
                 android:gravity="top|left"
                 android:hint="写评论"

@@ -376,10 +376,12 @@ public class AppCommon extends Application {
     public  Bitmap getLoacalBitmap(String url,int reqWidth,int reqHeight) {
          try {
         	 BitmapFactory.Options opt = new BitmapFactory.Options();
+        	 opt.inTempStorage = new byte[100 * 1024];
         	 opt.inPreferredConfig = Bitmap.Config.RGB_565; 
         	 opt.inPurgeable = true;
         	 opt.inInputShareable = true;
-        	  
+        	 opt.inSampleSize = 4;
+        	 
         	 DisplayMetrics dm = AppCommon.getInstance().metrics; 
         	 BitmapFactory.decodeFile(url, opt);
         	 

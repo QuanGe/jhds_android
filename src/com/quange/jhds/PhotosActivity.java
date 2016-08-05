@@ -73,8 +73,6 @@ public class PhotosActivity extends Activity implements IWeiboHandler.Response{
 	            if(subStr.equals("http"))
 	            {
 	            	AppCommon.getInstance().imageLoader.displayImage(allUrls[position], photoView, AppCommon.getInstance().options);
-	            	
-		            ((ViewPager) container).addView(photoView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 	            }
 	            else
 	            {
@@ -101,7 +99,10 @@ public class PhotosActivity extends Activity implements IWeiboHandler.Response{
 		if (bundle != null) {
 			curUrl = bundle.getString("curUrl");
 			String all = bundle.getString("allUrl");
-			allUrls = all.split("\\*");
+			if(all != null)
+				allUrls = all.split("\\*");
+			else
+				allUrls = new String[0];
 			
 		}
 		String subStr = curUrl.substring(0, 4);
