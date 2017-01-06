@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,6 +44,8 @@ import com.umeng.socialize.media.SinaShareContent;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -71,6 +75,9 @@ public class ShareFragment extends Fragment implements OnItemClickListener {
     
     private AuthInfo mAuthInfo;
 	private int mCurPage = 1;
+	private Timer timer;
+	private Handler handler;
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		super.onCreateView(inflater, container, savedInstanceState);
@@ -84,6 +91,7 @@ public class ShareFragment extends Fragment implements OnItemClickListener {
 	        mAuthInfo = new AuthInfo(getActivity(), SinaConstants.APP_KEY, SinaConstants.REDIRECT_URL, SinaConstants.SCOPE);
 			mSinaLoginBtn.setWeiboAuthInfo(mAuthInfo, mLoginListener);
 			mSinaLoginBtn.setStyle(LoginButton.LOGIN_INCON_STYLE_3);
+			 
 		}
 		
 		if(AppSetManager.getSinaNickName().equals("") )
@@ -101,7 +109,20 @@ public class ShareFragment extends Fragment implements OnItemClickListener {
 				headerTitle.setEmojiText("已过期请重新登录 [向右]");
 			}
 		}
-		
+		timer = new Timer();
+		handler = new Handler(){     
+		    
+	        public void handleMessage(Message msg) {     
+	            switch (msg.what) {         
+	            case 1:         
+	            	mLSList.remove(0);
+					lAdapter.notifyDataSetChanged();    
+	                break;         
+	            }         
+	            super.handleMessage(msg);     
+	        }     
+	             
+	    };    
 		lList.setMode(Mode.BOTH);
 		lList.setAdapter(lAdapter);
 		lList.setOnRefreshListener(orfListener2());
@@ -190,6 +211,14 @@ public class ShareFragment extends Fragment implements OnItemClickListener {
 								sm.nickName = AppSetManager.getTopWeiboUserNickName();
 								sm.original_pic = AppSetManager.getTopWeiboOrgPic();
 								mLSList.add(0, sm);
+								timer.schedule(new TimerTask() { // schedule方法(安排,计划)需要接收一个TimerTask对象和一个代表毫秒的int值作为参数
+									@Override
+									public void run() {
+										Message message = new Message();         
+							            message.what = 1;         
+							            handler.sendMessage(message); 
+									}
+								}, 4000);
 							}
 						}
 						mLSList.addAll(response);

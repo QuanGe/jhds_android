@@ -187,7 +187,7 @@ import android.widget.TextView;
 
 			public void onAnimationEnd(Animation animation) {
 				
-				if(AppSetManager.getSplashType()==5||AppSetManager.getSplashType()==0)
+				if(AppSetManager.getSplashType()==5||AppSetManager.getSplashType()==6)
 		        	bannerContainer.setVisibility(View.VISIBLE);
 			    else
 			    	bannerContainer.setVisibility(View.GONE);

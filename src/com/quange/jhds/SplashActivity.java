@@ -124,7 +124,7 @@ public class SplashActivity extends Activity implements OnClickListener,SplashAD
 			
 			container = (ViewGroup) this.findViewById(R.id.splash_container);
 		    splashAD = new SplashAD(this, container, "1105326131", "1030412318282848", this);
-		    if(AppSetManager.getSplashType()==0)
+		    if(AppSetManager.getSplashType()==5)
 		    	container.setVisibility(View.VISIBLE);
 		    else
 		    	container.setVisibility(View.GONE);
