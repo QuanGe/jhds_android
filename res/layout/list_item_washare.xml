@@ -2,36 +2,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@drawable/news_item_bg"
     android:orientation="vertical" >
     <ImageView
         android:id="@+id/img_washare"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="6dip"
-        android:layout_marginLeft="12dip"
-        android:layout_marginRight="12dip"
-        android:layout_marginBottom="4dip"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
         />
     <com.quange.views.EmojiTextView
         android:id="@+id/etv_content"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dip"
-        android:layout_marginLeft="12dip"
-        android:layout_marginRight="12dip"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:layout_marginBottom="4dip"
         android:lineSpacingExtra="3dp"
-        android:textSize="12sp"
+        android:textSize="10sp"
         android:textColor="#222222"/>
     
     <LinearLayout 
 	    android:id="@+id/ll_bottombar"
 	    android:layout_width="match_parent"
-	    android:layout_height="45dp"
+	    android:layout_height="30dp"
 	    android:background="@color/white"
-	   
 	    android:orientation="vertical">
 
 	    <ImageView
@@ -55,19 +50,19 @@
 	            android:orientation="horizontal">
 	
 	            <ImageView
-	                android:layout_width="16dp"
-	                android:layout_height="16dp"
-	                android:scaleType="centerCrop"
+	                android:layout_width="10dp"
+	                android:layout_height="10dp"
+	                android:scaleType="fitCenter"
 	                android:src="@drawable/sina_bar_icon_redirect" />
 	
 	            <TextView
 	                android:id="@+id/tv_redirect"
 	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content"
-	                android:layout_marginLeft="10dp"
+	                android:layout_marginLeft="2dp"
 	                android:text="转发"
 	                android:textColor="#cccccc"
-	                android:textSize="14sp" />
+	                android:textSize="8sp" />
 	
 	        </LinearLayout>
 	
@@ -90,19 +85,19 @@
 	            android:orientation="horizontal">
 	
 	            <ImageView
-	                android:layout_width="16dp"
-	                android:layout_height="16dp"
-	                android:scaleType="centerCrop"
+	                android:layout_width="10dp"
+	                android:layout_height="10dp"
+	                android:scaleType="fitCenter"
 	                android:src="@drawable/sina_bar_icon_comment" />
 	
 	            <TextView
 	                android:id="@+id/tv_comment"
 	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content"
-	                android:layout_marginLeft="10dp"
+	                android:layout_marginLeft="2dp"
 	                android:text="评论"
 	                android:textColor="#cccccc"
-	                android:textSize="14sp" />
+	                android:textSize="8sp" />
 	
 	        </LinearLayout>
 	
@@ -126,62 +121,60 @@
 	            android:orientation="horizontal">
 	
 	            <ImageView
-	                android:layout_width="16dp"
-	                android:layout_height="16dp"
-	                android:scaleType="centerCrop"
+	                android:layout_width="10dp"
+	                android:layout_height="10dp"
+	                android:scaleType="fitCenter"
 	                android:src="@drawable/sina_bar_icon_unlike" />
 	
 	            <TextView
 	                android:id="@+id/tv_feedlike"
 	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content"
-	                android:layout_marginLeft="10dp"
+	                android:layout_marginLeft="2dp"
 	                android:text="赞"
 	                android:textColor="#cccccc"
-	                android:textSize="14sp" />
+	                android:textSize="8sp" />
 	
 	        </LinearLayout>
-	    </LinearLayout>
-	    <ImageView
-	        android:layout_width="match_parent"
-	        android:layout_height="1dp"
-	        android:background="#dfdfdf" />
-	    
+	    </LinearLayout> 
     </LinearLayout>
 	    
     <RelativeLayout 
         android:id="@+id/rl_bottom_userInfo"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="30dp"
         >
-        
-        <com.quange.views.RoundImageView
-            android:id="@+id/userIcon"
-            android:layout_width="40dip"
-            android:layout_height="40dip"
-            
-            android:layout_marginLeft="12dip"
+        <ImageView
+	        android:layout_width="match_parent"
+	        android:layout_height="0.5dp"
+	        android:background="#dfdfdf" />
+        <com.quange.views.CircleImageView
+            android:id="@+id/rimg_userIcon"
+            android:layout_width="20dip"
+            android:layout_height="20dip"
+            android:layout_centerInParent="false"
+            android:layout_marginLeft="5dip"
             android:layout_marginTop="5dip" >
              
-        </com.quange.views.RoundImageView>
+        </com.quange.views.CircleImageView>
          <TextView
-        android:id="@+id/userNickName"
+        android:id="@+id/tv_user_nickname"
         android:layout_width="wrap_content"
-        android:layout_height="20dip"
+        android:layout_height="10dip"
        
         android:layout_marginTop="5dip"
-     	android:layout_marginLeft="60dip"
-        android:textSize="14sp"
+     	android:layout_marginLeft="30dip"
+        android:textSize="8sp"
         android:textColor="#FFA500"/>
          
           <TextView
-        android:id="@+id/createTime"
+        android:id="@+id/tv_create_time"
         android:layout_width="wrap_content"
-        android:layout_height="25dip"
+        android:layout_height="10dip"
      
-        android:layout_marginTop="25dip"
-        android:layout_marginLeft="60dip"
-        android:textSize="12sp"
+        android:layout_marginTop="15dip"
+        android:layout_marginLeft="30dip"
+        android:textSize="8sp"
         android:textColor="#c3c3c3"/>
         
     </RelativeLayout>

@@ -13,10 +13,9 @@ import org.json.JSONObject;
 import com.android.volley.VolleyError;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
-import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener2;
+
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 import com.quange.jhds.AccessTokenKeeper;
 import com.quange.jhds.AppSetManager;
 import com.quange.jhds.JHDSLearnDetailActivity;
@@ -28,6 +27,8 @@ import com.quange.model.JHDSShareModel;
 
 import com.quange.viewModel.JHDSAPIManager;
 import com.quange.viewModel.JHDSShareAdapter;
+import com.quange.viewModel.JHDSShareImgAdapter;
+import com.quange.views.JHDSShareListView.JHDSShareListViewListener;
 import com.sina.weibo.sdk.auth.AuthInfo;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.WeiboAuthListener;
@@ -43,6 +44,7 @@ import com.umeng.socialize.media.SinaShareContent;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -61,13 +63,14 @@ import android.widget.Toast;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class ShareFragment extends Fragment implements OnItemClickListener {
+public class ShareFragment extends Fragment implements OnItemClickListener,JHDSShareListViewListener {
 	private View fgmView;
-	private JHDSShareAdapter lAdapter;
-	private PullToRefreshListView lList;
+	private JHDSShareImgAdapter lAdapter;
+	private JHDSShareListView lList;
 	private ArrayList<JHDSShareModel> mLSList = new ArrayList<JHDSShareModel>();
 	private LoginButton mSinaLoginBtn;
 	private EmojiTextView headerTitle;
+	private JHDSShareLoginHeader shareHead ;
 	/** 登陆认证对应的listener */
     private AuthListener mLoginListener = new AuthListener();
     /** 用户信息接口 */
@@ -83,15 +86,17 @@ public class ShareFragment extends Fragment implements OnItemClickListener {
 		super.onCreateView(inflater, container, savedInstanceState);
 		if (fgmView == null) {
 			fgmView = inflater.inflate(R.layout.fragment_share, container, false);
-			lList = (PullToRefreshListView) fgmView.findViewById(R.id.share_list);
-			lAdapter = new JHDSShareAdapter(getActivity(), mLSList);
-			mSinaLoginBtn = (LoginButton) fgmView.findViewById(R.id.sinaLoginBtn);
-			headerTitle = (EmojiTextView)fgmView.findViewById(R.id.headerTitle);
+			lList = (JHDSShareListView) fgmView.findViewById(R.id.share_list);
+			lAdapter = new JHDSShareImgAdapter(getActivity(), mLSList);
+			shareHead = new JHDSShareLoginHeader(getActivity());
+			lList.addHeaderView(shareHead);
+			mSinaLoginBtn = (LoginButton) shareHead.findViewById(R.id.sinaLoginBtn);
+			headerTitle = (EmojiTextView)shareHead.findViewById(R.id.headerTitle);
 			// 创建授权认证信息
 	        mAuthInfo = new AuthInfo(getActivity(), SinaConstants.APP_KEY, SinaConstants.REDIRECT_URL, SinaConstants.SCOPE);
 			mSinaLoginBtn.setWeiboAuthInfo(mAuthInfo, mLoginListener);
 			mSinaLoginBtn.setStyle(LoginButton.LOGIN_INCON_STYLE_3);
-			 
+			lList.setAdapter(lAdapter);
 		}
 		
 		if(AppSetManager.getSinaNickName().equals("") )
@@ -123,51 +128,19 @@ public class ShareFragment extends Fragment implements OnItemClickListener {
 	        }     
 	             
 	    };    
-		lList.setMode(Mode.BOTH);
-		lList.setAdapter(lAdapter);
-		lList.setOnRefreshListener(orfListener2());
-	
-		lList.setOnItemClickListener(this);
-		lList.setOnScrollListener(new OnScrollListener() {
-			boolean isLastRow = false;
-
-			@Override
-			public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-				// 滚动时一直回调，直到停止滚动时才停止回调。单击时回调一次。
-				// firstVisibleItem：当前能看见的第一个列表项ID（从0开始）
-				// visibleItemCount：当前能看见的列表项个数（小半个也算）
-				// totalItemCount：列表项共数
-
-				// 判断是否滚到最后一行
-				if (firstVisibleItem + visibleItemCount == totalItemCount && totalItemCount > 0) {
-					isLastRow = true;
-				}
-			}
-
-			@Override
-			public void onScrollStateChanged(AbsListView view, int scrollState) {
-				// 正在滚动时回调，回调2-3次，手指没抛则回调2次。scrollState = 2的这次不回调
-				// 回调顺序如下
-				// 第1次：scrollState = SCROLL_STATE_TOUCH_SCROLL(1) 正在滚动
-				// 第2次：scrollState = SCROLL_STATE_FLING(2)
-				// 手指做了抛的动作（手指离开屏幕前，用力滑了一下）
-				// 第3次：scrollState = SCROLL_STATE_IDLE(0) 停止滚动
-				// 当屏幕停止滚动时为0；当屏幕滚动且用户使用的触碰或手指还在屏幕上时为1；
-				// 由于用户的操作，屏幕产生惯性滑动时为2
-
-				// 当滚到最后一行且停止滚动时，执行加载
-				if (isLastRow && scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) {
-					
-					refresh(false);
-					isLastRow = false;
-				}
-			}
-		});
-		lList.post(new Runnable() {
-		      @Override public void run() {
-		    	  lList.setRefreshing(true);
-		      }
-		 });
+	    
+	    
+	    
+	    
+		
+		lList.setPullLoadEnable(true);
+		lList.setXListViewListener(this);
+		lList.triggerRefresh();
+//		lList.post(new Runnable() {
+//		      @Override public void run() {
+//		    	  lList.setRefreshing(true);
+//		      }
+//		 });
 		return fgmView;
 	}
 	
@@ -196,34 +169,14 @@ public class ShareFragment extends Fragment implements OnItemClickListener {
 						if(isRefresh)
 						{
 							mLSList.clear();
-							String id = AppSetManager.getTopWeiboId();
-							if(!id.equals(""))
-							{
-								JHDSShareModel sm = new JHDSShareModel();
-								sm.idstr = id;
-								sm.text = AppSetManager.getTopWeiboText();
-								if(AppSetManager.getTopWeiboPics().equals(""))
-									sm.pic_ids = new String[0];
-								else
-									sm.pic_ids = AppSetManager.getTopWeiboPics().split(",");
-								sm.userIcon = AppSetManager.getTopWeiboUserIcon();
-								sm.userId = AppSetManager.getTopWeiboUserId();
-								sm.nickName = AppSetManager.getTopWeiboUserNickName();
-								sm.original_pic = AppSetManager.getTopWeiboOrgPic();
-								mLSList.add(0, sm);
-								timer.schedule(new TimerTask() { // schedule方法(安排,计划)需要接收一个TimerTask对象和一个代表毫秒的int值作为参数
-									@Override
-									public void run() {
-										Message message = new Message();         
-							            message.what = 1;         
-							            handler.sendMessage(message); 
-									}
-								}, 4000);
-							}
 						}
 						mLSList.addAll(response);
-						lAdapter.notifyDataSetChanged();
 						
+						lAdapter.notifyDataSetChanged();
+						if(isRefresh)
+							lList.stopRefresh();
+						else
+							lList.stopLoadMore();
 					}
 					
 					
@@ -250,33 +203,7 @@ public class ShareFragment extends Fragment implements OnItemClickListener {
 	}
 
 
-	private OnRefreshListener2<ListView> orfListener2() {
-		return new OnRefreshListener2<ListView>() {
-			@Override
-			public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-				
-				refresh(true);
-				stoprefresh(refreshView);
-			}
-
-			@Override
-			public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-				
-				refresh(false);
-				stoprefresh(refreshView);
-			}
-		};
-	}
-
-	protected void stoprefresh(final PullToRefreshBase<ListView> refreshView) {
-		refreshView.postDelayed(new Runnable() {
-			@Override
-			public void run() {
-				refreshView.onRefreshComplete();
-			}
-		}, 2000);
-	}
-
+	
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		try {
@@ -393,6 +320,16 @@ public class ShareFragment extends Fragment implements OnItemClickListener {
         }
     }
     
+    public void onRefresh()
+    {
+    	refresh(true);
+    }
+
+	public void onLoadMore()
+	{
+		refresh(false);
+	}
+    
     /**
 	 * 微博 OpenAPI 回调接口。
 	 */
@@ -417,4 +354,6 @@ public class ShareFragment extends Fragment implements OnItemClickListener {
 			}
 		}
 	}; 
+	
+	
 }

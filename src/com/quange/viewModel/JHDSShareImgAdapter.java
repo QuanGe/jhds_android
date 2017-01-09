@@ -1,43 +1,48 @@
 package com.quange.viewModel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import com.quange.jhds.AccessTokenKeeper;
-import com.quange.jhds.AppCommon;
-import com.quange.jhds.AppSetManager;
-import com.quange.jhds.DateUtils;
-import com.quange.jhds.JHDSLearnDetailActivity;
-import com.quange.jhds.JHDSShareDetailActivity;
-import com.quange.jhds.PhotosActivity;
-import com.quange.jhds.R;
-import com.quange.model.JHDSShareModel;
-import com.quange.viewModel.JHDSSaveImagesAdapter.ImageGetter;
-import com.quange.views.EmojiTextView;
-import com.quange.views.RoundImageView;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.ImageView.ScaleType;
 
-public class JHDSShareAdapter extends BaseAdapter {
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
+import com.quange.jhds.AccessTokenKeeper;
+import com.quange.jhds.AppCommon;
+import com.quange.jhds.AppSetManager;
+import com.quange.jhds.DateUtils;
+import com.quange.jhds.JHDSShareDetailActivity;
+import com.quange.jhds.PhotosActivity;
+import com.quange.jhds.R;
+import com.quange.model.JHDSShareModel;
+import com.quange.views.CircleImageView;
+import com.quange.views.EmojiTextView;
+import com.quange.views.RoundImageView;
+
+public class JHDSShareImgAdapter extends BaseAdapter {
 	private Activity mAct;
 	private float density = 0;
 	private int screenWidth = 0;
 	private List<JHDSShareModel> mlList = new ArrayList<JHDSShareModel>();
-	public JHDSShareAdapter(Activity act, List<JHDSShareModel>lList) {
+	private HashMap<String, JSONObject> weiboNums = new HashMap<>();
+	public JHDSShareImgAdapter(Activity act, List<JHDSShareModel>lList) {
 		this.mAct = act;
 		this.mlList = lList;
+		
 	}
 	@Override
 	public int getCount() {
@@ -53,6 +58,19 @@ public class JHDSShareAdapter extends BaseAdapter {
 	public long getItemId(int position) {
 		return position;
 	}
+	
+	public String getIds()
+	{
+		String ss = "";
+		for(int i = 0;i<mlList.size();i++)
+		{
+			JHDSShareModel m = mlList.get(i);
+			ss = ss + m.idstr;
+			if(i<mlList.size()-1)
+				ss = ss + ",";
+		}
+		return ss;
+	}
 
 	@Override
 	public View getView(final int position, View cv, ViewGroup parent) {
@@ -60,31 +78,21 @@ public class JHDSShareAdapter extends BaseAdapter {
 		HoldView hv = null;
 		if (null == cv) {
 			hv = new HoldView();
-			cv = View.inflate(mAct, R.layout.list_item_share, null);
+			cv = View.inflate(mAct, R.layout.list_item_washare, null);
 
-			hv.userNickName = (TextView) cv.findViewById(R.id.userNickName);
-			hv.userIcon = (RoundImageView) cv.findViewById(R.id.userIcon);
-			hv.createTime = (TextView) cv.findViewById(R.id.createTime);
-			hv.tv_content = (EmojiTextView) cv.findViewById(R.id.tv_content);
-			hv.shareImgBox1 = (LinearLayout) cv.findViewById(R.id.shareImgBox1);
-			hv.shareImgBox2 = (LinearLayout) cv.findViewById(R.id.shareImgBox2);
-			hv.shareImgBox3 = (LinearLayout) cv.findViewById(R.id.shareImgBox3);
-			hv.shareImg[0] = (ImageView) cv.findViewById(R.id.shareImg0);
-			hv.shareImg[1] = (ImageView) cv.findViewById(R.id.shareImg1);
-			hv.shareImg[2] = (ImageView) cv.findViewById(R.id.shareImg2);
-			hv.shareImg[3] = (ImageView) cv.findViewById(R.id.shareImg3);
-			hv.shareImg[4] = (ImageView) cv.findViewById(R.id.shareImg4);
-			hv.shareImg[5] = (ImageView) cv.findViewById(R.id.shareImg5);
-			hv.shareImg[6] = (ImageView) cv.findViewById(R.id.shareImg6);
-			hv.shareImg[7] = (ImageView) cv.findViewById(R.id.shareImg7);
-			hv.shareImg[8] = (ImageView) cv.findViewById(R.id.shareImg8);
-			hv.bottombar_layout = (LinearLayout) cv.findViewById(R.id.bottombar_layout);
-			hv.bottombar_retweet = (LinearLayout) cv.findViewById(R.id.bottombar_retweet);
-			hv.bottombar_comment = (LinearLayout) cv.findViewById(R.id.bottombar_comment);
+			hv.userNickName = (TextView) cv.findViewById(R.id.tv_user_nickname);
+			hv.userIcon = (CircleImageView) cv.findViewById(R.id.rimg_userIcon);
+			hv.createTime = (TextView) cv.findViewById(R.id.tv_create_time);
+			hv.tv_content = (EmojiTextView) cv.findViewById(R.id.etv_content);
+			hv.shareImg = (ImageView) cv.findViewById(R.id.img_washare);
 			
-			hv.redirect = (TextView) cv.findViewById(R.id.redirect);
-			hv.comment = (TextView) cv.findViewById(R.id.comment);
-			hv.feedlike = (TextView) cv.findViewById(R.id.feedlike);
+			hv.bottombar_layout = (LinearLayout) cv.findViewById(R.id.ll_bottombar);
+			hv.bottombar_retweet = (LinearLayout) cv.findViewById(R.id.ll_bottombar_retweet);
+			hv.bottombar_comment = (LinearLayout) cv.findViewById(R.id.ll_bottombar_comment);
+			
+			hv.redirect = (TextView) cv.findViewById(R.id.tv_redirect);
+			hv.comment = (TextView) cv.findViewById(R.id.tv_comment);
+			hv.feedlike = (TextView) cv.findViewById(R.id.tv_feedlike);
 			cv.setTag(hv);
 		} else {
 			hv = (HoldView) cv.getTag();
@@ -106,7 +114,7 @@ public class JHDSShareAdapter extends BaseAdapter {
 			if(hv.bottombar_layout.getTag() != null) {
 			    ((JHDSWeiboNumAsyncTask) hv.bottombar_layout.getTag()).cancel(true);
 			}
-			JHDSWeiboNumAsyncTask task = new JHDSWeiboNumAsyncTask(mAct,hv.redirect,hv.comment,hv.feedlike,ls.idstr,"",null) ;
+			JHDSWeiboNumAsyncTask task = new JHDSWeiboNumAsyncTask(mAct,hv.redirect,hv.comment,hv.feedlike,ls.idstr,getIds(),weiboNums) ;
 			task.execute("");
 			hv.bottombar_layout.setTag(task);
 		}
@@ -115,31 +123,10 @@ public class JHDSShareAdapter extends BaseAdapter {
 		
 		
 		AppCommon.getInstance().imageLoader.displayImage(ls.userIcon, hv.userIcon, AppCommon.getInstance().userIconOptions);
-		if(!id.equals("") && position == 0)
-		{
-			hv.createTime.setText("刚刚");
-			
-		}
-		else
-			hv.createTime.setText(DateUtils.convertTimeToFormat( Long.parseLong(ls.created_timestamp)) );
-		if(ls.pic_ids.length<7)
-			hv.shareImgBox3.setVisibility(View.GONE);
-		else
-			hv.shareImgBox3.setVisibility(View.VISIBLE);
-		if(ls.pic_ids.length<4)
-			hv.shareImgBox2.setVisibility(View.GONE);
-		else
-			hv.shareImgBox2.setVisibility(View.VISIBLE);
-		if(ls.pic_ids.length ==0)
-			hv.shareImgBox1.setVisibility(View.GONE);
-		else
-			hv.shareImgBox1.setVisibility(View.VISIBLE);
-		for(int j = 0;j<9;j++)
-		{
-			hv.shareImg[j].setVisibility(View.INVISIBLE);
-		}
 		
-		if(ls.original_pic != null)
+		hv.createTime.setText(DateUtils.convertTimeToFormat( Long.parseLong(ls.created_timestamp)) );
+	
+		if(ls.original_pic != null && ls.pic_ids.length>0)
 		{
 			String url= "";
 			String[] urlsubs = ls.original_pic.split("/");
@@ -148,27 +135,27 @@ public class JHDSShareAdapter extends BaseAdapter {
 				url = url+urlsubs[j]+"/";
 			}
 			
+			hv.shareImg.setVisibility(View.VISIBLE);		
+			hv.shareImg.setTag(0+"");
+			String shareImgUrl = url+"bmiddle/"+ls.pic_ids[0]+".jpg";
+			//mImageFetcher.loadImage(shareImgUrl,hv.shareImg);
+			AppCommon.getInstance().imageLoader.displayImage(shareImgUrl, hv.shareImg, AppCommon.getInstance().options);
+			hv.shareImg.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					
+						gotoBigImage(position, Integer.valueOf(((ImageView)v).getTag().toString()).intValue());
+					
+				}
+			});
 			
-			for(int i = 0;i<ls.pic_ids.length;++i)
-			{
-				hv.shareImg[i].setVisibility(View.VISIBLE);
-				hv.shareImg[i].setTag(i+"");
-				String shareImgUrl = url+"thumbnail/"+ls.pic_ids[i]+".jpg";
-				AppCommon.getInstance().imageLoader.displayImage(shareImgUrl, hv.shareImg[i], AppCommon.getInstance().options);
-				hv.shareImg[i].setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						
-							gotoBigImage(position, Integer.valueOf(((ImageView)v).getTag().toString()).intValue());
-						
-					}
-				});
-			}
 		}
 		else
 		{
-			
+			hv.shareImg.setVisibility(View.GONE);
 		}
+		
+		
 		hv.bottombar_retweet.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -256,29 +243,13 @@ public class JHDSShareAdapter extends BaseAdapter {
 		
 		return cv;
 	}
-	
-	/*private int imageHeight(JHDSLearnModel imagesize)
-	{
-		DisplayMetrics metrics = new DisplayMetrics();
-		mAct.getWindowManager().getDefaultDisplay().getMetrics(metrics);
-		density = metrics.density;
-		screenWidth = metrics.widthPixels;
-		String [] m = imagesize.size.split(",");
-		int height = (int) ((metrics.widthPixels - 24*density) *(Float.valueOf(m[1]) /Float.valueOf(m[0]) ));
-		return height;
-		
-	}*/
-
 	private class HoldView {
 	
 		private TextView userNickName; 
-		private RoundImageView userIcon;
+		private CircleImageView userIcon;
 		private TextView createTime; 
 		private EmojiTextView tv_content; 
-		private LinearLayout shareImgBox1; 
-		private LinearLayout shareImgBox2; 
-		private LinearLayout shareImgBox3; 
-		private ImageView shareImg[] = new ImageView[9];
+		private ImageView shareImg;
 		private LinearLayout bottombar_layout;
 		private LinearLayout bottombar_retweet;
 		private LinearLayout bottombar_comment;
@@ -313,4 +284,32 @@ public class JHDSShareAdapter extends BaseAdapter {
 		intent.putExtras(bundle);
 		mAct.startActivity(intent);
 	}
+	
+	private ImageLoadingListener imgLoadingListener = new ImageLoadingListener(){
+		@Override
+		public  void onLoadingStarted(String imageUri, View view)
+		{
+			
+		}
+		@Override
+		public  void onLoadingFailed(String imageUri, View view, FailReason failReason)
+		{
+			
+		}
+		@Override
+		public  void onLoadingComplete(String imageUri, View view, Bitmap loadedImage)
+		{
+			int density = (int) view.getResources().getDisplayMetrics().density;
+			ViewGroup.LayoutParams lp = view.getLayoutParams();
+			lp.width = loadedImage.getWidth()*density;
+			lp.height = loadedImage.getHeight()*density;
+			view.setLayoutParams(lp);
+		}
+		@Override
+		public  void onLoadingCancelled(String imageUri, View view)
+		{
+			
+		}
+		
+	};
 }

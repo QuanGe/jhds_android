@@ -23,7 +23,7 @@ public class JHDSShareListView extends MultiColumnListView implements OnScrollLi
 	private OnScrollListener mScrollListener; // user's scroll listener
 
 	// the interface to trigger refresh and load more.
-	private IXListViewListener mListViewListener;
+	private JHDSShareListViewListener mListViewListener;
 
 	// -- header view
 	private JHDSShareListViewHeader mHeaderView;
@@ -85,9 +85,10 @@ public class JHDSShareListView extends MultiColumnListView implements OnScrollLi
 		mHeaderViewContent = (RelativeLayout) mHeaderView.findViewById(R.id.listview_header_content);
 		mHeaderTimeView = (TextView) mHeaderView.findViewById(R.id.listview_header_time);
 		addHeaderView(mHeaderView);
-
+		//addHeaderView(new JHDSShareListViewFooter(context));
 		// init footer view
 		mFooterView = new JHDSShareListViewFooter(context);
+		
 
 		// init header height
 		mHeaderView.getViewTreeObserver().addOnGlobalLayoutListener(new OnGlobalLayoutListener() {
@@ -325,8 +326,17 @@ public class JHDSShareListView extends MultiColumnListView implements OnScrollLi
 //	public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 
 //	}
+	
+	public void triggerRefresh()
+	{
+		mPullRefreshing = true;
+		mHeaderView.setState(JHDSShareListViewHeader.STATE_REFRESHING);
+		if (mListViewListener != null) {
+			mListViewListener.onRefresh();
+		}
+	}
 
-	public void setXListViewListener(IXListViewListener l) {
+	public void setXListViewListener(JHDSShareListViewListener l) {
 		mListViewListener = l;
 	}
 
@@ -341,7 +351,7 @@ public class JHDSShareListView extends MultiColumnListView implements OnScrollLi
 	/**
 	 * implements this interface to get refresh/load more event.
 	 */
-	public interface IXListViewListener {
+	public interface JHDSShareListViewListener {
 		public void onRefresh();
 
 		public void onLoadMore();
