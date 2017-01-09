@@ -22,7 +22,7 @@
 		    android:id="@+id/shareDetail"
 		    android:layout_width="match_parent"
 		    android:layout_height="wrap_content"
-		    android:background="@color/white"
+		    android:background="@color/navg_back_btn_bar"
 		    android:orientation="vertical" >
 			    <RelativeLayout 
 			        android:id="@+id/rl_userInfo"
@@ -60,10 +60,114 @@
 			        android:textColor="#c3c3c3"/>
 			        
 			    </RelativeLayout>
+			    
+			   
+		         <ImageView
+		        android:id="@+id/shareImg0"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:adjustViewBounds="true"
+		        android:layout_marginTop="6dip"
+		        android:layout_marginLeft="12dip"
+		        android:layout_marginRight="12dip"
+		        android:layout_marginBottom="4dip"
+		       
+		        />
+		          <ImageView
+		        android:id="@+id/shareImg1"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:adjustViewBounds="true"
+		        android:layout_marginTop="6dip"
+		        android:layout_marginLeft="12dip"
+		        android:layout_marginRight="12dip"
+		        android:layout_marginBottom="4dip"
+		       
+		        />
+		           <ImageView
+		        android:id="@+id/shareImg2"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:adjustViewBounds="true"
+		        android:layout_marginTop="6dip"
+		        android:layout_marginLeft="12dip"
+		        android:layout_marginRight="12dip"
+		        android:layout_marginBottom="4dip"
+		      
+		        />
+		   
+		         <ImageView
+		        android:id="@+id/shareImg3"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:adjustViewBounds="true"
+		        android:layout_marginTop="6dip"
+		        android:layout_marginLeft="12dip"
+		        android:layout_marginRight="12dip"
+		        android:layout_marginBottom="4dip"
+		      
+		        />
+		          <ImageView
+		        android:id="@+id/shareImg4"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:adjustViewBounds="true"
+		        android:layout_marginTop="6dip"
+		        android:layout_marginLeft="12dip"
+		        android:layout_marginRight="12dip"
+		        android:layout_marginBottom="4dip"
+		        
+		        />
+		           <ImageView
+		        android:id="@+id/shareImg5"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:adjustViewBounds="true"
+		        android:layout_marginTop="6dip"
+		        android:layout_marginLeft="12dip"
+		        android:layout_marginRight="12dip"
+		        android:layout_marginBottom="4dip"
+		     
+		        />
+		   
+		        
+		         <ImageView
+		        android:id="@+id/shareImg6"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:adjustViewBounds="true"
+		        android:layout_marginTop="6dip"
+		        android:layout_marginLeft="12dip"
+		        android:layout_marginRight="12dip"
+		        android:layout_marginBottom="4dip"
+		        />
+		          <ImageView
+		        android:id="@+id/shareImg7"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:adjustViewBounds="true"
+		        android:layout_marginTop="6dip"
+		        android:layout_marginLeft="12dip"
+		        android:layout_marginRight="12dip"
+		        android:layout_marginBottom="4dip"
+		        
+		        />
+		           <ImageView
+		        android:id="@+id/shareImg8"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:adjustViewBounds="true"
+		        android:layout_marginTop="6dip"
+		        android:layout_marginLeft="12dip"
+		        android:layout_marginRight="12dip"
+		        android:layout_marginBottom="4dip"
+		       
+		        />
 			    <com.quange.views.EmojiTextView
 			        android:id="@+id/tv_content"
 			        android:layout_width="fill_parent"
 			        android:layout_height="wrap_content"
+			        android:adjustViewBounds="true"
 			        android:layout_marginTop="6dip"
 			        android:layout_marginLeft="12dip"
 			        android:layout_marginRight="12dip"
@@ -71,126 +175,6 @@
 			        android:lineSpacingExtra="3dp"
 			        android:textSize="17sp"
 			        android:textColor="#222222"/>
-			    <LinearLayout
-			        android:id="@+id/shareImgBox1"
-			        android:layout_width="match_parent"
-			    	android:layout_height="120dp"
-			    	android:weightSum="3.5"
-			    	android:gravity="center"
-			    	android:orientation="horizontal" 
-			        >
-			        
-			         <ImageView
-			        android:id="@+id/shareImg0"
-			        android:layout_width="0dp"
-			        android:layout_height="match_parent"
-			        android:layout_marginTop="6dip"
-			        android:layout_marginLeft="12dip"
-			        android:layout_marginRight="12dip"
-			        android:layout_marginBottom="4dip"
-			        android:layout_weight="1"
-			        />
-			          <ImageView
-			        android:id="@+id/shareImg1"
-			        android:layout_width="0dp"
-			        android:layout_height="match_parent"
-			        android:layout_marginTop="6dip"
-			        android:layout_marginLeft="12dip"
-			        android:layout_marginRight="12dip"
-			        android:layout_marginBottom="4dip"
-			        android:layout_weight="1"
-			        />
-			           <ImageView
-			        android:id="@+id/shareImg2"
-			        android:layout_width="0dp"
-			        android:layout_height="match_parent"
-			        android:layout_marginTop="6dip"
-			        android:layout_marginLeft="12dip"
-			        android:layout_marginRight="12dip"
-			        android:layout_marginBottom="4dip"
-			        android:layout_weight="1"
-			        />
-			    </LinearLayout>
-			    <LinearLayout
-			        android:id="@+id/shareImgBox2"
-			        android:layout_width="match_parent"
-			    	android:layout_height="120dp"
-			    	android:weightSum="3.5"
-			    	android:gravity="center"
-			    	android:orientation="horizontal" 
-			        >
-			        
-			         <ImageView
-			        android:id="@+id/shareImg3"
-			        android:layout_width="0dp"
-			        android:layout_height="match_parent"
-			        android:layout_marginTop="6dip"
-			        android:layout_marginLeft="12dip"
-			        android:layout_marginRight="12dip"
-			        android:layout_marginBottom="4dip"
-			        android:layout_weight="1"
-			        />
-			          <ImageView
-			        android:id="@+id/shareImg4"
-			        android:layout_width="0dp"
-			        android:layout_height="match_parent"
-			        android:layout_marginTop="6dip"
-			        android:layout_marginLeft="12dip"
-			        android:layout_marginRight="12dip"
-			        android:layout_marginBottom="4dip"
-			        android:layout_weight="1"
-			        />
-			           <ImageView
-			        android:id="@+id/shareImg5"
-			        android:layout_width="0dp"
-			        android:layout_height="match_parent"
-			        android:layout_marginTop="6dip"
-			        android:layout_marginLeft="12dip"
-			        android:layout_marginRight="12dip"
-			        android:layout_marginBottom="4dip"
-			        android:layout_weight="1"
-			        />
-			    </LinearLayout>
-			    <LinearLayout
-			        android:id="@+id/shareImgBox3"
-			        android:layout_width="match_parent"
-			    	android:layout_height="120dp"
-			    	android:weightSum="3.5"
-			    	android:gravity="center"
-			    	android:orientation="horizontal" 
-			        >
-			        
-			         <ImageView
-			        android:id="@+id/shareImg6"
-			        android:layout_width="0dp"
-			        android:layout_height="match_parent"
-			        android:layout_marginTop="6dip"
-			        android:layout_marginLeft="12dip"
-			        android:layout_marginRight="12dip"
-			        android:layout_marginBottom="4dip"
-			        android:layout_weight="1"
-			        />
-			          <ImageView
-			        android:id="@+id/shareImg7"
-			        android:layout_width="0dp"
-			        android:layout_height="match_parent"
-			        android:layout_marginTop="6dip"
-			        android:layout_marginLeft="12dip"
-			        android:layout_marginRight="12dip"
-			        android:layout_marginBottom="4dip"
-			        android:layout_weight="1"
-			        />
-			           <ImageView
-			        android:id="@+id/shareImg8"
-			        android:layout_width="0dp"
-			        android:layout_height="match_parent"
-			        android:layout_marginTop="6dip"
-			        android:layout_marginLeft="12dip"
-			        android:layout_marginRight="12dip"
-			        android:layout_marginBottom="4dip"
-			        android:layout_weight="1"
-			        />
-			    </LinearLayout>
 	
 		</LinearLayout>
 		<RelativeLayout 

@@ -30,7 +30,7 @@ public class JHDSShareListView extends MultiColumnListView implements OnScrollLi
 	// header view content, use it to calculate the Header's height. And hide it
 	// when disable pull refresh.
 	private RelativeLayout mHeaderViewContent;
-	private TextView mHeaderTimeView;
+
 	private int mHeaderViewHeight; // header view's height
 	private boolean mEnablePullRefresh = true;
 	private boolean mPullRefreshing = false; // is refreashing.
@@ -83,7 +83,7 @@ public class JHDSShareListView extends MultiColumnListView implements OnScrollLi
 		// init header view
 		mHeaderView = new JHDSShareListViewHeader(context);
 		mHeaderViewContent = (RelativeLayout) mHeaderView.findViewById(R.id.listview_header_content);
-		mHeaderTimeView = (TextView) mHeaderView.findViewById(R.id.listview_header_time);
+	
 		addHeaderView(mHeaderView);
 		//addHeaderView(new JHDSShareListViewFooter(context));
 		// init footer view
@@ -168,14 +168,7 @@ public class JHDSShareListView extends MultiColumnListView implements OnScrollLi
 		}
 	}
 
-	/**
-	 * set last refresh time
-	 * 
-	 * @param time
-	 */
-	public void setRefreshTime(String time) {
-		mHeaderTimeView.setText(time);
-	}
+
 
 	private void invokeOnScrolling() {
 		if (mScrollListener instanceof OnXScrollListener) {
@@ -329,11 +322,13 @@ public class JHDSShareListView extends MultiColumnListView implements OnScrollLi
 	
 	public void triggerRefresh()
 	{
+		mScroller.startScroll(0, 0, 0, 200, SCROLL_DURATION);
 		mPullRefreshing = true;
 		mHeaderView.setState(JHDSShareListViewHeader.STATE_REFRESHING);
 		if (mListViewListener != null) {
 			mListViewListener.onRefresh();
 		}
+		
 	}
 
 	public void setXListViewListener(JHDSShareListViewListener l) {

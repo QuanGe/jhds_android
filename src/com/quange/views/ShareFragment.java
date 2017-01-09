@@ -14,6 +14,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.Response.ErrorListener;
 import com.android.volley.Response.Listener;
 
+import com.huewu.pla.lib.internal.PLA_AdapterView;
+import com.huewu.pla.lib.internal.PLA_AdapterView.OnItemClickListener;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 import com.quange.jhds.AccessTokenKeeper;
@@ -61,7 +63,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AbsListView.OnScrollListener;
-import android.widget.AdapterView.OnItemClickListener;
+
 
 public class ShareFragment extends Fragment implements OnItemClickListener,JHDSShareListViewListener {
 	private View fgmView;
@@ -96,12 +98,14 @@ public class ShareFragment extends Fragment implements OnItemClickListener,JHDSS
 	        mAuthInfo = new AuthInfo(getActivity(), SinaConstants.APP_KEY, SinaConstants.REDIRECT_URL, SinaConstants.SCOPE);
 			mSinaLoginBtn.setWeiboAuthInfo(mAuthInfo, mLoginListener);
 			mSinaLoginBtn.setStyle(LoginButton.LOGIN_INCON_STYLE_3);
+			mSinaLoginBtn.setVisibility(View.INVISIBLE);
 			lList.setAdapter(lAdapter);
 		}
 		
 		if(AppSetManager.getSinaNickName().equals("") )
 		{
 			headerTitle.setEmojiText("未登录 [向右]");
+			mSinaLoginBtn.setVisibility(View.VISIBLE);
 		}
 		else 
 		{
@@ -112,6 +116,7 @@ public class ShareFragment extends Fragment implements OnItemClickListener,JHDSS
 			else
 			{
 				headerTitle.setEmojiText("已过期请重新登录 [向右]");
+				mSinaLoginBtn.setVisibility(View.VISIBLE);
 			}
 		}
 		timer = new Timer();
@@ -135,6 +140,7 @@ public class ShareFragment extends Fragment implements OnItemClickListener,JHDSS
 		
 		lList.setPullLoadEnable(true);
 		lList.setXListViewListener(this);
+		lList.setOnItemClickListener(this);
 		lList.triggerRefresh();
 //		lList.post(new Runnable() {
 //		      @Override public void run() {
@@ -205,10 +211,10 @@ public class ShareFragment extends Fragment implements OnItemClickListener,JHDSS
 
 	
 	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+	public void onItemClick(PLA_AdapterView<?> parent, View view, int position, long id) {
 		try {
 			Bundle bundle = new Bundle();
-			JHDSShareModel sm = mLSList.get(position-1);
+			JHDSShareModel sm = mLSList.get((int)id);
 			String url= "";
 			String[] urlsubs = sm.original_pic.split("/");
 			for(int j = 0;j<urlsubs.length-1;j++)
@@ -232,10 +238,7 @@ public class ShareFragment extends Fragment implements OnItemClickListener,JHDSS
 			bundle.putString("userIcon", sm.userIcon);
 			bundle.putString("selectIndex", "0");
 			String weiboid = AppSetManager.getTopWeiboId();
-			if(!weiboid.equals("") && position ==1)
-				bundle.putString("created_timestamp", "0");
-			else
-				bundle.putString("created_timestamp", sm.created_timestamp);
+			bundle.putString("created_timestamp", sm.created_timestamp);
 			Intent intent = new Intent(getActivity(), JHDSShareDetailActivity.class);
 			intent.putExtras(bundle);
 			getActivity().startActivity(intent);
@@ -350,6 +353,7 @@ public class ShareFragment extends Fragment implements OnItemClickListener,JHDSS
 				AppSetManager.setSinaUserIcon(user.avatar_large);
 				AppSetManager.setSinaNickName(user.screen_name);
 				lAdapter.notifyDataSetChanged();
+				mSinaLoginBtn.setVisibility(View.INVISIBLE);
 			}else{
 			}
 		}

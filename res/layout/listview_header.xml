@@ -9,7 +9,7 @@
         android:layout_width="fill_parent"
         android:layout_height="60dp" >
 
-        <LinearLayout
+      	<LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -22,24 +22,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/listview_header_hint_normal" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="3dp" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/listview_header_last_time"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/listview_header_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="12sp" />
-            </LinearLayout>
+           
         </LinearLayout>
 
         <ImageView

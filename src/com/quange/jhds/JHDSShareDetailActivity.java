@@ -60,25 +60,21 @@ public class JHDSShareDetailActivity extends Activity {
 	
 	@ViewInject(R.id.userIcon)
 	private ImageView userIcon;
+	
 	@ViewInject(R.id.userNickName)
 	private TextView userNickName;
+	
 	@ViewInject(R.id.createTime)
 	private TextView createTime;
-	@ViewInject(R.id.tv_content)
-	private EmojiTextView tv_content;
-	@ViewInject(R.id.shareImgBox1)
-	private LinearLayout shareImgBox1;
-	@ViewInject(R.id.shareImgBox2)
-	private LinearLayout shareImgBox2;
-	@ViewInject(R.id.shareImgBox3)
-	private LinearLayout shareImgBox3;
-	private ImageView shareImg[] = new ImageView[9];
+	
 	
 	
 	@ViewInject(R.id.repostNumBtn)
 	private TextView repostNumBtn;
+	
 	@ViewInject(R.id.commentNumBtn)
 	private TextView commentNumBtn;
+	
 	@ViewInject(R.id.goodNumBtn)
 	private TextView goodNumBtn;
 	
@@ -91,11 +87,15 @@ public class JHDSShareDetailActivity extends Activity {
 	@ViewInject(R.id.et_content)
 	private EditText et_content;
 	
+	@ViewInject(R.id.tv_content)
+	private EmojiTextView tv_content;
+	
 	private Animation mInAnim, mOutAnim;
 	private StatusesAPI weiboStatusesAPI;
 	private CommentsAPI weiboCommentsAPIAPI;
 	private JHDSShareRepostView sr;
 	private JHDSShareCommentListView cr;
+	private ImageView shareImg[] = new ImageView[9];
 	public class weiboDetailAdapter extends PagerAdapter {
 
 		private View mCurrentView;
@@ -204,24 +204,10 @@ public class JHDSShareDetailActivity extends Activity {
 		    	createTime.setText("刚刚");
 		    else
 		    	createTime.setText(DateUtils.convertTimeToFormat( Long.parseLong(weibo_created_timestamp)) );
-			if(weibo_pic_urls.length<7)
-				shareImgBox3.setVisibility(View.GONE);
-			else
-				shareImgBox3.setVisibility(View.VISIBLE);
-			if(weibo_pic_urls.length<4)
-				shareImgBox2.setVisibility(View.GONE);
-			else
-				shareImgBox2.setVisibility(View.VISIBLE);
-			if(weibo_pic_urls.length ==0)
-				shareImgBox1.setVisibility(View.GONE);
-			else
-				shareImgBox1.setVisibility(View.VISIBLE);
-			
-			
 			
 			for(int j = 0;j<9;j++)
 			{
-				shareImg[j].setVisibility(View.INVISIBLE);
+				shareImg[j].setVisibility(View.GONE);
 			}
 			for(int i = 0;i<weibo_pic_urls.length;++i)
 			{

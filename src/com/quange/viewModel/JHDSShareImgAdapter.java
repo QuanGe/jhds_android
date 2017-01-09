@@ -140,14 +140,14 @@ public class JHDSShareImgAdapter extends BaseAdapter {
 			String shareImgUrl = url+"bmiddle/"+ls.pic_ids[0]+".jpg";
 			//mImageFetcher.loadImage(shareImgUrl,hv.shareImg);
 			AppCommon.getInstance().imageLoader.displayImage(shareImgUrl, hv.shareImg, AppCommon.getInstance().options);
-			hv.shareImg.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					
-						gotoBigImage(position, Integer.valueOf(((ImageView)v).getTag().toString()).intValue());
-					
-				}
-			});
+//			hv.shareImg.setOnClickListener(new OnClickListener() {
+//				@Override
+//				public void onClick(View v) {
+//					
+//						gotoBigImage(position, Integer.valueOf(((ImageView)v).getTag().toString()).intValue());
+//					
+//				}
+//			});
 			
 		}
 		else

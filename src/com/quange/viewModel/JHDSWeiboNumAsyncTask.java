@@ -1,9 +1,17 @@
 package com.quange.viewModel;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.utils.URIUtils;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -58,10 +66,31 @@ public class JHDSWeiboNumAsyncTask extends AsyncTask<String, Integer, String> {
 		}
 		else
 		{
-			WeiboParameters args = new WeiboParameters(SinaConstants.APP_KEY);
-			args.put("ids",weiboIds);
-			args.put("access_token", AccessTokenKeeper.readAccessToken(context).getToken());
-	        return new AsyncWeiboRunner(context).request("https://api.weibo.com/2" + "/statuses" + "/count.json", args, "GET");
+
+			Integer retCode = null;
+	         
+        	HttpClient client = new DefaultHttpClient();
+	        HttpGet get = new HttpGet("https://api.weibo.com/2" + "/statuses" + "/count.json?ids=" +weiboIds+"&access_token="+AccessTokenKeeper.readAccessToken(context).getToken() );
+        	HttpResponse response;
+			try {
+				response = client.execute(get);
+				retCode = response.getStatusLine().getStatusCode(); 
+	        	if(retCode == 200)
+	    	        return EntityUtils.toString(response.getEntity());   
+	    	    else
+	    	        return "[{\"id\"="+weiboId+",\"reposts\"=0,\"comments\"=0,\"attitudes\"=0}]";
+			} catch (ClientProtocolException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}  
+	        	
+	        
+	        
+			return "[{\"id\"="+weiboId+",\"reposts\"=0,\"comments\"=0,\"attitudes\"=0}]";
+	        
 		}
         
 	}

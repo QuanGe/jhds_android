@@ -8,7 +8,7 @@
 	<RelativeLayout
         android:id="@+id/rl_header_content"
         android:layout_width="fill_parent"
-        android:layout_height="60dp" >
+        android:layout_height="40dp" >
        <com.quange.views.EmojiTextView
 	        android:id="@+id/headerTitle"
 	        android:layout_width="match_parent"
@@ -18,7 +18,7 @@
 	        android:gravity="center"
 	        android:text="@string/homeshare"
 	        android:textColor="@color/black"
-	        android:textSize="18sp" >
+	        android:textSize="14sp" >
 
 	        </com.quange.views.EmojiTextView>
 	        <com.sina.weibo.sdk.widget.LoginButton
@@ -26,8 +26,8 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="16dp"
+            android:layout_height="16dp" />
 	     <View
                     
             android:layout_width="match_parent"
