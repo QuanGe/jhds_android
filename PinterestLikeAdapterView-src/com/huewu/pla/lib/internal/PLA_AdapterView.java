@@ -16,6 +16,7 @@
 
 package com.huewu.pla.lib.internal;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.os.Parcelable;
@@ -38,7 +39,7 @@ import android.widget.Adapter;
  * See {@link ListView}, {@link GridView}, {@link Spinner} and {@link Gallery}
  * for commonly used subclasses of AdapterView.
  */
-public abstract class PLA_AdapterView<T extends Adapter> extends ViewGroup {
+@SuppressLint("WrongCall") public abstract class PLA_AdapterView<T extends Adapter> extends ViewGroup {
 
     /**
      * The item view type returned by {@link Adapter#getItemViewType(int)} when

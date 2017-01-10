@@ -158,6 +158,11 @@ import android.widget.TabHost.OnTabChangeListener;
     	IntentFilter ifilter = new IntentFilter(AppSetManager.AboutRedTipNoti);
     	registerReceiver(br, ifilter);
     }
+    protected void onDestroy() {
+		super.onDestroy();
+		
+		unregisterReceiver(br);
+	}
     
     private void updateRedTip()
     {
