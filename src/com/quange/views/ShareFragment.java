@@ -80,6 +80,7 @@ public class ShareFragment extends Fragment implements OnItemClickListener,JHDSS
     
     private AuthInfo mAuthInfo;
 	private int mCurPage = 1;
+	private int mPageNum = 0;
 	private Timer timer;
 	private Handler handler;
 	
@@ -155,57 +156,78 @@ public class ShareFragment extends Fragment implements OnItemClickListener,JHDSS
 		}
 	
 	public void refresh(final boolean isRefresh) {
-		JHDSAPIManager.getInstance(getActivity()).fetchWeiboPageNum( new Listener<String>(){
-			@Override
-			public void onResponse(String response) {
-				int num  =0 ;
-				if(response.length()<20)
-					num = Integer.parseInt(response);
-				mCurPage = isRefresh ? 1 : ++mCurPage ;
-				
-				if(isRefresh)
-		    		MobclickAgent.onEvent(getActivity(), "weibo_refresh");
-		    	else
-		    		MobclickAgent.onEvent(getActivity(), "weibo_more");
-				
-				if(num>=mCurPage)
-				JHDSAPIManager.getInstance(getActivity()).fetchWeiboList(num-mCurPage, new Listener<List<JHDSShareModel>>(){
-					@Override
-					public void onResponse(List<JHDSShareModel> response) {
-						if(isRefresh)
-						{
-							mLSList.clear();
-						}
-						mLSList.addAll(response);
-						
-						lAdapter.notifyDataSetChanged();
-						if(isRefresh)
-							lList.stopRefresh();
-						else
-							lList.stopLoadMore();
-					}
+		
+		if(isRefresh)
+		{
+			JHDSAPIManager.getInstance(getActivity()).fetchWeiboPageNum( new Listener<String>(){
+				@Override
+				public void onResponse(String response) {
+					
+					if(response.length()<20)
+						mPageNum = Integer.parseInt(response);
+					refresh_by_api(isRefresh);
 					
 					
-				} ,  new ErrorListener() {
-					@Override
-					public void onErrorResponse(VolleyError error) {
-						System.out.println(error);
-						--mCurPage;
+				}
+				
+				
+			} ,  new ErrorListener() {
+				@Override
+				public void onErrorResponse(VolleyError error) {
+					System.out.println(error);
+					if(isRefresh)
+						lList.stopRefresh();
+					else
+						lList.stopLoadMore();
+				}
+			});
+		}
+		else
+		{
+			refresh_by_api(isRefresh);
+		}
+	}
+	
+	private void refresh_by_api(final boolean isRefresh)
+	{
+		mCurPage = isRefresh ? 1 : ++mCurPage ;
+		
+		if(isRefresh)
+    		MobclickAgent.onEvent(getActivity(), "weibo_refresh");
+    	else
+    		MobclickAgent.onEvent(getActivity(), "weibo_more");
+		
+		if(mPageNum>=mCurPage)
+			JHDSAPIManager.getInstance(getActivity()).fetchWeiboList(mPageNum-mCurPage, new Listener<List<JHDSShareModel>>(){
+				@Override
+				public void onResponse(List<JHDSShareModel> response) {
+					if(isRefresh)
+					{
+						mLSList.clear();
 					}
-				});
+					mLSList.addAll(response);
+					
+					lAdapter.notifyDataSetChanged();
+					if(isRefresh)
+						lList.stopRefresh();
+					else
+						lList.stopLoadMore();
+				}
 				
 				
-				
-			}
-			
-			
-		} ,  new ErrorListener() {
-			@Override
-			public void onErrorResponse(VolleyError error) {
-				System.out.println(error);
-			
-			}
-		});
+			} ,  new ErrorListener() {
+				@Override
+				public void onErrorResponse(VolleyError error) {
+					System.out.println(error);
+					--mCurPage;
+					if(isRefresh)
+						lList.stopRefresh();
+					else
+						lList.stopLoadMore();
+				}
+			});
+		
+		
 	}
 
 

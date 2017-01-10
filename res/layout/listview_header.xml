@@ -7,7 +7,7 @@
     <RelativeLayout
         android:id="@+id/listview_header_content"
         android:layout_width="fill_parent"
-        android:layout_height="60dp" >
+        android:layout_height="85dp" >
 
       	<LinearLayout
             android:layout_width="wrap_content"
@@ -34,14 +34,13 @@
             android:layout_marginLeft="-35dp"
             android:src="@drawable/default_ptr_flip" />
 
-        <ProgressBar
-            android:id="@+id/listview_header_progressbar"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_alignLeft="@id/listview_header_text"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="-40dp"
-            android:visibility="invisible" />
+        <com.quange.views.LoadingView
+            android:id="@+id/loadView"
+        	android:layout_width="40dp"
+        	android:layout_height="fill_parent"
+        	android:layout_alignLeft="@id/listview_header_text"
+        	android:layout_marginLeft="-40dp"
+            />
     </RelativeLayout>
 
 </LinearLayout>

@@ -16,7 +16,7 @@ import com.quange.jhds.R;
 public class JHDSShareListViewHeader extends LinearLayout {
 	private LinearLayout mContainer;
 	private ImageView mArrowImageView;
-	private ProgressBar mProgressBar;
+	private LoadingView mProgressBar;
 	private TextView mHintTextView;
 	private int mState = STATE_NORMAL;
 
@@ -54,7 +54,7 @@ public class JHDSShareListViewHeader extends LinearLayout {
 
 		mArrowImageView = (ImageView)findViewById(R.id.listview_header_arrow);
 		mHintTextView = (TextView)findViewById(R.id.listview_header_hint_textview);
-		mProgressBar = (ProgressBar)findViewById(R.id.listview_header_progressbar);
+		mProgressBar = (LoadingView)findViewById(R.id.loadView);
 		
 		mRotateUpAnim = new RotateAnimation(0.0f, -180.0f,
 				Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,

@@ -3,6 +3,7 @@ package com.quange.views;
 import com.huewu.pla.lib.MultiColumnListView;
 import com.huewu.pla.lib.internal.PLA_AbsListView;
 import com.huewu.pla.lib.internal.PLA_AbsListView.OnScrollListener;
+import com.quange.jhds.AppCommon;
 import com.quange.jhds.R;
 
 import android.content.Context;
@@ -322,7 +323,7 @@ public class JHDSShareListView extends MultiColumnListView implements OnScrollLi
 	
 	public void triggerRefresh()
 	{
-		mScroller.startScroll(0, 0, 0, 200, SCROLL_DURATION);
+		mScroller.startScroll(0, 0, 0, AppCommon.convertDpToPixel(getContext(), 85+45), SCROLL_DURATION);
 		mPullRefreshing = true;
 		mHeaderView.setState(JHDSShareListViewHeader.STATE_REFRESHING);
 		if (mListViewListener != null) {
