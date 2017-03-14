@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ptr="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:background="@color/white" >
+    <RelativeLayout 
+	    android:id="@+id/header"
+	    android:layout_width="match_parent"
+    	android:layout_height="56dp"
+    	android:background="@color/background">
+
+    	<ImageView
+    	    android:id="@+id/backImg"
+    	    android:layout_width="18dp"
+    	    android:layout_height="32dp"
+    	    android:layout_centerVertical="true"
+    	    android:layout_marginLeft="19dp"
+    	    android:background="@drawable/back" >
+
+	    </ImageView>
+	    
+	    <RelativeLayout 
+	    android:id="@+id/backBtn"
+	    android:layout_width="64dp"
+    	android:layout_height="56dp"
+    	android:layout_alignParentLeft="true"
+    	>
+    	</RelativeLayout>
+
+	    <TextView
+	        android:id="@+id/headerTitle"
+	        android:layout_width="match_parent"
+	        android:layout_height="32dp"
+	        android:layout_centerVertical="true"
+	        android:layout_marginRight="37dp"
+	        android:layout_toRightOf="@+id/backBtn"
+	        android:gravity="center"
+	        android:text="官方公告"
+	        android:textColor="@color/black"
+	        android:textSize="18sp" >
+
+	        </TextView>
+	     <View
+                    
+          android:layout_width="match_parent"
+          android:layout_height="1px"
+          android:layout_alignParentBottom="true"
+          android:background="@color/item_under_line_shadow" />
+	</RelativeLayout>
+  <com.handmark.pulltorefresh.library.PullToRefreshListView
+        android:id="@+id/message_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:cacheColorHint="@color/navg_back_btn_bar"
+        android:divider="@color/cell_separate_color"
+        android:dividerHeight="2dip"
+        android:layout_below="@+id/header"
+        android:fadingEdge="none"
+        android:fadingEdgeLength="0dp"
+        android:headerDividersEnabled="false"
+        android:listSelector="@drawable/onclick_select_curri_group"
+        android:overScrollMode="never"
+        ptr:ptrShowIndicator="false"
+        android:scrollbars="none" >
+    </com.handmark.pulltorefresh.library.PullToRefreshListView>
+	<com.quange.views.JHDSErrorMessage
+		    android:id="@+id/errorMessage"
+		    android:layout_width="match_parent"
+		    android:layout_height="match_parent"
+		    android:layout_below="@+id/header"
+		    android:background="@color/background"
+		    android:visibility="gone" >
+		    
+		</com.quange.views.JHDSErrorMessage>
+
+</RelativeLayout>

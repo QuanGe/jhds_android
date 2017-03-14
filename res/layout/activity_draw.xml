@@ -6,14 +6,32 @@
     
     android:background="@color/white" >
     
-	<com.quange.views.BrushView
-	    android:layout_below="@+id/tools"
+    <RelativeLayout
+        android:id="@+id/screenShotView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="1"
+        android:background="@color/white"
+        >
+        <com.quange.views.BrushView
+	    
 	    android:id="@+id/brushView"
 	    android:layout_width="match_parent"
 	    android:layout_height="match_parent">
 	    
-	</com.quange.views.BrushView>
+		</com.quange.views.BrushView>
 
+		<RelativeLayout
+        android:id="@+id/topView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="1"
+        android:background="@color/white"
+        android:visibility="gone" />
+    </RelativeLayout>
+	
+	
+	
 	<RelativeLayout
 	    android:id="@+id/selectBrushView"
 	    android:layout_width="match_parent"
@@ -22,16 +40,71 @@
 	    android:layout_marginLeft="10000dp"
 	   
 	    android:background="@color/black"
-	    android:visibility="visible" />
-
+	    android:visibility="visible" >
+		
+	     <FrameLayout
+	        android:id="@+id/bannerContainer"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentBottom="true" >
+    	</FrameLayout>
+		</RelativeLayout>
+	
     <RelativeLayout
         android:id="@+id/selectBtn"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_margin="20dp"
+        android:layout_margin="10dp"
         android:alpha="1"
         android:visibility="visible" />
+    
+    <RelativeLayout
+        android:id="@+id/loadingView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:alpha="1"
+        android:visibility="gone" >
+		
+        
+        <TextView 
+            android:layout_width="match_parent"
+                        android:layout_height="30dp"
+                        android:layout_centerVertical="true"
+                       
+                        android:gravity="center"
+                        android:text="正在加载中..."
+                        android:textColor="@color/text_dark"
+                        android:textSize="14sp" 
+            >
+            
+            
+        </TextView>
+   </RelativeLayout>
+    
+   <RelativeLayout 
+	    android:id="@+id/backBtn"
+	    android:layout_width="50dp"
+    	android:layout_height="50dp"
+    	android:layout_margin="10dp"
+    	android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+    	android:background="@color/background">
+
+    	<ImageView
+    	    android:id="@+id/backImg"
+    	    android:layout_width="18dp"
+    	    android:layout_height="32dp"
+    	    android:layout_centerVertical="true"
+    	    android:layout_centerHorizontal="true"
+    	    android:background="@drawable/back" >
+
+	    </ImageView>   
+	</RelativeLayout>
+
+    
         
 </RelativeLayout>

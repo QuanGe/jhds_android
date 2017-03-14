@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ptr="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:background="@color/white" >
+    
+     <com.quange.views.VerticalScrollView   
+        android:id="@+id/my_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/navg_back_btn_bar"
+        android:overScrollMode="never"
+        android:scrollbars="none" >
+         <LinearLayout 
+		    android:id="@+id/subBox"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:background="@color/white"
+		    android:orientation="vertical" >
+          <LinearLayout 
+		    android:id="@+id/shareDetail"
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:background="@color/navg_back_btn_bar"
+		    android:orientation="vertical" >
+			    <RelativeLayout 
+			        android:id="@+id/rl_userInfo"
+			        android:layout_width="match_parent"
+			        android:layout_height="50dp"
+			        >
+			        
+			        <com.quange.views.RoundImageView
+			            android:id="@+id/userIcon"
+			            android:layout_width="40dip"
+			            android:layout_height="40dip"
+			            
+			            android:layout_marginLeft="12dip"
+			            android:layout_marginTop="5dip" >
+			             
+			        </com.quange.views.RoundImageView>
+			         <TextView
+			        android:id="@+id/userNickName"
+			        android:layout_width="wrap_content"
+			        android:layout_height="20dip"
+			       
+			        android:layout_marginTop="5dip"
+			     	android:layout_marginLeft="60dip"
+			        android:textSize="14sp"
+			        android:textColor="#FFA500"/>
+			         
+			          <TextView
+			        android:id="@+id/createTime"
+			        android:layout_width="wrap_content"
+			        android:layout_height="25dip"
+			     
+			        android:layout_marginTop="25dip"
+			        android:layout_marginLeft="60dip"
+			        android:textSize="12sp"
+			        android:textColor="#c3c3c3"/>
+			        
+			    </RelativeLayout>
+			    
+			   
+		         <ImageView
+		        android:id="@+id/shareImg0"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:adjustViewBounds="true"
+		        android:layout_marginTop="6dip"
+		        android:layout_marginLeft="12dip"
+		        android:layout_marginRight="12dip"
+		        android:layout_marginBottom="4dip"
+		       
+		        />
+		          <ImageView
+		        android:id="@+id/shareImg1"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:adjustViewBounds="true"
+		        android:layout_marginTop="6dip"
+		        android:layout_marginLeft="12dip"
+		        android:layout_marginRight="12dip"
+		        android:layout_marginBottom="4dip"
+		       
+		        />
+		           <ImageView
+		        android:id="@+id/shareImg2"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:adjustViewBounds="true"
+		        android:layout_marginTop="6dip"
+		        android:layout_marginLeft="12dip"
+		        android:layout_marginRight="12dip"
+		        android:layout_marginBottom="4dip"
+		      
+		        />
+		   
+		         <ImageView
+		        android:id="@+id/shareImg3"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:adjustViewBounds="true"
+		        android:layout_marginTop="6dip"
+		        android:layout_marginLeft="12dip"
+		        android:layout_marginRight="12dip"
+		        android:layout_marginBottom="4dip"
+		      
+		        />
+		          <ImageView
+		        android:id="@+id/shareImg4"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:adjustViewBounds="true"
+		        android:layout_marginTop="6dip"
+		        android:layout_marginLeft="12dip"
+		        android:layout_marginRight="12dip"
+		        android:layout_marginBottom="4dip"
+		        
+		        />
+		           <ImageView
+		        android:id="@+id/shareImg5"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:adjustViewBounds="true"
+		        android:layout_marginTop="6dip"
+		        android:layout_marginLeft="12dip"
+		        android:layout_marginRight="12dip"
+		        android:layout_marginBottom="4dip"
+		     
+		        />
+		   
+		        
+		         <ImageView
+		        android:id="@+id/shareImg6"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:adjustViewBounds="true"
+		        android:layout_marginTop="6dip"
+		        android:layout_marginLeft="12dip"
+		        android:layout_marginRight="12dip"
+		        android:layout_marginBottom="4dip"
+		        />
+		          <ImageView
+		        android:id="@+id/shareImg7"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:adjustViewBounds="true"
+		        android:layout_marginTop="6dip"
+		        android:layout_marginLeft="12dip"
+		        android:layout_marginRight="12dip"
+		        android:layout_marginBottom="4dip"
+		        
+		        />
+		           <ImageView
+		        android:id="@+id/shareImg8"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:adjustViewBounds="true"
+		        android:layout_marginTop="6dip"
+		        android:layout_marginLeft="12dip"
+		        android:layout_marginRight="12dip"
+		        android:layout_marginBottom="4dip"
+		       
+		        />
+			    <com.quange.views.EmojiTextView
+			        android:id="@+id/tv_content"
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content"
+			        android:adjustViewBounds="true"
+			        android:layout_marginTop="6dip"
+			        android:layout_marginLeft="12dip"
+			        android:layout_marginRight="12dip"
+			        android:layout_marginBottom="4dip"
+			        android:lineSpacingExtra="3dp"
+			        android:textSize="17sp"
+			        android:textColor="#222222"/>
+	
+		</LinearLayout>
+		<RelativeLayout 
+			        android:id="@+id/menumBox"
+			        android:layout_width="match_parent"
+			        android:layout_height="71dp"
+			        
+			        >
+			    <View 
+			        android:layout_width="match_parent"
+			        android:layout_height="25dp"
+			        android:background="#eeeeee"
+			        android:layout_alignParentTop="true"
+			        >
+			         
+			        </View>>
+			    <TextView
+				        android:id="@+id/repostNumBtn"
+				        android:layout_width="wrap_content"
+				        android:layout_height="50dip"
+				        android:layout_marginTop="25dip"
+				     	android:layout_marginLeft="10dip"
+				        android:textSize="14sp"
+				        android:gravity="center"
+				        android:text="转发"
+				        android:textColor="#333333"/>
+			    <TextView
+				        android:id="@+id/commentNumBtn"
+				        android:layout_width="wrap_content"
+				        android:layout_height="50dip"
+				        android:layout_marginTop="25dip"
+				        android:layout_toRightOf="@+id/repostNumBtn"
+				       android:layout_marginLeft="30dp"
+				     	android:gravity="center"
+				        android:textSize="14sp"
+				        android:text="评论"
+				        android:textColor="#333333"/>
+			    <TextView
+				        android:id="@+id/goodNumBtn"
+				        android:layout_width="wrap_content"
+				        android:layout_height="50dip"
+				        android:layout_marginTop="25dip"
+				        android:layout_alignParentRight="true"
+				     	android:layout_marginRight="10dip"
+				        android:textSize="14sp"
+				        android:text="赞"
+				        android:gravity="center"
+				        android:textColor="#333333"/>
+			    <View 
+			        android:layout_width="match_parent"
+			        android:layout_height="1dp"
+			        android:background="#eeeeee"
+			        android:layout_alignParentBottom="true"
+			        >
+			           </View>
+		</RelativeLayout>
+       
+		<com.quange.views.WrapContentHeightViewPager
+		        android:id="@+id/BottomViewPaper"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:layout_marginTop="5dp"
+		      
+		        android:background="@color/white" />
+		</LinearLayout>
+     </com.quange.views.VerticalScrollView>
+    <LinearLayout 
+	    android:id="@+id/bottombar_layout"
+	    android:layout_width="match_parent"
+	    android:layout_height="45dp"
+	    android:background="@color/white"
+	    android:layout_alignParentBottom="true"
+	    android:orientation="vertical">
+
+	    <ImageView
+	        android:layout_width="match_parent"
+	        android:layout_height="1dp"
+	        android:background="#dfdfdf" />
+	
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:orientation="horizontal">
+	
+	        <LinearLayout
+	            android:id="@+id/bottombar_retweet"
+	            android:layout_width="0dp"
+	            android:layout_height="match_parent"
+	            android:layout_weight="1"
+	            
+	            android:clickable="true"
+	            android:gravity="center"
+	            android:orientation="horizontal">
+	
+	            <ImageView
+	                android:layout_width="16dp"
+	                android:layout_height="16dp"
+	                android:scaleType="centerCrop"
+	                android:src="@drawable/sina_bar_icon_redirect" />
+	
+	            <TextView
+	                android:id="@+id/redirect"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_marginLeft="10dp"
+	                android:text="转发"
+	                android:textColor="#FFA500"
+	                android:textSize="16sp" />
+	
+	        </LinearLayout>
+	
+	        <ImageView
+	            android:layout_width="1dp"
+	            android:layout_height="match_parent"
+	            android:layout_gravity="center_vertical"
+	            android:layout_marginBottom="8dp"
+	            android:layout_marginTop="8dp"
+	            android:background="#f2f2f2" />
+	
+	        <LinearLayout
+	            android:id="@+id/bottombar_comment"
+	            android:layout_width="0dp"
+	            android:layout_height="match_parent"
+	            android:layout_weight="1"
+	            
+	            android:clickable="true"
+	            android:gravity="center"
+	            android:orientation="horizontal">
+	
+	            <ImageView
+	                android:layout_width="16dp"
+	                android:layout_height="16dp"
+	                android:scaleType="centerCrop"
+	                android:src="@drawable/sina_bar_icon_comment" />
+	
+	            <TextView
+	                android:id="@+id/comment"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_marginLeft="10dp"
+	                android:text="评论"
+	                android:textColor="#FFA500"
+	                android:textSize="16sp" />
+	
+	        </LinearLayout>
+	
+	        <ImageView
+	            android:layout_width="1dp"
+	            android:layout_height="match_parent"
+	            android:visibility="gone"
+	            android:layout_gravity="center_vertical"
+	            android:layout_marginBottom="8dp"
+	            android:layout_marginTop="8dp"
+	            android:background="#f2f2f2" />
+	
+	        <LinearLayout
+	            android:id="@+id/bottombar_attitude"
+	            android:layout_width="0dp"
+	            android:layout_height="match_parent"
+	            android:layout_weight="1"
+	            android:visibility="gone"
+	            android:clickable="true"
+	            android:gravity="center"
+	            android:orientation="horizontal">
+	
+	            <ImageView
+	                android:layout_width="16dp"
+	                android:layout_height="16dp"
+	                android:scaleType="centerCrop"
+	                android:src="@drawable/sina_bar_icon_unlike" />
+	
+	            <TextView
+	                android:id="@+id/feedlike"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_marginLeft="10dp"
+	                android:text="赞"
+	                android:textColor="#FFA500"
+	                android:textSize="16sp" />
+	
+	        </LinearLayout>
+	    </LinearLayout>
+	</LinearLayout>
+	
+    <LinearLayout
+        android:id="@+id/inputBox"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:background="@color/white"
+	    android:layout_alignParentBottom="true"
+	    android:layout_marginLeft="10000dp"
+	    android:orientation="vertical">
+        
+         <RelativeLayout
+	         android:id="@+id/inputHead"
+	    android:layout_width="match_parent"
+	    android:layout_height="50dp"
+	    android:background="@color/white"
+	    android:orientation="horizontal">
+	        <TextView
+                        android:id="@+id/inputTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentBottom="true"
+                        android:gravity="center"
+                        android:text="发评论"
+                        android:textColor="@color/text_dark"
+                        android:textSize="16sp" />
+	    
+	         <Button
+		        android:id="@+id/cancelBtn"
+		        android:layout_width="50dp"
+		        android:layout_height="25dp"
+		     
+		        android:background="@drawable/btn_cancel"
+		        android:layout_marginTop="12.5dp"
+		        android:layout_marginLeft="7dp"
+		        android:layout_alignParentTop="true"
+		        android:layout_alignParentLeft="true"
+		        android:text="取消"
+				android:textColor="#333333"
+				android:textSize="12sp"
+		        >
+        
+    		</Button>
+    		
+    		<Button
+		        android:id="@+id/sendBtn"
+		        android:layout_width="50dp"
+		        android:layout_height="25dp"
+		        
+		     android:layout_alignParentTop="true"
+		        android:layout_alignParentRight="true"
+		        android:background="#ffa500"
+		        android:layout_marginTop="12.5dp"
+		        android:layout_marginRight="7dp"
+		       
+		        android:text="发送"
+				android:textColor="#ffffff"
+				android:textSize="12sp"
+		        >
+        
+    		</Button>
+	    </RelativeLayout>
+	    <ImageView
+	        android:layout_width="match_parent"
+	        android:layout_height="1dp"
+	        android:background="#dfdfdf" />
+	    <EditText
+                android:id="@+id/et_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLength= "139"
+                android:background="#ffffffff"
+                android:gravity="top|left"
+                android:hint="写评论"
+                android:inputType="textMultiLine"
+                android:lines="4"
+                android:paddingLeft="12dip"
+                android:layout_marginTop="10dip"
+                android:textColor="@android:color/black"
+                android:textColorHint="#d4d4d4"
+                android:textSize="14sp" />
+	    
+    </LinearLayout>
+</RelativeLayout>

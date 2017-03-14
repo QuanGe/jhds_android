@@ -25,7 +25,7 @@ public class SelectBrushView extends Dialog implements OnClickListener {
 	private ColorPicker colorPicker;
 
 	/**
-	 * 发表课程评论的弹出对话框
+	 * 
 	 * 
 	 * @param act
 	 *            所属的Activity对象

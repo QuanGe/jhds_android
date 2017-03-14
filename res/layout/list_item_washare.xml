@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/news_item_bg"
+    android:orientation="vertical" >
+    <ImageView
+        android:id="@+id/img_washare"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        />
+    <com.quange.views.EmojiTextView
+        android:id="@+id/etv_content"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dip"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="4dip"
+        android:lineSpacingExtra="3dp"
+        android:textSize="10sp"
+        android:textColor="#222222"/>
+    
+    <LinearLayout 
+	    android:id="@+id/ll_bottombar"
+	    android:layout_width="match_parent"
+	    android:layout_height="30dp"
+	    android:background="@color/white"
+	    android:orientation="vertical">
+
+	    <ImageView
+	        android:layout_width="match_parent"
+	        android:layout_height="1dp"
+	        android:background="#dfdfdf" />
+	
+	    <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent"
+	        android:orientation="horizontal">
+	
+	        <LinearLayout
+	            android:id="@+id/ll_bottombar_retweet"
+	            android:layout_width="0dp"
+	            android:layout_height="match_parent"
+	            android:layout_weight="1"
+	            
+	            android:clickable="true"
+	            android:gravity="center"
+	            android:orientation="horizontal">
+	
+	            <ImageView
+	                android:layout_width="10dp"
+	                android:layout_height="10dp"
+	                android:scaleType="fitCenter"
+	                android:src="@drawable/sina_bar_icon_redirect" />
+	
+	            <TextView
+	                android:id="@+id/tv_redirect"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_marginLeft="2dp"
+	                android:text="转发"
+	                android:textColor="#cccccc"
+	                android:textSize="8sp" />
+	
+	        </LinearLayout>
+	
+	        <ImageView
+	            android:layout_width="1dp"
+	            android:layout_height="match_parent"
+	            android:layout_gravity="center_vertical"
+	            android:layout_marginBottom="8dp"
+	            android:layout_marginTop="8dp"
+	            android:background="#f2f2f2" />
+	
+	        <LinearLayout
+	            android:id="@+id/ll_bottombar_comment"
+	            android:layout_width="0dp"
+	            android:layout_height="match_parent"
+	            android:layout_weight="1"
+	            
+	            android:clickable="true"
+	            android:gravity="center"
+	            android:orientation="horizontal">
+	
+	            <ImageView
+	                android:layout_width="10dp"
+	                android:layout_height="10dp"
+	                android:scaleType="fitCenter"
+	                android:src="@drawable/sina_bar_icon_comment" />
+	
+	            <TextView
+	                android:id="@+id/tv_comment"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_marginLeft="2dp"
+	                android:text="评论"
+	                android:textColor="#cccccc"
+	                android:textSize="8sp" />
+	
+	        </LinearLayout>
+	
+	        <ImageView
+	            android:layout_width="1dp"
+	            android:layout_height="match_parent"
+	            
+	            android:layout_gravity="center_vertical"
+	            android:layout_marginBottom="8dp"
+	            android:layout_marginTop="8dp"
+	            android:background="#f2f2f2" />
+	
+	        <LinearLayout
+	            android:id="@+id/ll_bottombar_attitude"
+	            android:layout_width="0dp"
+	            android:layout_height="match_parent"
+	            android:layout_weight="1"
+	          
+	            android:clickable="true"
+	            android:gravity="center"
+	            android:orientation="horizontal">
+	
+	            <ImageView
+	                android:layout_width="10dp"
+	                android:layout_height="10dp"
+	                android:scaleType="fitCenter"
+	                android:src="@drawable/sina_bar_icon_unlike" />
+	
+	            <TextView
+	                android:id="@+id/tv_feedlike"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_marginLeft="2dp"
+	                android:text="赞"
+	                android:textColor="#cccccc"
+	                android:textSize="8sp" />
+	
+	        </LinearLayout>
+	    </LinearLayout> 
+    </LinearLayout>
+	    
+    <RelativeLayout 
+        android:id="@+id/rl_bottom_userInfo"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        >
+        <ImageView
+	        android:layout_width="match_parent"
+	        android:layout_height="0.5dp"
+	        android:background="#dfdfdf" />
+        <com.quange.views.CircleImageView
+            android:id="@+id/rimg_userIcon"
+            android:layout_width="20dip"
+            android:layout_height="20dip"
+            android:layout_centerInParent="false"
+            android:layout_marginLeft="5dip"
+            android:layout_marginTop="5dip" >
+             
+        </com.quange.views.CircleImageView>
+         <TextView
+        android:id="@+id/tv_user_nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="10dip"
+       
+        android:layout_marginTop="5dip"
+     	android:layout_marginLeft="30dip"
+        android:textSize="8sp"
+        android:textColor="#FFA500"/>
+         
+          <TextView
+        android:id="@+id/tv_create_time"
+        android:layout_width="wrap_content"
+        android:layout_height="10dip"
+     
+        android:layout_marginTop="15dip"
+        android:layout_marginLeft="30dip"
+        android:textSize="8sp"
+        android:textColor="#c3c3c3"/>
+        
+    </RelativeLayout>
+    
+
+</LinearLayout>

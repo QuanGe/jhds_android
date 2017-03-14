@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+     >
+      <TextView
+                 android:id="@+id/tv_guideText"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_centerVertical="true"
+                
+                 android:gravity="center"
+                 android:text="音量键可以调整画笔的粗细"
+                 android:textColor="@color/text_dark"
+                 android:textSize="20sp" />
+    
+		<RelativeLayout
+		    android:id="@+id/infoRl"
+		    android:layout_width="match_parent"
+		    android:layout_height="80dp"
+		    android:layout_alignParentBottom="true"
+		    android:background="@color/item_under_line_shadow" >
+               
+	         <Button
+                 android:id="@+id/tv_info"
+                 android:layout_width="100dp"
+                 android:layout_height="38dp"
+                 android:layout_centerVertical="true"
+                 android:layout_centerHorizontal="true"
+                 android:gravity="center"
+                
+		        android:text="马上试试"
+		        android:textColor="#ffffff"
+		        android:textSize="14dp" >
+        	</Button>
+	        
+         </RelativeLayout>
+
+</RelativeLayout>
