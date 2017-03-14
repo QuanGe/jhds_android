@@ -1,3 +1,13 @@
+##联系方式
+
+QQ: 569979266
+
+TEL: 15210774970
+
+weixin: quan_xiao
+
+weibo: 简画大师
+
 ## APP下载地址：
 
 [http://jianhuadashi.com/app/index.html](http://jianhuadashi.com/app/index.html)
